@@ -10,6 +10,9 @@ const ejs = require('ejs');
 app.set("view engine", 'ejs');
 const port = process.env.PORT || 3000;
 
+const userCRUDRouter = require('./scripts/routes/user_CRUD_post');
+app.use('/', userCRUDRouter);
+
 const mongodb_host = process.env.MONGODB_HOST;
 const mongodb_user = process.env.MONGODB_USER_NAME;
 const mongodb_password = process.env.MONGODB_USER_PASS;
@@ -49,24 +52,13 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 
-/**
- * Redirect to login page if not logged in
- * @param {*} req request
- * @param {*} res response
- * @param {*} next next
- * @returns None
- */
-const redirectIfNotLoggedIn = (req, res, next) => {
-    if (req.session.loggedin) {
-        return next();
-    } else {
-        res.redirect('/');
-    }
-}
+
 
 app.get('/', (req, res) => {
     res.send("Hello World");
 });
+
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

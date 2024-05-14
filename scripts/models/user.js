@@ -30,14 +30,17 @@ const userSchema = new Schema({
     }
 });
 
+const passwordValidation = Joi.string().required();
+
 const userValidationSchema = Joi.object({
     username: Joi.string().alphanum().min(3).max(30).required(),
     email: Joi.string().email().required(),
-    password: Joi.string().required(),
+    password: passwordValidation,
     role: Joi.string().valid('user', 'admin').default('user').required(),
 });
 
 module.exports = {
     userSchema,
-    userValidationSchema
+    userValidationSchema,
+    passwordValidationSchema: passwordValidation
 };

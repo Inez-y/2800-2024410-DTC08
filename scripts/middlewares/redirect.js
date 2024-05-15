@@ -17,4 +17,4 @@ const redirectIfNotLoggedIn = (req, res, next) => {
     }
 }
 
-export default redirectIfNotLoggedIn;
+module.exports =  redirectIfNotLoggedIn;

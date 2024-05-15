@@ -1,5 +1,5 @@
 /**
- * Contains the routes for CRUDding users.
+ * Contains the POST routes for CRUDding users.
  */
 
 const express = require('express');

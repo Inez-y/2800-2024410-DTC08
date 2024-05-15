@@ -10,9 +10,6 @@ const ejs = require('ejs');
 app.set("view engine", 'ejs');
 const port = process.env.PORT || 3000;
 
-const userCRUDRouter = require('./scripts/routes/user_CRUD_post');
-app.use('/', userCRUDRouter);
-
 const mongodb_host = process.env.MONGODB_HOST;
 const mongodb_user = process.env.MONGODB_USER_NAME;
 const mongodb_password = process.env.MONGODB_USER_PASS;
@@ -52,11 +49,22 @@ app.use(express.static('public'));
 
 app.use(express.urlencoded({ extended: true }));
 
+const userCRUDRouter = require('./scripts/routes/user_CRUD_post');
+app.use('/', userCRUDRouter);
+
+const mainPageGETRouter = require('./scripts/routes/no_auth_pages');
+app.use('/', mainPageGETRouter);
+
+const noAuthPages = require('./scripts/routes/no_auth_pages');
+app.use('/', noAuthPages);
 
 
-app.get('/', (req, res) => {
-    res.send("Hello World");
-});
+// Global Middleware to redirect if not logged in
+const redirectIfNotLoggedIn = require('./scripts/middlewares/redirect');
+app.use(redirectIfNotLoggedIn);
+
+const authPages = require('./scripts/routes/auth_pages');
+app.use('/', authPages);
 
 
 

@@ -4,7 +4,7 @@
 
 const express = require('express');
 const router = express.Router();
-const { User, userValidationSchema, passwordValidationSchema } = require('../models/user');
+const { User } = require('../models/user');
 
 router.get('/profile', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });

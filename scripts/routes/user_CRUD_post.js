@@ -6,6 +6,7 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { User, userValidationSchema, passwordValidationSchema } = require('../models/user');
+const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
  * Route to create a new user with joi validation, redirtects to register page if username or email already exists.
@@ -80,7 +81,7 @@ router.post('/updateUserRole', async (req, res) => {
 });
 
 /**
- * Route to update user password, redirects to update password page if password is incorrect.
+ * Route to update user password, redirects to update password page if old password is incorrect.
  */
 router.post('/updateUserPassword', async (req, res) => {
     const { oldPassword, newPassword } = req.body;
@@ -119,6 +120,6 @@ router.post('/updateUserEmail', async (req, res) => {
     await user.save();
 });
 
-    
+  
 
 module.exports = router;

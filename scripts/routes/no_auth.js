@@ -13,6 +13,13 @@ router.get('/', async (req, res) => {
 });
 
 /**
+ * Renders the log in page
+ */
+router.get("/logIn", async (req, res) => {
+    res.send("log in Page")
+});
+
+/**
  * Renders the sign up page
  */
 router.get("/signUp", async (req, res) => {
@@ -25,6 +32,13 @@ router.get("/signUp", async (req, res) => {
 router.get("/logOut", async (req, res) => {
     req.session.destroy();
     res.redirect('/');
+});
+
+/**
+ * Renders the forgot password page
+ */
+router.get("forgotPassword", async (req, res) => {
+    res.send("forgotPassword Page")
 });
 
 module.exports = router;

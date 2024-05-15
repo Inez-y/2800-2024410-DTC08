@@ -16,7 +16,6 @@ const mongodb_password = process.env.MONGODB_USER_PASS;
 const mongodb_database = process.env.MONGODB_DATABASE;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
-const expireTimeOneHour = 60 * 60 * 1000;
 
 mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`, 
     { 

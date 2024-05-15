@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { userSchema, userValidationSchema, passwordValidationSchema } = require('../models/user');
+const { User, userValidationSchema, passwordValidationSchema } = require('../models/user');
 
 /**
  * Route to create a new user with joi validation, redirtects to register page if username or email already exists.
@@ -99,6 +99,23 @@ router.post('/updateUserPassword', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
+    await user.save();
+});
+
+/**
+ * Route to update user email, redirects to update email page if new email already exists.
+ */
+router.post('/updateUserEmail', async (req, res) => {
+    const { newEmail } = req.body;
+
+    const user = await User.findOne({ username: req.session.username });
+    
+    const newEmailExists = await User.findOne({ email: newEmail });
+    if (newEmailExists) {
+        return res.redirect('/update-email?msg=Email has been taken');
+    }
+
+    user.email = newEmail;
     await user.save();
 });
 

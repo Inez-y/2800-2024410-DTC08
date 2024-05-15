@@ -52,10 +52,10 @@ app.use(express.urlencoded({ extended: true }));
 const userCRUDRouter = require('./scripts/routes/user_CRUD_post');
 app.use('/', userCRUDRouter);
 
-const mainPageGETRouter = require('./scripts/routes/no_auth_pages');
+const mainPageGETRouter = require('./scripts/routes/no_auth');
 app.use('/', mainPageGETRouter);
 
-const noAuthPages = require('./scripts/routes/no_auth_pages');
+const noAuthPages = require('./scripts/routes/no_auth');
 app.use('/', noAuthPages);
 
 
@@ -63,7 +63,7 @@ app.use('/', noAuthPages);
 const redirectIfNotLoggedIn = require('./scripts/middlewares/redirect');
 app.use(redirectIfNotLoggedIn);
 
-const authPages = require('./scripts/routes/auth_pages');
+const authPages = require('./scripts/routes/auth');
 app.use('/', authPages);
 
 

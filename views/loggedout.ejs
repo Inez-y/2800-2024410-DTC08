@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReciPT</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+<%- include("templates/header") %>
+
+<main class="flex flex-col items-center justify-center h-screen">
+    <span class="material-icons text-6xl text-green-500">logout</span>
+    <h1 class="mt-4 text-2xl font-bold">You have been logged out</h1>
+    <p class="mt-2 text-gray-700">Thank you for using ReciPT. We hope to see you again soon.</p>
+    <a href="/login" class="mt-6 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+        Log In Again
+    </a>
+</main>
+
+<%- include("templates/footer") %>

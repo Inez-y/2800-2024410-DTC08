@@ -10,7 +10,7 @@ const { userSchema, userValidationSchema, passwordValidationSchema } = require('
 /**
  * Route to create a new user with joi validation, redirtects to register page if username or email already exists.
  */
-router.post('/createUser', async (req, res) => {
+router.post('/signUp', async (req, res) => {
     const { username, email, password} = req.body;
 
     const { error } = userValidationSchema.validate({ username, email, password });
@@ -23,7 +23,7 @@ router.post('/createUser', async (req, res) => {
     let emailExists = await userSchema.findOne({ email });
 
     if (userExists || emailExists) {
-        return res.redirect('/register?msg=Username or email already exists');
+        return res.redirect('/signUp?msg=Username or email already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -33,13 +33,13 @@ router.post('/createUser', async (req, res) => {
     req.session.loggedin = true;
     req.session.username = username;
     req.session.cookie.maxAge = expireTimeOneHour;
-    res.redirect('/members-only');
+    res.redirect('/home');
 });
 
 /**
  * Route to log in a user with joi validation, redirects to login page if username does not exist or password is incorrect.
  */
-router.post('/submitUser', async (req, res) => {
+router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username });
 
@@ -50,17 +50,17 @@ router.post('/submitUser', async (req, res) => {
     }
 
     if (!user) {
-        return res.redirect('/login?msg=Username does not exist');
+        return res.redirect('/logIn?msg=Username does not exist');
     }
 
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {
-        return res.redirect('/login?msg=Incorrect password');
+        return res.redirect('/logIn?msg=Incorrect password');
     }
     req.session.loggedin = true;
     req.session.username = username;
     req.session.cookie.maxAge = expireTimeOneHour;
-    res.redirect('/members-only');
+    res.redirect('/home');
 });
 
 /**

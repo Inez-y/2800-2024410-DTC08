@@ -4,9 +4,11 @@
 
 const express = require('express');
 const router = express.Router();
+const { User, userValidationSchema, passwordValidationSchema } = require('../models/user');
 
 router.get('/profile', async (req, res) => {
-    res.send("Profile Page")
+    const user = await User.findOne({ username: req.session.username });
+    res.render("profile", user);
 });
 
 module.exports = router;

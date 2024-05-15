@@ -99,7 +99,7 @@ router.post('/updateUserPassword', async (req, res) => {
 
     const validPassword = await bcrypt.compare(oldPassword, user.password);
     if (!validPassword) {
-        return res.redirect('/update-password?msg=Incorrect password');
+        return res.redirect('/profile?msg=Incorrect password');
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
@@ -118,7 +118,7 @@ router.post('/updateUserEmail', async (req, res) => {
 
     const newEmailExists = await User.findOne({ email: newEmail });
     if (newEmailExists.username !== user.username) {
-        return res.redirect('/update-email?msg=Email has been taken');
+        return res.redirect('/profile?msg=Email has been taken');
     }
 
     user.email = newEmail;
@@ -127,7 +127,11 @@ router.post('/updateUserEmail', async (req, res) => {
 
 
 /**
- * Route to send a password reset email, redirects to forgot password page if email does not exist.
+ * Route to send a password reset email.
+ * 
+ * Finds the user with the input email and generates a token + expiry.
+ * Sends an email with the token to the email address.
+ * Redirects to the forgot password page with a message if the email does not exist.
  * @author Daylen Smith
  */
 router.post('resetPasswordEmail', async (req, res) => {
@@ -138,7 +142,7 @@ router.post('resetPasswordEmail', async (req, res) => {
     }
     const token = crypto.randomBytes(20).toString('hex');
     user.resetPasswordToken = token;
-    user.resetPasswordExpires = Date.now() + 3600000;
+    user.resetPasswordExpires = Date.now() + expireTimeOneHour;
     await user.save();
 
     const transporter = nodemailer.createTransport({
@@ -165,7 +169,7 @@ router.post('resetPasswordEmail', async (req, res) => {
         subject: 'Password Reset',
         text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
         Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset/${token}\n\n
+        http://${req.headers.host}/resetPassword/${token}\n\n
         If you did not request this, please ignore this email and your password will remain unchanged.\n`
     };
 
@@ -180,5 +184,28 @@ router.post('resetPasswordEmail', async (req, res) => {
     res.redirect('/forgot?msg=Email sent');
 
 });
+
+/**
+ * Route to reset the password, redirects to forgot password page if token is invalid or expired.
+ * If token is valid, redirects to login page after resetting the password.
+ */
+router.post('/resetPassword/:token', async (req, res) => {
+    const token = req.params.token;
+    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+    if (!user) {
+        res.redirect('/forgotPassword?msg=Invalid or expired token');
+    }
+    const newPassword  = req.body;
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    user.password = hashedPassword;
+    user.resetToken = undefined;
+    user.resetTokenExpiration = undefined;
+    await user.save();
+    
+    res.redirect('/logIn');
+});
+
+
 
 module.exports = router;

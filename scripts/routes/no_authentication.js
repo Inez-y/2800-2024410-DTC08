@@ -46,4 +46,11 @@ router.get("forgotPassword", async (req, res) => {
     res.render("forgot");
 });
 
+/**
+ * Renders the reset password page if the token is valid, otherwise redirects to the forgot password page with an error message in the query string
+ */
+router.get("/resetPassword/:token", async (req, res) => {
+    res.render("resetpassword", {user: user, token: token});
+});
+
 module.exports = router;

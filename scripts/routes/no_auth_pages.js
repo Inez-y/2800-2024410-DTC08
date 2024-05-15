@@ -13,4 +13,9 @@ router.get("/signUp", async (req, res) => {
     res.send("signUp Page")
 });
 
+router.get("/logOut", async (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
 module.exports = router;

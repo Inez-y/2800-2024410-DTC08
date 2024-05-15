@@ -1,0 +1,32 @@
+<header class="bg-gray-400 p-4 flex justify-between items-center relative">
+    <a href="/" class="flex items-center text-lg font-bold text-white hover:text-gray-300">
+        <img src="/logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2"> <!-- Added logo image -->
+    </a>
+    <button class="menu-btn" id="menu-btn">
+        <span class="material-icons">menu</span>
+    </button>
+    <div id="dropdown-menu" class="hidden absolute right-4 top-12 bg-white shadow-md rounded w-48">
+        <a href="/signup" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign Up</a>
+        <a href="/login" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Log In</a>
+        <a href="/userinfo" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">User Info</a>
+        <a href="/loggedout" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Log Out</a>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('menu-btn');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        menuBtn.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+
+        // Close the dropdown if the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (!dropdownMenu.contains(event.target) && !menuBtn.contains(event.target)) {
+                dropdownMenu.classList.add('hidden');
+            }
+        });
+    });
+</script>

@@ -4,9 +4,7 @@
 
 /**
  * Redirect to login page if not logged in
- * @param {*} req request
- * @param {*} res response
- * @param {*} next next
+ * @author Daylen Smith
  * @returns None
  */
 const redirectIfNotLoggedIn = (req, res, next) => {
@@ -19,9 +17,7 @@ const redirectIfNotLoggedIn = (req, res, next) => {
 
 /**
  * Redirect to 403 error page if not admin
- * @param {*} req 
- * @param {*} res 
- * @param {*} next 
+ * @author Daylen Smith
  * @returns 
  */
 const redirectIfNotAdmin = async (req, res, next) => {

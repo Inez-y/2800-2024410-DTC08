@@ -7,27 +7,31 @@ const router = express.Router();
 
 /**
  * Renders the landing page
+ * @author Daylen Smith
  */
 router.get('/', async (req, res) => {
-    res.send("Landing Page")
+    res.render('landing');
 });
 
 /**
  * Renders the log in page
+ * @author Daylen Smith
  */
 router.get("/logIn", async (req, res) => {
-    res.send("log in Page")
+    res.render("login");
 });
 
 /**
  * Renders the sign up page
+ * @author Daylen Smith
  */
 router.get("/signUp", async (req, res) => {
-    res.send("signUp Page")
+    res.render("signup");
 });
 
 /**
  * Logs out the user and redirects to the landing page
+ * @author Daylen Smith
  */
 router.get("/logOut", async (req, res) => {
     req.session.destroy();
@@ -36,9 +40,10 @@ router.get("/logOut", async (req, res) => {
 
 /**
  * Renders the forgot password page
+ * @author Daylen Smith
  */
 router.get("forgotPassword", async (req, res) => {
-    res.send("forgotPassword Page")
+    res.render("forgot");
 });
 
 module.exports = router;

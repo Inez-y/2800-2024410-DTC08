@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-// const mongoDBSession = require('connect-mongodb-session')(session);
+const mongoDBSession = require('connect-mongodb-session')(session);
 const mongoose = require('mongoose');
 const joi = require('joi');
 require('dotenv').config();
@@ -25,7 +25,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
-/*
 // Connect to MongoDB
 mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`, 
     { 
@@ -54,36 +53,6 @@ app.use(
         store: store,
     })
 );
-*/
-
-// Define routes
-app.get('/', (req, res) => {
-    res.render('landing');
-});
-
-app.get('/signup', (req, res) => {
-    res.render('signup');
-});
-
-app.get('/login', (req, res) => {
-    res.render('login');
-});
-
-app.get('/loggedout', (req, res) => {
-    res.render('loggedout');
-});
-
-app.get('/userinfo', (req, res) => {
-    res.render('userinfo');
-});
-
-app.get('/camera', (req, res) => {
-    res.render('camera');
-});
-
-app.get('/favorites', (req, res) => {
-    res.render('favorites');
-});
 
 // Example protected route
 app.get('/protected', (req, res, next) => {
@@ -101,21 +70,26 @@ app.use((req, res, next) => {
 });
 
 // Include routes from separate files
-const userCRUDRouter = require('./scripts/routes/user_CRUD_post');
+const userCRUDRouter = require('./scripts/routes/user_post');
 app.use('/', userCRUDRouter);
 
-const mainPageGETRouter = require('./scripts/routes/no_auth');
+const mainPageGETRouter = require('./scripts/routes/no_authentication');
 app.use('/', mainPageGETRouter);
 
-const noAuthPages = require('./scripts/routes/no_auth');
+const noAuthPages = require('./scripts/routes/no_authentication');
 app.use('/', noAuthPages);
 
 // Global Middleware to redirect if not logged in
 const redirectIfNotLoggedIn = require('./scripts/middlewares/redirect');
 app.use(redirectIfNotLoggedIn);
 
-const authPages = require('./scripts/routes/auth');
+const authPages = require('./scripts/routes/authentication');
 app.use('/', authPages);
+
+
+app.get("*", (req, res) => {
+    res.status(404).render("error", {msg: "Page not found", code: 404});
+});
 
 // Start the server
 app.listen(port, () => {

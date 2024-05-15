@@ -10,6 +10,7 @@ const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
  * Route to create a new user with joi validation, redirtects to register page if username or email already exists.
+ * @author Daylen Smith
  */
 router.post('/signUp', async (req, res) => {
     const { username, email, password} = req.body;
@@ -39,6 +40,7 @@ router.post('/signUp', async (req, res) => {
 
 /**
  * Route to log in a user with joi validation, redirects to login page if username does not exist or password is incorrect.
+ * @author Daylen Smith
  */
 router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
@@ -67,6 +69,7 @@ router.post('/logIn', async (req, res) => {
 /**
  * Route to update user role, redirects to admin page if username does not exist.
  * Only admin users can access this route.
+ * @author Daylen Smith
  */
 router.post('/updateUserRole', async (req, res) => {
     const { username, role } = req.body;
@@ -82,6 +85,7 @@ router.post('/updateUserRole', async (req, res) => {
 
 /**
  * Route to update user password, redirects to update password page if old password is incorrect.
+ * @author Daylen Smith
  */
 router.post('/updateUserPassword', async (req, res) => {
     const { oldPassword, newPassword } = req.body;
@@ -105,6 +109,7 @@ router.post('/updateUserPassword', async (req, res) => {
 
 /**
  * Route to update user email, redirects to update email page if new email already exists.
+ * @author Daylen Smith
  */
 router.post('/updateUserEmail', async (req, res) => {
     const { newEmail } = req.body;
@@ -119,7 +124,5 @@ router.post('/updateUserEmail', async (req, res) => {
     user.email = newEmail;
     await user.save();
 });
-
-  
 
 module.exports = router;

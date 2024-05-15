@@ -64,11 +64,6 @@ app.get('/protected', (req, res, next) => {
     }
 });
 
-// Catch-all route for 404 errors
-app.use((req, res, next) => {
-    res.status(404).render('404');
-});
-
 // Include routes from separate files
 const userCRUDRouter = require('./scripts/routes/user_post');
 app.use('/', userCRUDRouter);

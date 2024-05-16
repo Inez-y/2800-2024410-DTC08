@@ -1,119 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera - ReciPT</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-    <main class="flex flex-col items-center justify-center h-screen">
-        <div class="w-full max-w-xs text-center">
-            <h2 class="block text-gray-700 text-lg font-bold mb-4">Capture Food Image</h2>
-            <video id="video" class="shadow-md rounded mb-4" autoplay></video>
-            <button id="snap" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4">
-                Capture
-            </button>
-            <canvas id="canvas" class="hidden"></canvas>
-            <div id="recipe-suggestion" class="hidden mt-4">
-                <h3 class="text-gray-700 font-bold text-xl">Suggested Recipe</h3>
-                <div class="bg-white shadow-md rounded p-4 mt-4 text-left">
-                    <h4 id="recipe-title" class="text-lg font-bold text-gray-900"></h4>
-                    <h5 class="mt-4 text-md font-semibold text-gray-700">Ingredients:</h5>
-                    <ul id="recipe-ingredients" class="list-disc list-inside text-gray-700 mt-2"></ul>
-                    <h5 class="mt-4 text-md font-semibold text-gray-700">Instructions:</h5>
-                    <ol id="recipe-instructions" class="list-decimal list-inside text-gray-700 mt-2"></ol>
-                </div>
-                <form id="save-recipe-form" class="mt-4">
-                    <button class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Save Recipe
-                    </button>
-                </form>
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs text-center">
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Capture Food Image</h2>
+        <video id="video" class="shadow-md rounded mb-4" autoplay></video>
+        <button id="snap"
+            class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4">
+            Capture
+        </button>
+        <canvas id="canvas" class="hidden"></canvas>
+        <div id="recipe-suggestion" class="hidden mt-4">
+            <h3 class="text-gray-700 font-bold text-xl">Suggested Recipe</h3>
+            <div class="bg-white shadow-md rounded p-4 mt-4 text-left">
+                <h4 id="recipe-title" class="text-lg font-bold text-gray-900"></h4>
+                <h5 class="mt-4 text-md font-semibold text-gray-700">Ingredients:</h5>
+                <ul id="recipe-ingredients" class="list-disc list-inside text-gray-700 mt-2"></ul>
+                <h5 class="mt-4 text-md font-semibold text-gray-700">Instructions:</h5>
+                <ol id="recipe-instructions" class="list-decimal list-inside text-gray-700 mt-2"></ol>
             </div>
+            <form id="save-recipe-form" class="mt-4">
+                <button
+                    class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                    Save Recipe
+                </button>
+            </form>
         </div>
-    </main>
+    </div>
+</main>
 
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>
 
-    <script>
-        const video = document.getElementById('video');
-        const canvas = document.getElementById('canvas');
-        const snap = document.getElementById('snap');
-        const recipeSuggestion = document.getElementById('recipe-suggestion');
-        const recipeTitle = document.getElementById('recipe-title');
-        const recipeIngredients = document.getElementById('recipe-ingredients');
-        const recipeInstructions = document.getElementById('recipe-instructions');
-        const saveRecipeForm = document.getElementById('save-recipe-form');
-        const constraints = {
-            video: true,
+<script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const snap = document.getElementById('snap');
+    const recipeSuggestion = document.getElementById('recipe-suggestion');
+    const recipeTitle = document.getElementById('recipe-title');
+    const recipeIngredients = document.getElementById('recipe-ingredients');
+    const recipeInstructions = document.getElementById('recipe-instructions');
+    const saveRecipeForm = document.getElementById('save-recipe-form');
+    const constraints = {
+        video: true,
+    };
+
+    async function init() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia(constraints);
+            handleSuccess(stream);
+        } catch (e) {
+            console.error('navigator.getUserMedia error:', e);
+        }
+    }
+
+    function handleSuccess(stream) {
+        window.stream = stream;
+        video.srcObject = stream;
+    }
+
+    init();
+
+    snap.addEventListener('click', () => {
+        const context = canvas.getContext('2d');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        // Mocked recipe suggestion (In real scenario, use an API to analyze the image and get the recipe)
+        const recipe = {
+            title: 'Chicken and Tomato Skillet',
+            ingredients: [
+                '1 pound chicken breast, cut into bite-sized pieces',
+                '1 onion, diced',
+                '2 cloves of garlic, minced',
+                '1 can of diced tomatoes',
+                '1 teaspoon Italian seasoning',
+                'Salt and pepper to taste',
+                'Olive oil'
+            ],
+            instructions: [
+                'Heat olive oil in a skillet over medium heat.',
+                'Add onion and garlic, sauté until fragrant.',
+                'Add chicken and cook until browned on all sides.',
+                'Stir in diced tomatoes, Italian seasoning, salt, and pepper.',
+                'Cover and simmer for 15-20 minutes or until chicken is cooked through.',
+                'Serve hot with your favorite side dish. Enjoy!'
+            ]
         };
 
-        async function init() {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                handleSuccess(stream);
-            } catch (e) {
-                console.error('navigator.getUserMedia error:', e);
-            }
-        }
+        // Display the recipe details
+        recipeTitle.textContent = recipe.title;
+        recipeIngredients.innerHTML = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('');
+        recipeInstructions.innerHTML = recipe.instructions.map(instruction => `<li>${instruction}</li>`).join(
+            '');
 
-        function handleSuccess(stream) {
-            window.stream = stream;
-            video.srcObject = stream;
-        }
+        recipeSuggestion.classList.remove('hidden');
+    });
 
-        init();
-
-        snap.addEventListener('click', () => {
-            const context = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-            // Mocked recipe suggestion (In real scenario, use an API to analyze the image and get the recipe)
-            const recipe = {
-                title: 'Chicken and Tomato Skillet',
-                ingredients: [
-                    '1 pound chicken breast, cut into bite-sized pieces',
-                    '1 onion, diced',
-                    '2 cloves of garlic, minced',
-                    '1 can of diced tomatoes',
-                    '1 teaspoon Italian seasoning',
-                    'Salt and pepper to taste',
-                    'Olive oil'
-                ],
-                instructions: [
-                    'Heat olive oil in a skillet over medium heat.',
-                    'Add onion and garlic, sauté until fragrant.',
-                    'Add chicken and cook until browned on all sides.',
-                    'Stir in diced tomatoes, Italian seasoning, salt, and pepper.',
-                    'Cover and simmer for 15-20 minutes or until chicken is cooked through.',
-                    'Serve hot with your favorite side dish. Enjoy!'
-                ]
-            };
-
-            // Display the recipe details
-            recipeTitle.textContent = recipe.title;
-            recipeIngredients.innerHTML = recipe.ingredients.map(ingredient => `<li>${ingredient}</li>`).join('');
-            recipeInstructions.innerHTML = recipe.instructions.map(instruction => `<li>${instruction}</li>`).join('');
-
-            recipeSuggestion.classList.remove('hidden');
-        });
-
-        saveRecipeForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const recipe = {
-                title: recipeTitle.textContent,
-                content: `Ingredients:\n${Array.from(recipeIngredients.children).map(li => li.textContent).join('\n')}\n\nInstructions:\n${Array.from(recipeInstructions.children).map(li => li.textContent).join('\n')}`
-            };
-            let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            recipes.push(recipe);
-            localStorage.setItem('recipes', JSON.stringify(recipes));
-            alert('Recipe saved!');
-        });
-    </script>
-</body>
-</html>
+    saveRecipeForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const recipe = {
+            title: recipeTitle.textContent,
+            content: `Ingredients:\n${Array.from(recipeIngredients.children).map(li => li.textContent).join('\n')}\n\nInstructions:\n${Array.from(recipeInstructions.children).map(li => li.textContent).join('\n')}`
+        };
+        let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        recipes.push(recipe);
+        localStorage.setItem('recipes', JSON.stringify(recipes));
+        alert('Recipe saved!');
+    });
+</script>

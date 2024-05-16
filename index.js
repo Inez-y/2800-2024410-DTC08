@@ -66,7 +66,7 @@ app.get('/protected', (req, res, next) => {
 
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
-    res.status(404).render('404');
+    res.status(404).render('error');
 });
 
 // Include routes from separate files

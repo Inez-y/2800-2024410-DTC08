@@ -1,33 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ReciPT</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-</head>
-<body>
 <%- include("templates/header") %>
-    <main class="flex flex-col items-center justify-center h-screen">
-        <div class="w-full max-w-xs">
-            <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                <h2 class="block text-gray-700 text-lg font-bold mb-4">User Information</h2>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
-                    <p id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">John Doe</p>
-                </div>
-                <div class="mb-4">
-                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                    <p id="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">john.doe@example.com</p>
-                </div>
-                <div class="flex items-center justify-between">
-                    <a href="/edit-profile" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                        Edit Profile
-                    </a>
-                </div>
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="block text-gray-700 text-lg font-bold mb-4">User Information</h2>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+                <p id="name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+                    John Doe</p>
+            </div>
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                <p id="email"
+                    class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
+                    john.doe@example.com</p>
+            </div>
+            <div class="flex items-center justify-between">
+                <a href="/edit-profile"
+                    class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                    Edit Profile
+                </a>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>

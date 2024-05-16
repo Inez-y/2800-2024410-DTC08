@@ -16,6 +16,7 @@ const mongodb_password = process.env.MONGODB_USER_PASS;
 const mongodb_database = process.env.MONGODB_DATABASE;
 const node_session_secret = process.env.NODE_SESSION_SECRET;
 const mongodb_session_secret = process.env.MONGODB_SESSION_SECRET;
+const mongodb_full_uri = `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`;
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
@@ -28,7 +29,7 @@ app.use(express.urlencoded({
 }));
 
 // Connect to MongoDB
-mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`, {
+mongoose.connect(mongodb_full_uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(() => {
@@ -38,7 +39,7 @@ mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_ho
 });
 
 const store = new mongoDBSession({
-    uri: process.env.MONGODB_URI,
+    uri: mongodb_full_uri,
     collection: 'sessions',
     crypto: {
         secret: mongodb_session_secret
@@ -62,11 +63,6 @@ app.get('/protected', (req, res, next) => {
     } else {
         res.send('Protected content');
     }
-});
-
-// Catch-all route for 404 errors
-app.use((req, res, next) => {
-    res.status(404).render('error');
 });
 
 // Include routes from separate files

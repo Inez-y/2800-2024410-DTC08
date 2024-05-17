@@ -52,9 +52,12 @@ app.use(
     })
 );
 
+/**
+ * Gives the current session to all routes as a local variable called session
+ * @author Daylen Smith
+ */
 app.use((req, res, next) => {
     res.locals.session = req.session;
-    console.log(req.session)
     next();
 });
 

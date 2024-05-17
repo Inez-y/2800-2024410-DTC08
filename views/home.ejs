@@ -1,0 +1,60 @@
+<%- include("templates/htmlDocHeader") %>
+<%- include("templates/header") %>
+
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="flex flex-col items-center">
+        <span class="material-icons text-6xl text-gray-700">help_outline</span>
+        <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
+    </div>
+    <button id="chatbot-btn" class="mt-6 bg-gray-400 text-black p-2 rounded flex items-center">
+        <span class="material-icons mr-2">message</span>
+        Message ReciPT
+    </button>
+    <div id="chatbot-container" class="mt-6 w-full max-w-xs hidden">
+        <textarea id="chatbot-input"
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Type your message here"></textarea>
+        <button id="send-btn"
+            class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            Send
+        </button>
+        <div id="chatbot-response" class="mt-4 text-gray-700"></div>
+    </div>
+</main>
+
+<%- include("templates/footer") %>
+
+<script>
+    document.getElementById('chatbot-btn').addEventListener('click', () => {
+        document.getElementById('chatbot-container').classList.toggle('hidden');
+    });
+
+    document.getElementById('send-btn').addEventListener('click', async () => {
+        const input = document.getElementById('chatbot-input').value;
+        const responseContainer = document.getElementById('chatbot-response');
+
+        if (input.trim() === '') {
+            responseContainer.textContent = 'Please enter a message.';
+            return;
+        }
+
+        responseContainer.textContent = 'Thinking...';
+
+        try {
+            const response = await fetch('/chatbot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: input
+                }),
+            });
+
+            const data = await response.json();
+            responseContainer.textContent = data.reply;
+        } catch (error) {
+            responseContainer.textContent = 'Error communicating with the chatbot.';
+        }
+    });
+</script>

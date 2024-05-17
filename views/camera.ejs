@@ -1,0 +1,63 @@
+<%- include("templates/htmlDocHeader") %>
+<%- include("templates/header") %>
+
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs text-center">
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Upload Food Image</h2>
+        
+        <!-- File Upload Section -->
+        <input type="file" id="fileInput" class="mb-4">
+        
+        <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
+            <input type="hidden" name="image" id="image">
+            <button type="submit" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze Image</button>
+        </form>
+        
+        <div id="ingredients-list" class="hidden mt-4">
+            <h3 class="text-gray-700 font-bold text-xl mb-2">Detected Ingredients</h3>
+            <ul id="ingredients" class="text-gray-700 space-y-2"></ul>
+        </div>
+    </div>
+</main>
+
+<%- include("templates/footer") %>
+
+<script>
+    const fileInput = document.getElementById('fileInput');
+    const uploadForm = document.getElementById('uploadForm');
+    const imageInput = document.getElementById('image');
+    const ingredientsList = document.getElementById('ingredients-list');
+    const ingredientsUl = document.getElementById('ingredients');
+
+    fileInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        const reader = new FileReader();
+        
+        reader.onload = (event) => {
+            imageInput.value = event.target.result.split(',')[1];
+        };
+        
+        reader.readAsDataURL(file);
+    });
+
+    uploadForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', imageInput.value);
+
+        const response = await fetch('/analyze-image', {
+            method: 'POST',
+            body: formData
+        });
+
+        const result = await response.json();
+
+        // Display the detected ingredients
+        if (result.ingredients) {
+            ingredientsUl.innerHTML = result.ingredients.map(ingredient => `<li class="border-b border-gray-300 py-2">${ingredient}</li>`).join('');
+            ingredientsList.classList.remove('hidden');
+        } else {
+            alert('No ingredients detected. Please try again.');
+        }
+    });
+</script>

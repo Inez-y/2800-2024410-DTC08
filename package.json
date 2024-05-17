@@ -1,0 +1,30 @@
+{
+  "name": "recipt",
+  "version": "1.0.0",
+  "description": "Our 2800 project!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "atlas": "^1.0.0-alpha.0",
+    "bcrypt": "^5.1.1",
+    "connect-mongodb-session": "^5.0.0",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "joi": "^17.13.1",
+    "mongoose": "^8.4.0",
+    "multer": "^1.4.5-lts.1",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.9.13",
+    "openai": "^4.47.1",
+    "path": "^0.12.7",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^3.4.3"
+  }
+}

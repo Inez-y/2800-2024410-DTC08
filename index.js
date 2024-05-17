@@ -38,7 +38,7 @@ mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_ho
 );
 
 const store = new mongoDBSession({
-    uri: process.env.MONGODB_URI,
+    uri: `mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`,
     collection: 'sessions',
     crypto: {
         secret: mongodb_session_secret

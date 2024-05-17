@@ -11,8 +11,8 @@ const { User } = require('../models/user');
  * @author Daylen Smith
  */
 router.get('/profile', async (req, res) => {
-    const user = await User.findOne({ username: req.session.username });
-    res.render("profile", user);
+    const user = await User.findOne({ username: req.session.username });;
+    res.render("profile", { user });
 });
 
 /**
@@ -21,7 +21,7 @@ router.get('/profile', async (req, res) => {
  */
 router.get('/home', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
-    res.render("home", user);
+    res.render("home", { user });
 });
 
 module.exports = router;

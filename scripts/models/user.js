@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Joi = require('joi');
 
-const User = new Schema({
+const userSchema = new Schema({
     username: 
     {
         type: String,
@@ -35,6 +35,7 @@ const User = new Schema({
         required: true
     }
 });
+const User = mongoose.model('User', userSchema);
 
 const passwordValidation = Joi.string().required();
 

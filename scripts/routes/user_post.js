@@ -13,23 +13,26 @@ const expireTimeOneHour = 60 * 60 * 1000;
  * @author Daylen Smith
  */
 router.post('/signUp', async (req, res) => {
+    console.log(req.body)
+
     const { username, email, password } = req.body;
 
-    const { error } = userValidationSchema.validate({ username, email, password });
+    const { error } = userValidationSchema.validate({ username, email, password, role: "user" });
 
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
 
-    let userExists = await userSchema.findOne({ username });
-    let emailExists = await userSchema.findOne({ email });
+    let userExists = await User.findOne({ username });
+    let emailExists = await User.findOne({ email });
 
     if (userExists || emailExists) {
         return res.redirect('/signUp?msg=Username or email already exists');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new userSchema({ username, email, password: hashedPassword, role: 'user' });
+    const user = new User({ username, email, password: hashedPassword, role: 'user' });
+    
     await user.save();
 
     req.session.loggedin = true;

@@ -35,6 +35,15 @@
                 </button>
             </div>
         </form>
+        <form action='/registerUser' method='post'>
+            <input name='username' type='text' placeholder='username'>
+            <input name='email' type='email' placeholder='email'>
+            <input name='password' type='password' placeholder='password'>
+            <button>Submit</button>
+            </form>
+            <% if(typeof msg !== 'undefined'){ %>
+                <%- include("templates/message") %>
+            <% } %>
     </main>
 
     <%- include("templates/footer") %>

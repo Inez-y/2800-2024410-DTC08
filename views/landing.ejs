@@ -5,22 +5,21 @@
         <span class="material-icons text-6xl text-gray-700">help_outline</span>
         <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
     </div>
-    <button id="chatbot-btn" class="mt-6 bg-gray-400 text-black p-2 rounded flex items-center">
-        <span class="material-icons mr-2">message</span>
-        Message ReciPT
-    </button>
-    <div id="chatbot-container" class="mt-6 w-full max-w-xs hidden">
+    <div id="chatbot-container" class="mt-6 w-full max-w-xs">
         <textarea id="chatbot-input"
             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Type your message here"></textarea>
+        <!-- Make sure the button connects to error page -->
+        <!-- Configuration error - colour and font -->
         <button id="send-btn"
-            class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            class="font-semibold bg-green-900 mt-2 text-white py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
             Send
         </button>
+
         <div id="chatbot-response" class="mt-4 text-gray-700"></div>
     </div>
 </main>
-
+</body>
 <%- include("templates/footer") %>
 
 <script>

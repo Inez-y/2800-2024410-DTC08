@@ -2,6 +2,7 @@
 <!-- Footer -->
 <footer class="p-4 m-2 bg-whie bottom-0 w-full shadow-inner rounded-full">
     <nav class="flex justify-around">
+        <% if(session.loggedin) { %>
         <a href="/" class="flex flex-col items-center">
             <span class="material-icons">message</span>
         </a>
@@ -11,6 +12,17 @@
         <a href="/error" class="flex flex-col items-center">
             <span class="material-icons">star</span>
         </a>
+        <% } else { %>
+        <a href="/" class="flex flex-col items-center">
+            <span class="material-icons">message</span>
+        </a>
+        <a href="/login" class="flex flex-col items-center">
+            <span class="material-icons">camera_alt</span>
+        </a>
+        <a href="/login" class="flex flex-col items-center">
+            <span class="material-icons">star</span>
+        </a>
+        <% } %>
     </nav>
 </footer>
 </body>

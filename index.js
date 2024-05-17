@@ -26,11 +26,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 
 // Connect to MongoDB
-mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`, 
-    { 
-        useNewUrlParser: true, 
-        useUnifiedTopology: true, 
-    }).then(() => {
+mongoose.connect(`mongodb+srv://${mongodb_user}:${mongodb_password}@${mongodb_host}/`)
+.then(() => {
         console.log('Connected to MongoDB');
     }).catch((err) => {
         console.log('Failed to connect to MongoDB', err);

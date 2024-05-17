@@ -39,6 +39,14 @@ router.get("/logOut", async (req, res) => {
 });
 
 /**
+ * Renders the logged out page
+ * @author Daylen Smith
+ */
+router.get('/loggedOut', async (req, res) => {
+    res.render("loggedOut");
+});
+
+/**
  * Renders the forgot password page
  * @author Daylen Smith
  */

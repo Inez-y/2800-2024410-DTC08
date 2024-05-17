@@ -15,4 +15,13 @@ router.get('/profile', async (req, res) => {
     res.render("profile", user);
 });
 
+/**
+ * Renders the home page
+ * @author Daylen Smith
+ */
+router.get('/home', async (req, res) => {
+    const user = await User.findOne({ username: req.session.username });
+    res.render("home", user);
+});
+
 module.exports = router;

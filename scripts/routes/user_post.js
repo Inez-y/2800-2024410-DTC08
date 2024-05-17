@@ -49,7 +49,7 @@ router.post('/signUp', async (req, res) => {
     await user.save();
 
     initSession(req, username);
-    res.redirect('/home');
+    res.redirect('/');
 });
 
 /**
@@ -76,7 +76,7 @@ router.post('/logIn', async (req, res) => {
     }
     
     initSession(req, username);
-    res.redirect('/home');
+    res.redirect('/');
 });
 
 /**

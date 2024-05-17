@@ -15,7 +15,7 @@ const expireTimeOneHour = 60 * 60 * 1000;
  * Initializes a session with the username and a max age of 1 hour.
  * @param {*} username The username of the user that logged in
  */
-function initSession(username) {
+function initSession(req, username) {
     req.session.loggedin = true;
     req.session.username = username;
     req.session.cookie.maxAge = expireTimeOneHour;
@@ -47,7 +47,7 @@ router.post('/signUp', async (req, res) => {
     
     await user.save();
 
-    initSession(username);
+    initSession(req, username);
     res.redirect('/home');
 });
 
@@ -74,7 +74,7 @@ router.post('/logIn', async (req, res) => {
         return res.redirect('/logIn?msg=Incorrect password');
     }
     
-    initSession(username);
+    initSession(req, username);
     res.redirect('/home');
 });
 
@@ -231,7 +231,7 @@ router.post('/resetPassword/:token', async (req, res) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    initSession(user.username);
+    initSession(req, user.username);
     res.redirect('/home');
 });
 

@@ -51,6 +51,12 @@ app.use(
     })
 );
 
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    console.log(req.session)
+    next();
+});
+
 // Example protected route
 app.get('/protected', (req, res, next) => {
     const userIsAuthorized = false; // Replace with actual authorization logic

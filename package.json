@@ -17,6 +17,7 @@
     "express-session": "^1.18.0",
     "joi": "^17.13.1",
     "mongoose": "^8.3.4",
+    "openai": "^4.47.1",
     "tailwind": "^4.0.0"
   }
 }

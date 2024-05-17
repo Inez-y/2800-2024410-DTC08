@@ -10,14 +10,13 @@
         </div>
     <% } else { %>
         <div id="query-logs" class="flex flex-col justify-between m-4">
-            <div id="user-query" class="text-gray-700 m-2">
-                <div><i>You</i></div>
-                <%= query %>
-            </div>
-            <div id="query-response" class="text-gray-700 m-2">
-                <div><i>RecipT</i></div>
-                <%= response %>
-            </div>
+            <% for(let i=1; i < response.length; i++) { %>
+                <% if (i%2 == 0) { %>
+                    <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT'}) %>
+                <% } else { %>
+                    <%- include('templates/chatlog', {log: response[i].content, user: 'You'}) %>
+                <% } %>
+            <% } %>
         </div>
     <% } %>
 

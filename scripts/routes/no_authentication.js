@@ -23,19 +23,23 @@ router.post('/', async (req, res) => {
     console.log(req.session.message_history)
     let query = req.body.query;
     let valid = await validateQuery(query);
+    let message_history = [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}];
 
     if (valid === 'recipe') {
         let response;
         if (req.session.loggedin) {
             response = await generateRecipe(query, req.session.message_history);
+            res.render('landing', {response: req.session.message_history, query: query, show: null});
         } else {
-            response = await generateRecipe(query, [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}]);
+            response = await generateRecipe(query, message_history);
+            res.render('landing', {response: message_history, query: query, show: null});
         };
-        res.render('landing', {response: response, query: query, show: null});
     } else if (valid === 'kitchen') {
-        res.render('landing', {response: 'You have ... in your kitchen', query: query, show: null});
+        message_history.push({role: 'user', content: `${query}`}, {role: 'system', content: 'You have ... in your kitchen'});
+        res.render('landing', {response: message_history, query: query, show: null});
     } else {
-        res.render('landing', {response: 'That is not a valid query. Please try again.', query: query, show: null});
+        message_history.push({role: 'user', content: `${query}`}, {role: 'system', content: 'That is not a valid query. Please try again.'});
+        res.render('landing', {response: message_history, query: query, show: null});
     }
 });
 

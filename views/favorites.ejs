@@ -1,27 +1,27 @@
 <%- include("templates/htmlDocHeader") %>
     <%- include("templates/header") %>
 
-    <main class="flex flex-col items-center justify-center h-screen">
-        <div class="w-full max-w-xs">
-            <h2 class="block text-gray-700 text-lg font-bold mb-4">Favorite Recipes</h2>
-            <ul id="favorites-list" class="mb-4">
-                <!-- Favorite recipes will be dynamically added here -->
-            </ul>
-        </div>
-    </main>
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs">
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Favorite Recipes</h2>
+        <ul id="favorites-list" class="mb-4">
+            <!-- Favorite recipes will be dynamically added here -->
+        </ul>
+    </div>
+</main>
 
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>
 
-    <script>
-        const favoritesList = document.getElementById('favorites-list');
+<script>
+    const favoritesList = document.getElementById('favorites-list');
 
-        function renderFavorites() {
-            favoritesList.innerHTML = '';
-            const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            recipes.forEach((recipe, index) => {
-                const li = document.createElement('li');
-                li.className = 'bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start';
-                li.innerHTML = `
+    function renderFavorites() {
+        favoritesList.innerHTML = '';
+        const recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        recipes.forEach((recipe, index) => {
+            const li = document.createElement('li');
+            li.className = 'bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start';
+            li.innerHTML = `
                     <div>
                         <h3 class="text-gray-700 font-bold">${recipe.title}</h3>
                         <pre class="text-gray-700 whitespace-pre-wrap">${recipe.content}</pre>
@@ -30,24 +30,25 @@
                         Delete
                     </button>
                 `;
-                favoritesList.appendChild(li);
-            });
+            favoritesList.appendChild(li);
+        });
 
-            document.querySelectorAll('.delete-recipe').forEach(button => {
-                button.addEventListener('click', deleteRecipe);
-            });
-        }
+        document.querySelectorAll('.delete-recipe').forEach(button => {
+            button.addEventListener('click', deleteRecipe);
+        });
+    }
 
-        function deleteRecipe(event) {
-            const index = event.target.getAttribute('data-index');
-            let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
-            recipes.splice(index, 1);
-            localStorage.setItem('recipes', JSON.stringify(recipes));
-            renderFavorites();
-        }
-
-        // Initial render
+    function deleteRecipe(event) {
+        const index = event.target.getAttribute('data-index');
+        let recipes = JSON.parse(localStorage.getItem('recipes')) || [];
+        recipes.splice(index, 1);
+        localStorage.setItem('recipes', JSON.stringify(recipes));
         renderFavorites();
-    </script>
+    }
+
+    // Initial render
+    renderFavorites();
+</script>
 </body>
+
 </html>

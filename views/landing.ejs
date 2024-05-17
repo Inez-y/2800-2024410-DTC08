@@ -3,21 +3,21 @@
 
 <main class="flex flex-col items-center justify-center h-screen">
     <% if (show) { %>
-        <div class="flex flex-col items-center" >
-            <!-- <span class="material-icons text-6xl text-gray-700">help_outline</span> -->
-            <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
-            <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
-        </div>
+    <div class="flex flex-col items-center">
+        <!-- <span class="material-icons text-6xl text-gray-700">help_outline</span> -->
+        <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
+        <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
+    </div>
     <% } else { %>
-        <div id="query-logs" class="flex flex-col justify-between m-4">
-            <% for(let i=1; i < response.length; i++) { %>
-                <% if (i%2 == 0) { %>
-                    <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT'}) %>
-                <% } else { %>
-                    <%- include('templates/chatlog', {log: response[i].content, user: 'You'}) %>
-                <% } %>
-            <% } %>
-        </div>
+    <div id="query-logs" class="flex flex-col justify-between m-4">
+        <% for(let i=1; i < response.length; i++) { %>
+        <% if (i%2 == 0) { %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT'}) %>
+        <% } else { %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'You'}) %>
+        <% } %>
+        <% } %>
+    </div>
     <% } %>
 
     <!-- <button id="chatbot-btn" class="mt-6 bg-gray-400 text-black p-2 rounded flex items-center">
@@ -27,7 +27,8 @@
     <div id="chatbot-container" class="mt-6 w-full max-w-xs">
         <form action="/" method="post">
             <input type="text" id="query" name="query">
-            <button id="send-btn" type="submit" class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <button id="send-btn" type="submit"
+                class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                 Send
             </button>
         </form>
@@ -37,6 +38,7 @@
 
         <div id="chatbot-response" class="mt-4 text-gray-700"></div>
     </div>
+    <div id="chatbot-response" class="mt-4 text-gray-700"></div>
 </main>
 
 <%- include("templates/footer") %>
@@ -46,32 +48,33 @@
         document.getElementById('chatbot-container').classList.toggle('hidden');
     });
 
-    // document.getElementById('send-btn').addEventListener('click', async () => {
-    //     const input = document.getElementById('chatbot-input').value;
-    //     const responseContainer = document.getElementById('chatbot-response');
+    document.getElementById('send-btn').addEventListener('click', async () => {
+        window.location.href = '/error';
+        //     const input = document.getElementById('chatbot-input').value;
+        //     const responseContainer = document.getElementById('chatbot-response');
 
-    //     if (input.trim() === '') {
-    //         responseContainer.textContent = 'Please enter a message.';
-    //         return;
-    //     }
+        //     if (input.trim() === '') {
+        //         responseContainer.textContent = 'Please enter a message.';
+        //         return;
+        //     }
 
-    //     responseContainer.textContent = 'Thinking...';
+        //     responseContainer.textContent = 'Thinking...';
 
-    //     try {
-    //         const response = await fetch('/chatbot', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({
-    //                 message: input
-    //             }),
-    //         });
+        //     try {
+        //         const response = await fetch('/chatbot', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({
+        //                 message: input
+        //             }),
+        //         });
 
-    //         const data = await response.json();
-    //         responseContainer.textContent = data.reply;
-    //     } catch (error) {
-    //         responseContainer.textContent = 'Error communicating with the chatbot.';
-    //     }
-    // });
+        //         const data = await response.json();
+        //         responseContainer.textContent = data.reply;
+        //     } catch (error) {
+        //         responseContainer.textContent = 'Error communicating with the chatbot.';
+        //     }
+    });
 </script>

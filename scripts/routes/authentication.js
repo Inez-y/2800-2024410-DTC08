@@ -12,7 +12,7 @@ const { User } = require('../models/user');
  */
 router.get('/profile', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });;
-    res.render("profile", { user });
+    res.render("profile", { user, msg: req.query.msg});
 });
 
 /**
@@ -21,7 +21,7 @@ router.get('/profile', async (req, res) => {
  */
 router.get('/home', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
-    res.render("home", { user });
+    res.render("home", { user, msg: req.query.msg });
 });
 
 module.exports = router;

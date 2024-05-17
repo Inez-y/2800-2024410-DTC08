@@ -14,8 +14,15 @@
 <%= user.username %>
 <br>
 <%= user.email %>
+<form action="/updateUserEmail" method="post">
+    <input type="email" name="newEmail" placeholder="New email">
+    <button type="submit">Update email</button>
 <br>
 <%= user.role %>
 <br>
+<!-- Displays messages from server -->
+<% if(typeof msg !== 'undefined'){ %>
+    <%- include("templates/message") %>
+<% } %>
 
 <%- include("templates/footer") %>

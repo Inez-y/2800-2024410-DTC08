@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, userValidationSchema, passwordValidation, userNameValidation, emailValidation} = require('../models/user');
+const { User, userValidationSchema, passwordValidationSchema, userNameValidationSchema, emailValidationSchema} = require('../models/user');
 const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
@@ -13,7 +13,6 @@ const expireTimeOneHour = 60 * 60 * 1000;
  * @author Daylen Smith
  */
 router.post('/signUp', async (req, res) => {
-    console.log(req.body)
 
     const { username, email, password } = req.body;
 
@@ -48,8 +47,8 @@ router.post('/signUp', async (req, res) => {
 router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
 
-    const { nameError } = userNameValidation.validate(username);
-    const { pwError } = passwordValidation.validate(password);
+    const { nameError } = userNameValidationSchema.validate(username);
+    const { pwError } = passwordValidationSchema.validate(password);
     if (nameError || pwError) {
         return res.redirect(`/logIn?msg=${(nameError || pwError).details[0].message}`);
     }
@@ -76,9 +75,7 @@ router.post('/logIn', async (req, res) => {
  */
 router.post('/updateUserRole', async (req, res) => {
     const { username, role } = req.body;
-    console.log(username, role)
     const u = await User.findOne({ username });
-    console.log(u)
     if (!u) {
         return res.redirect('/admin?msg=Username does not exist');
     }
@@ -116,16 +113,25 @@ router.post('/updateUserPassword', async (req, res) => {
  */
 router.post('/updateUserEmail', async (req, res) => {
     const { newEmail } = req.body;
+    console.log("new Email:" + newEmail);
+
+    const { error } = emailValidationSchema.validate({ email: newEmail });
+    if (error) {
+        return res.redirect(`/profile?msg=${error.details[0].message}`);
+    }
 
     const user = await User.findOne({ username: req.session.username });
 
     const newEmailExists = await User.findOne({ email: newEmail });
-    if (newEmailExists.username !== user.username) {
+    console.log("new email exists: " + newEmailExists);
+   
+    if (newEmailExists !== null && newEmailExists.username !== user.username) {
         return res.redirect('/profile?msg=Email has been taken');
     }
 
     user.email = newEmail;
     await user.save();
+    return res.redirect('/profile?msg=Email updated');
 });
 
 

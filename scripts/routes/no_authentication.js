@@ -22,10 +22,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     let query = req.body.query;
     let valid = await validateQuery(query);
-    console.log(valid);
     if (valid === 'recipe') {
         let response = await generateRecipe(query, [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}]);
-        console.log(response);
         res.render('landing', {response: response, query: query, show: null});
     } else if (valid === 'kitchen') {
         res.render('landing', {response: 'You have ... in your kitchen', query: query, show: null});

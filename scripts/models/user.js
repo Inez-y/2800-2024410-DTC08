@@ -37,11 +37,15 @@ const userSchema = new Schema({
 });
 const User = mongoose.model('User', userSchema);
 
+const userNameValidation = Joi.string().alphanum().min(3).max(30).required();
+
 const passwordValidation = Joi.string().required();
 
+const emailValidation = Joi.string().email().required();
+
 const userValidationSchema = Joi.object({
-    username: Joi.string().alphanum().min(3).max(30).required(),
-    email: Joi.string().email().required(),
+    username: userNameValidation,
+    email: emailValidation,
     password: passwordValidation,
     role: Joi.string().valid('user', 'admin').default('user').required(),
 });
@@ -49,5 +53,7 @@ const userValidationSchema = Joi.object({
 module.exports = {
     User,
     userValidationSchema,
-    passwordValidationSchema: passwordValidation
+    passwordValidation,
+    userNameValidation,
+    emailValidation
 };

@@ -5,7 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
-const { User, userValidationSchema, passwordValidationSchema } = require('../models/user');
+const { User, userValidationSchema, passwordValidation, userNameValidation, emailValidation} = require('../models/user');
 const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
@@ -47,10 +47,11 @@ router.post('/signUp', async (req, res) => {
  */
 router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
-    
-    const { error } = userValidationSchema.validate({ username, password });
-    if (error) {
-        return res.status(400).send(error.details[0].message);
+
+    const { nameError } = userNameValidation.validate(username);
+    const { pwError } = passwordValidation.validate(password);
+    if (nameError || pwError) {
+        return res.redirect(`/logIn?msg=${(nameError || pwError).details[0].message}`);
     }
 
     const user = await User.findOne({ username });

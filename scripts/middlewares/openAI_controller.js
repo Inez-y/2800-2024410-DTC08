@@ -62,6 +62,7 @@ const validateQuery = async (query) => {
         {role: "user", content: `Valid queries are ones which ask you to generate a cooking recipe. 
                                  For queries which ask for a cooking recipe based on 0 or more ingredients, return 'recipe'. 
                                  For queries which ask what the user currently has, return 'kitchen'.
+                                 For queries which ask you to generate another recipe, return 'recipe'.
                                  All other queries are invalid, and you should return 'invalid'.`},
         {role: "assistant", content: "Understood. I will now determine whether queries I receive are valid or not."},
         {

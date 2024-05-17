@@ -20,10 +20,17 @@ router.get('/', async (req, res) => {
  * @author Alice Huang
  */
 router.post('/', async (req, res) => {
+    console.log(req.session.message_history)
     let query = req.body.query;
     let valid = await validateQuery(query);
+
     if (valid === 'recipe') {
-        let response = await generateRecipe(query, [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}]);
+        let response;
+        if (req.session.loggedin) {
+            response = await generateRecipe(query, req.session.message_history);
+        } else {
+            response = await generateRecipe(query, [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}]);
+        };
         res.render('landing', {response: response, query: query, show: null});
     } else if (valid === 'kitchen') {
         res.render('landing', {response: 'You have ... in your kitchen', query: query, show: null});

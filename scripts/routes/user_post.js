@@ -12,6 +12,16 @@ const { User, userValidationSchema, passwordValidationSchema, userNameValidation
 const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
+ * Initializes a session with the username and a max age of 1 hour.
+ * @param {*} username The username of the user that logged in
+ */
+function initSession(username) {
+    req.session.loggedin = true;
+    req.session.username = username;
+    req.session.cookie.maxAge = expireTimeOneHour;
+}
+
+/**
  * Route to create a new user with joi validation, redirtects to register page if username or email already exists.
  * @author Daylen Smith
  */
@@ -37,9 +47,7 @@ router.post('/signUp', async (req, res) => {
     
     await user.save();
 
-    req.session.loggedin = true;
-    req.session.username = username;
-    req.session.cookie.maxAge = expireTimeOneHour;
+    initSession(username);
     res.redirect('/home');
 });
 
@@ -65,9 +73,8 @@ router.post('/logIn', async (req, res) => {
     if (!validPassword) {
         return res.redirect('/logIn?msg=Incorrect password');
     }
-    req.session.loggedin = true;
-    req.session.username = username;
-    req.session.cookie.maxAge = expireTimeOneHour;
+    
+    initSession(username);
     res.redirect('/home');
 });
 
@@ -224,9 +231,7 @@ router.post('/resetPassword/:token', async (req, res) => {
     user.resetPasswordExpires = undefined;
     await user.save();
 
-    req.session.loggedin = true;
-    req.session.username = user.username;
-    req.session.cookie.maxAge = expireTimeOneHour;
+    initSession(user.username);
     res.redirect('/home');
 });
 

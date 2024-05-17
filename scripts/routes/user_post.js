@@ -5,6 +5,9 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto');
+
 const { User, userValidationSchema, passwordValidationSchema, userNameValidationSchema, emailValidationSchema} = require('../models/user');
 const expireTimeOneHour = 60 * 60 * 1000;
 
@@ -143,7 +146,7 @@ router.post('/updateUserEmail', async (req, res) => {
  * Redirects to the forgot password page with a message if the email does not exist.
  * @author Daylen Smith
  */
-router.post('resetPasswordEmail', async (req, res) => {
+router.post('/forgot', async (req, res) => {
     const { email } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
@@ -158,7 +161,7 @@ router.post('resetPasswordEmail', async (req, res) => {
         service: 'gmail',
         auth: {
             user: process.env.EMAIL_ADDRESS,
-            pass: process.env.EMAIL_PASSWORD
+            pass: process.env.EMAIL_APP_PASSWORD
         }
 
     });
@@ -200,19 +203,31 @@ router.post('resetPasswordEmail', async (req, res) => {
  */
 router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
-    const user = await User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } });
+    const newPassword  = req.body.password;
+
+    console.log("token: " + token);
+    console.log("new password: " + newPassword);
+
+    const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
+
+    console.log("user: " + user);
+
     if (!user) {
-        res.redirect('/forgotPassword?msg=Invalid or expired token');
+        return res.redirect('/forgot?msg=Invalid or expired token');
     }
-    const newPassword  = req.body;
+
+    
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;
-    user.resetToken = undefined;
-    user.resetTokenExpiration = undefined;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
     await user.save();
-    
-    res.redirect('/logIn');
+
+    req.session.loggedin = true;
+    req.session.username = user.username;
+    req.session.cookie.maxAge = expireTimeOneHour;
+    res.redirect('/home');
 });
 
 

@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
  * @author Daylen Smith
  */
 router.get("/logIn", async (req, res) => {
-    res.render("login");
+    res.render("login", {msg: req.query.msg});
 });
 
 /**
@@ -26,7 +26,7 @@ router.get("/logIn", async (req, res) => {
  * @author Daylen Smith
  */
 router.get("/signUp", async (req, res) => {
-    res.render("signup");
+    res.render("signup", {msg: req.query.msg});
 });
 
 /**

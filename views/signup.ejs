@@ -35,6 +35,10 @@
                 </button>
             </div>
         </form>
+        <!-- Displays messages from server -->
+        <% if(typeof msg !== 'undefined'){ %>
+            <%- include("templates/message") %>
+        <% } %>
     </main>
 
     <%- include("templates/footer") %>

@@ -47,14 +47,13 @@ router.post('/signUp', async (req, res) => {
  */
 router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
-    const user = await User.findOne({ username });
-
-    const { error } = userValidationSchema.validate({ username, email, password });
-
+    
+    const { error } = userValidationSchema.validate({ username, password });
     if (error) {
         return res.status(400).send(error.details[0].message);
     }
 
+    const user = await User.findOne({ username });
     if (!user) {
         return res.redirect('/logIn?msg=Username does not exist');
     }

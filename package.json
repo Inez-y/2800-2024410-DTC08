@@ -19,6 +19,7 @@
     "joi": "^17.13.1",
     "mongoose": "^8.3.4",
     "nodemailer": "^6.9.13",
+    "openai": "^4.47.1",
     "tailwind": "^4.0.0"
   }
 }

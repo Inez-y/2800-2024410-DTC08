@@ -30,9 +30,7 @@
             <a href="/forgot" class="text-gray-700">Forgot password?</a>
         </p>
         <!-- Displays messages from server -->
-        <% if(typeof msg !== 'undefined'){ %>
-            <%- include("templates/message") %>
-        <% } %>
+        <%- include("templates/message") %>
     </main>
 
     <%- include("templates/footer") %>

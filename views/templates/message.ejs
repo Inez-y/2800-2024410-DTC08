@@ -1,4 +1,6 @@
 <!-- Template for messages delivered from server as 'msg' variable -->
-<p>
-    <%= msg %>
-</p>
+<% if(typeof msg !== 'undefined'){ %>
+    <p>
+        <%= msg %>
+    </p>
+<% } %>

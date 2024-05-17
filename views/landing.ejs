@@ -5,21 +5,20 @@
         <span class="material-icons text-6xl text-gray-700">help_outline</span>
         <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
     </div>
-    <div id="chatbot-container" class="mt-6 w-full max-w-xs">
+    <div id="chatbot-container" class="mt-6 w-full max-w-xs flex">
         <textarea id="chatbot-input"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Type your message here"></textarea>
+            class="flex shadow appearance-none border rounded-l w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            placeholder="Type2 your message here"></textarea>
+        <button type="submit" id="send-btn"
+            class="font-semibold bg-green-900 mt-2 text-white m-8 py-2 px-4 rounded-full focus:outline-none focus:shadow-outline material-symbols-outlined">
+            send
+        </button>
         <!-- Make sure the button connects to error page -->
         <!-- Configuration error - colour and font -->
-        <button id="send-btn"
-            class="font-semibold bg-green-900 mt-2 text-white py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">
-            Send
-        </button>
-
-        <div id="chatbot-response" class="mt-4 text-gray-700"></div>
     </div>
+    <div id="chatbot-response" class="mt-4 text-gray-700"></div>
 </main>
-</body>
+
 <%- include("templates/footer") %>
 
 <script>
@@ -28,31 +27,32 @@
     });
 
     document.getElementById('send-btn').addEventListener('click', async () => {
-        const input = document.getElementById('chatbot-input').value;
-        const responseContainer = document.getElementById('chatbot-response');
+        window.location.href = '/error';
+        //     const input = document.getElementById('chatbot-input').value;
+        //     const responseContainer = document.getElementById('chatbot-response');
 
-        if (input.trim() === '') {
-            responseContainer.textContent = 'Please enter a message.';
-            return;
-        }
+        //     if (input.trim() === '') {
+        //         responseContainer.textContent = 'Please enter a message.';
+        //         return;
+        //     }
 
-        responseContainer.textContent = 'Thinking...';
+        //     responseContainer.textContent = 'Thinking...';
 
-        try {
-            const response = await fetch('/chatbot', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    message: input
-                }),
-            });
+        //     try {
+        //         const response = await fetch('/chatbot', {
+        //             method: 'POST',
+        //             headers: {
+        //                 'Content-Type': 'application/json',
+        //             },
+        //             body: JSON.stringify({
+        //                 message: input
+        //             }),
+        //         });
 
-            const data = await response.json();
-            responseContainer.textContent = data.reply;
-        } catch (error) {
-            responseContainer.textContent = 'Error communicating with the chatbot.';
-        }
+        //         const data = await response.json();
+        //         responseContainer.textContent = data.reply;
+        //     } catch (error) {
+        //         responseContainer.textContent = 'Error communicating with the chatbot.';
+        //     }
     });
 </script>

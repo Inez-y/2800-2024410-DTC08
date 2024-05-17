@@ -58,16 +58,6 @@ app.use((req, res, next) => {
     next();
 });
 
-// Example protected route
-app.get('/protected', (req, res, next) => {
-    const userIsAuthorized = false; // Replace with actual authorization logic
-    if (!userIsAuthorized) {
-        res.status(403).render('403');
-    } else {
-        res.send('Protected content');
-    }
-});
-
 // Include routes from separate files
 const userCRUDRouter = require('./scripts/routes/user_post');
 app.use('/', userCRUDRouter);

@@ -1,26 +1,49 @@
 <!-- Code ends here -->
 <!-- Footer -->
-<footer class="p-4 m-2 bg-whie bottom-0 w-full shadow-inner rounded-full">
+<footer class="sticky p-4 m-2 bg-whie bottom-0 w-full shadow-inner rounded-full">
     <nav class="flex justify-around">
         <% if(session.loggedin) { %>
         <a href="/" class="flex flex-col items-center">
-            <span class="material-icons">message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#9A9BB1">
+                <path
+                    d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
+            </svg>
+            Chats
         </a>
         <a href="/camera" class="flex flex-col items-center">
             <span class="material-icons">camera_alt</span>
+            Camera
         </a>
         <a href="/error" class="flex flex-col items-center">
             <span class="material-icons">star</span>
+            My Kitchen
         </a>
         <% } else { %>
-        <a href="/" class="flex flex-col items-center">
-            <span class="material-icons">message</span>
+        <a href="/login" class="flex flex-col items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#9A9BB1">
+                <path
+                    d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z" />
+            </svg>
+            <p class="text-gray-500"> Chats </p>
+        </a>
+        <!-- Needs a proper colour -->
+        <a href="/login" class="flex flex-col items-center rounded-full shadow-lg bg-gray-100"
+            style="width: 70px; height: 60px;">
+
+            <svg xmlns=" http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#9A9BB1">
+                <path d=" M480-260q75 0 127.5-52.5T660-440q0-75-52.5-127.5T480-620q-75 0-127.5 52.5T300-440q0 75 52.5
+                127.5T480-260Zm0-80q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM160-120q-33
+                0-56.5-23.5T80-200v-480q0-33 23.5-56.5T160-760h126l74-80h240l74 80h126q33 0 56.5 23.5T880-680v480q0
+                33-23.5 56.5T800-120H160Zm0-80h640v-480H638l-73-80H395l-73 80H160v480Zm320-240Z" />
+            </svg>
+            <p class="text-gray-500"> Camera </p>
         </a>
         <a href="/login" class="flex flex-col items-center">
-            <span class="material-icons">camera_alt</span>
-        </a>
-        <a href="/login" class="flex flex-col items-center">
-            <span class="material-icons">star</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#9A9BB1">
+                <path
+                    d="M280-80v-366q-51-14-85.5-56T160-600v-280h80v280h40v-280h80v280h40v-280h80v280q0 56-34.5 98T360-446v366h-80Zm400 0v-320H560v-280q0-83 58.5-141.5T760-880v800h-80Z" />
+            </svg>
+            <p class="text-gray-500"> My Kitchen </p>
         </a>
         <% } %>
     </nav>

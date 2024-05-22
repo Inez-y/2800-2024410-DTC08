@@ -2,6 +2,11 @@
 <%- include("templates/header") %>
 
 <main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs">
+        <div class="mb-4">
+            <h2 class="text-xl font-semibold text-left">Welcome to <span class="text-buttongreen">ReciPT</span></h2>
+            <h1 class="text-3xl font-bold text-left">Sign up</h1>
+        </div>
     <form action='/signUp' method='post' class="w-full max-w-xs">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name</label>
@@ -25,7 +30,7 @@
         </div>
         <div class="flex items-center justify-center">
             <button
-                class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                class="bg-buttongreen hover:bg-lightGrey text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="submit">
                 Sign up
             </button>

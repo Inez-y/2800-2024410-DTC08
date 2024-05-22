@@ -20,14 +20,20 @@
     <% } %>
 
     <div id="chatbot-container" class="mt-6 w-full max-w-xs">
-        <form action="/" method="post">
-            <input type="text" id="query" name="query">
-            <button id="send-btn" type="submit"
-                class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Send
+        <form action="/" method="post" class="flex">
+            <input type="text" id="query" name="query" class="rounded-lg pl-3 p-4 px-10 m-1 shadow-lg flex-grow"
+                placeholder="Type a message here">
+            <button id="send-btn" type="submit" class="mt-2 py-2 px-4">
+                <!-- Google Icon: Send -->
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="30px"
+                    fill="#779341">
+                    <path
+                        d="M120-160v-640l760 320-760 320Zm66.67-102 520.66-218-520.66-220v158.67L428-480l-241.33 60v158Zm0 0v-438 438Z" />
+                </svg>
             </button>
         </form>
     </div>
+
 </main>
 
 <%- include("templates/footer") %>

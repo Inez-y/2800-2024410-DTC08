@@ -11,6 +11,9 @@ module.exports = {
       colors: {
         'buttongreen': '#779341',
       },
+      backgroundImage: {
+        'backgroundImage': "url('/public/background1.jpeg')",
+      }
     },
   },
   plugins: [],

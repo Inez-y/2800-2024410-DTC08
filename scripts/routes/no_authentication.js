@@ -17,12 +17,19 @@ const {
  * @author Daylen Smith
  */
 router.get('/', async (req, res) => {
-    res.render('landing', {
-        response: null,
-        query: null,
-        show: true,
-        isRecipe: [0, 0, 0]
-    });
+    if (req.session.loggedin && req.session.message_history.length > 1) {
+        res.render('landing', {
+            response: req.session.message_history,
+            show: false,
+            isRecipe: req.session.isRecipe
+        });
+    } else {
+        res.render('landing', {
+            response: null,
+            show: true,
+            isRecipe: [0, 0, 0]
+        });
+    }
 });
 
 /**
@@ -44,7 +51,6 @@ router.post('/', async (req, res) => {
             response = await generateRecipe(query, req.session.message_history);
             res.render('landing', {
                 response: req.session.message_history,
-                query: query,
                 show: null,
                 isRecipe: [0, 0, 0]
             });
@@ -52,7 +58,6 @@ router.post('/', async (req, res) => {
             response = await generateRecipe(query, message_history);
             res.render('landing', {
                 response: message_history,
-                query: query,
                 show: null,
                 isRecipe: [0, 0, 0]
             });
@@ -67,7 +72,6 @@ router.post('/', async (req, res) => {
         });
         res.render('landing', {
             response: message_history,
-            query: query,
             show: null,
             isRecipe: [0, 0, 0]
         });
@@ -81,7 +85,6 @@ router.post('/', async (req, res) => {
         });
         res.render('landing', {
             response: message_history,
-            query: query,
             show: null,
             isRecipe: [0, 0, 0]
         });

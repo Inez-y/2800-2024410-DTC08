@@ -4,6 +4,7 @@
 
 const express = require('express');
 const router = express.Router();
+const { redirectIfLoggedIn } = require('../middlewares/redirect');
 
 const {
     generateRecipe,
@@ -91,7 +92,7 @@ router.post('/', async (req, res) => {
  * Renders the log in page
  * @author Daylen Smith
  */
-router.get("/logIn", async (req, res) => {
+router.get("/logIn", redirectIfLoggedIn, async (req, res) => {
     res.render("login", {
         msg: req.query.msg
     });
@@ -101,7 +102,7 @@ router.get("/logIn", async (req, res) => {
  * Renders the sign up page
  * @author Daylen Smith
  */
-router.get("/signUp", async (req, res) => {
+router.get("/signUp", redirectIfLoggedIn, async (req, res) => {
     res.render("signup", {
         msg: req.query.msg
     });

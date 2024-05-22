@@ -30,4 +30,19 @@ const redirectIfNotAdmin = async (req, res, next) => {
     }
 }
 
-module.exports =  redirectIfNotLoggedIn;
+/**
+ * Redirects the user tot he main page if they are logged in
+ * 
+ * Used to prevent logged in users from logging in again or creating an account without logging out first
+ * @author Daylen Smith
+ * @returns 
+ */
+const redirectIfLoggedIn = async (req, res, next) => {
+    if (req.session.loggedin) {
+        res.redirect('/');
+    } else {
+        return next();
+    }
+}
+
+module.exports =  {redirectIfNotLoggedIn, redirectIfNotAdmin, redirectIfLoggedIn};

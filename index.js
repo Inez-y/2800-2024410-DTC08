@@ -72,7 +72,7 @@ const noAuthPages = require('./scripts/routes/no_authentication');
 app.use('/', noAuthPages);
 
 // Global Middleware to redirect if not logged in
-const redirectIfNotLoggedIn = require('./scripts/middlewares/redirect');
+const {redirectIfNotLoggedIn} = require('./scripts/middlewares/redirect');
 app.use(redirectIfNotLoggedIn);
 
 const authPages = require('./scripts/routes/authentication');

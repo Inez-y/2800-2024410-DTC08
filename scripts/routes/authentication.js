@@ -28,31 +28,6 @@ router.get('/profile', async (req, res) => {
 });
 
 /**
- * Renders the home page
- * @author Daylen Smith
- */
-router.get('/home', async (req, res) => {
-    const user = await User.findOne({ username: req.session.username });
-    console.log(req.session.message_history)
-    console.log(req.session.isRecipe)
-    if (req.session.message_history.length > 1) {
-        res.render('home', {
-            response: req.session.message_history,
-            query: null,
-            show: null,
-            isRecipe: req.session.isRecipe
-        });
-    } else {
-        res.render('home', {
-            response: null,
-            query: null,
-            show: true,
-            isRecipe: req.session.isRecipe
-        });
-    }
-});
-
-/**
  * Renders the home page after user submits a query and displays the query response
  * @author Alice Huang
  */
@@ -65,7 +40,7 @@ router.post('/home', async (req, res) => {
         let response = await generateRecipe(query, req.session.message_history);
         req.session.isRecipe.push(0);
         req.session.isRecipe.push(1);
-        res.render('home', {
+        res.render('landing', {
             response: req.session.message_history,
             query: query,
             show: null,
@@ -81,7 +56,7 @@ router.post('/home', async (req, res) => {
         });
         req.session.isRecipe.push(0);
         req.session.isRecipe.push(0);
-        res.render('home', {
+        res.render('landing', {
             response: req.session.message_history,
             query: query,
             show: null,
@@ -97,7 +72,7 @@ router.post('/home', async (req, res) => {
         });
         req.session.isRecipe.push(0);
         req.session.isRecipe.push(0);
-        res.render('home', {
+        res.render('landing', {
             response: req.session.message_history,
             query: query,
             show: null,

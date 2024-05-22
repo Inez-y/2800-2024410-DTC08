@@ -52,6 +52,10 @@ router.get('/home', async (req, res) => {
     }
 });
 
+/**
+ * Renders the home page after user submits a query and displays the query response
+ * @author Alice Huang
+ */
 router.post('/home', async (req, res) => {
     console.log(req.session.message_history)
     let query = req.body.query;
@@ -101,6 +105,10 @@ router.post('/home', async (req, res) => {
         });
     }});
 
+/**
+ * Renders the favorites page (for testing)
+ * @author Alice Huang
+ */
 router.post('/bookmark', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
     let steps = await parseSteps(req.body.recipe);
@@ -112,21 +120,9 @@ router.post('/bookmark', async (req, res) => {
     } catch (err) {
         return res.status(400).send(err.details[0].message);
     }
-    
-    
     console.log(recipe._id)
-    // let recipe = new Recipe{
-    //     recipeName: name,
-    //     ingredients: JSON.parse(ingredients),
-    //     steps: steps,
-    //     tags: []
-    // }
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
-    const user = await User.findOne({ username: req.session.username })
-    console.log(user.favorites)
-    // console.log(recipe)
-    // user.favorites.push(recipe);
     
     res.send(`${recipe}`);
 });

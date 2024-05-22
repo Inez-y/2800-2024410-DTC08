@@ -6,6 +6,12 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY
 });
 
+/**
+ * Parses the ingredients needed in a recipe and returns the ingredients in a specific JSON format
+ * @param {*} recipe string of the recipe
+ * @returns JSON string of ingredients in the recipe
+ * @author Alice Huang
+ */
 const parseIngredients = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -24,6 +30,12 @@ const parseIngredients = async (recipe) => {
   return response.choices[0].message.content;
 }
 
+/**
+ * Parses the cooking steps in a recipe and returns it as a string
+ * @param {*} recipe string of recipe
+ * @returns string of steps
+ * @author Alice Huang
+ */
 const parseSteps = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -40,6 +52,12 @@ const parseSteps = async (recipe) => {
   return response.choices[0].message.content;
 };
 
+/**
+ * Parses the name of a recipe and returns it as a string
+ * @param {*} recipe string of recipe
+ * @returns name as a string
+ * @author Alice Huang
+ */
 const parseName = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",

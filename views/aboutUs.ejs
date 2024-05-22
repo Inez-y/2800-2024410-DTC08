@@ -1,0 +1,48 @@
+<!-- Contains the html document header with the start of the body tag -->
+<%- include("templates/htmlDocHeader") %>
+
+<!-- Fonts and backgrounds defined here -->
+
+<body class="font-Poppins" style="background-image: url(public/background1.jpeg); opacity: 70%;"></body>
+
+<!-- Main box -->
+<div class="m-10 grid grid-cols-2 gap-4 text-center items-center">
+    <div class="p-4 m-4 rounded-full bg-white">
+        <h3 class="font-bold">Your name</h3>
+        <h5> Backend Developper </h5>
+    </div>
+    <div class="p-4 m-4 rounded-full bg-white">
+        <h3 class="font-bold">Your name</h3>
+        <h5> Backend Developper </h5>
+    </div>
+    <div class="p-4 m-4 rounded-full bg-white">
+        <h3 class="font-bold">Your name</h3>
+        <h5> Backend Developper </h5>
+    </div>
+    <div class="p-4 m-4 rounded-full bg-white">
+        <h3 class="font-bold">Your name</h3>
+        <h5> Backend Developper </h5>
+    </div>
+    <div class="p-4 m-4 rounded-full bg-white">
+        <h3 class="font-bold">Your name</h3>
+        <h5> Backend Developper </h5>
+    </div>
+    <div class="p-4 m-4 rounded-full bg-white">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/public/gordonRamsay.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        <h3 class="font-bold">Gordon Ramsay</h3>
+        <h5> Recipe Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;"">
+                <img src="/public/github.png" href="" style="width:30px; height: 30px; margin-right: 20px;">
+            <img src="/public/linkedin.png" href="" style="width:30px; height: 30px; margin-left: 20px;">
+        </div>
+
+    </div>
+</div>
+
+<!-- Bottom navbar with end of body tag -->
+<%- include("templates/footer") %>

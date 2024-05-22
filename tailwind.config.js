@@ -10,6 +10,7 @@ module.exports = {
       },
       colors: {
         'buttongreen': '#779341',
+        'lightGrey': '#9A9BB1',
       },
       backgroundImage: {
         'backgroundImage': "url('/public/background1.jpeg')",

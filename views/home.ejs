@@ -2,24 +2,39 @@
 <%- include("templates/header") %>
 
 <main class="flex flex-col items-center justify-center h-screen">
+    <% if (show) { %>
     <div class="flex flex-col items-center">
-        <span class="material-icons text-6xl text-gray-700">help_outline</span>
+        <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
         <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
     </div>
-    <button id="chatbot-btn" class="mt-6 bg-gray-400 text-black p-2 rounded flex items-center">
-        <span class="material-icons mr-2">message</span>
-        Message ReciPT
-    </button>
-    <div id="chatbot-container" class="mt-6 w-full max-w-xs hidden">
-        <textarea id="chatbot-input"
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Type your message here"></textarea>
-        <button id="send-btn"
-            class="mt-2 bg-green-800 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-            Send
-        </button>
-        <div id="chatbot-response" class="mt-4 text-gray-700"></div>
+    <% } else { %>
+    <div id="query-logs" class="flex flex-col justify-between m-4">
+        <% for(let i=1; i < response.length; i++) { %>
+        <% if (i%2 == 0) { %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT'}) %>
+        <% } else { %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'You'}) %>
+        <% } %>
+        <% } %>
     </div>
+    <% } %>
+
+    <div id="chatbot-container" class="mt-6 w-full max-w-xs">
+        <form action="/" method="post" class="flex">
+            <input type="text" id="query" name="query" class="rounded-lg pl-3 p-4 px-10 m-1 shadow-lg flex-grow"
+                placeholder="Type a message here">
+            <button id="send-btn" type="submit" class="mt-2 py-2 px-4">
+                <!-- Google Icon: Send -->
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="30px"
+                    fill="#779341">
+                    <path
+                        d="M120-160v-640l760 320-760 320Zm66.67-102 520.66-218-520.66-220v158.67L428-480l-241.33 60v158Zm0 0v-438 438Z" />
+                </svg>
+            </button>
+        </form>
+    </div>
+</main>
+
 </main>
 
 <%- include("templates/footer") %>

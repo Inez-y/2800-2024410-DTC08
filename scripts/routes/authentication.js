@@ -8,11 +8,10 @@ const { User } = require('../models/user');
 const { Recipe, recipeSchema } = require('../models/recipe');
 const multer = require('multer');
 const { analyzeImage } = require('../middlewares/imageController');
+const { renderRecipe, renderOwnedIngredients, renderInvalidQuery } = require('../middlewares/openAI_request_controller');
 
 const {
-    generateRecipe,
     validateQuery,
-    generateRecipeFromKitchen,
     parseIngredients,
     parseSteps,
     parseName
@@ -37,47 +36,11 @@ router.post('/home', async (req, res) => {
     let valid = await validateQuery(query);
 
     if (valid === 'recipe') {
-        let response = await generateRecipe(query, req.session.message_history);
-        req.session.isRecipe.push(0);
-        req.session.isRecipe.push(1);
-        res.render('landing', {
-            response: req.session.message_history,
-            query: query,
-            show: null,
-            isRecipe: req.session.isRecipe
-        });
+        renderRecipe(req, res);
     } else if (valid === 'kitchen') {
-        req.session.message_history.push({
-            role: 'user',
-            content: `${query}`
-        }, {
-            role: 'system',
-            content: 'You have ... in your kitchen'
-        });
-        req.session.isRecipe.push(0);
-        req.session.isRecipe.push(0);
-        res.render('landing', {
-            response: req.session.message_history,
-            query: query,
-            show: null,
-            isRecipe: req.session.isRecipe
-        });
+        renderOwnedIngredients(req, res);
     } else {
-        req.session.message_history.push({
-            role: 'user',
-            content: `${query}`
-        }, {
-            role: 'system',
-            content: 'That is not a valid query. Please try again.'
-        });
-        req.session.isRecipe.push(0);
-        req.session.isRecipe.push(0);
-        res.render('landing', {
-            response: req.session.message_history,
-            query: query,
-            show: null,
-            isRecipe: req.session.isRecipe
-        });
+        renderInvalidQuery(req, res);
     }});
 
 /**

@@ -1,4 +1,9 @@
 <div class="text-gray-700 m-2">
     <div><i><%= user %></i></div>
+    <% if (isRecipe) { %>
+    <form action="/bookmark" method="post">
+        <input type="hidden" name="recipe" value="<%= log %>">
+        <button type="submit" class="material-icons text-2xl text-green-500">star</button> </form>
+    <% } %>
     <%= log %>
 </div>

@@ -6,6 +6,56 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY
 });
 
+const parseIngredients = async (recipe) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {role: "system", content: `You are a helpful assistant. You extract the ingredients needed in a cooking recipe by returning the ingredients in a 
+                                 specific JSON format. For each ingredient, you list the name (a string), amount (a number), and unit (a string). For numbers, do not include fractions. Do not include 'ingredients' header. Do not include context.`},
+      {role: "user", content: `Here is a sample JSON response for you to refer to: [{"name": "tomato", "amount": 2, "unit": "whole"}, {"name": "flour", "quantity": 0.5, "unit": "cup"}, {"name": "salt", "quantity": 1, "unit": "g"}]`},
+      {role: "assistant", content: "Understood. I will now determine the ingredients in the recipe."},
+      {
+        role: 'user',
+        content: `${recipe}`
+      }
+    ],
+    // max_tokens: 100
+  })
+  return response.choices[0].message.content;
+}
+
+const parseSteps = async (recipe) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {role: "system", content: `You are a helpful assistant. You extract and return only the cooking steps in a cooking recipe. Do not include context.`},
+      {role: "assistant", content: "Understood. I will now determine the steps in the recipe."},
+      {
+        role: 'user',
+        content: `${recipe}`
+      }
+    ],
+    // max_tokens: 100
+  })
+  return response.choices[0].message.content;
+};
+
+const parseName = async (recipe) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe. Do not include context.`},
+      {role: "assistant", content: "Understood. I will now determine the name of the recipe."},
+      {
+        role: 'user',
+        content: `${recipe}`
+      }
+    ],
+    // max_tokens: 100
+  })
+  return response.choices[0].message.content;
+};
+
 /**
  * Generates a recipe based on the user's query
  * @param {*} query 
@@ -76,4 +126,4 @@ const validateQuery = async (query) => {
     return result.choices[0].message.content;
   }
 
-module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen }
+module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName }

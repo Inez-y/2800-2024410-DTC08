@@ -20,6 +20,7 @@ function initSession(req, username) {
     req.session.username = username;
     req.session.cookie.maxAge = expireTimeOneHour;
     req.session.message_history = [{role: 'system', content: 'You are a helpful assistant. You generate recipes based on user queries.'}];
+    req.session.isRecipe = [0];
 }
 
 /**

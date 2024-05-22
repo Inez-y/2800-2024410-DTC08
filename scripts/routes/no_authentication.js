@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
     res.render('landing', {
         response: null,
         query: null,
-        show: true
+        show: true,
+        isRecipe: [0, 0, 0]
     });
 });
 
@@ -43,14 +44,16 @@ router.post('/', async (req, res) => {
             res.render('landing', {
                 response: req.session.message_history,
                 query: query,
-                show: null
+                show: null,
+                isRecipe: [0, 0, 0]
             });
         } else {
             response = await generateRecipe(query, message_history);
             res.render('landing', {
                 response: message_history,
                 query: query,
-                show: null
+                show: null,
+                isRecipe: [0, 0, 0]
             });
         };
     } else if (valid === 'kitchen') {
@@ -64,7 +67,8 @@ router.post('/', async (req, res) => {
         res.render('landing', {
             response: message_history,
             query: query,
-            show: null
+            show: null,
+            isRecipe: [0, 0, 0]
         });
     } else {
         message_history.push({
@@ -77,7 +81,8 @@ router.post('/', async (req, res) => {
         res.render('landing', {
             response: message_history,
             query: query,
-            show: null
+            show: null,
+            isRecipe: [0, 0, 0]
         });
     }
 });

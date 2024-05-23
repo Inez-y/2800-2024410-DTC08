@@ -3,20 +3,28 @@
 
 <main class="flex flex-col items-center justify-center h-screen">
     <div class="w-full max-w-xs text-center">
-        <h2 class="block text-gray-700 text-lg font-bold mb-4">Upload Food Image</h2>
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Upload or Capture Food Image</h2>
         
         <!-- File Upload Section -->
-        <input type="file" id="fileInput" class="mb-4">
+        <input type="file" id="fileInput" accept="image/*" class="mb-4">
         
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
             <input type="hidden" name="image" id="image">
             <button type="submit" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze Image</button>
         </form>
         
-        <div id="ingredients-list" class="hidden mt-4">
-            <h3 class="text-gray-700 font-bold text-xl mb-2">Detected Ingredients</h3>
-            <ul id="ingredients" class="text-gray-700 space-y-2"></ul>
+        <!-- Ingredients List Modal -->
+        <div id="ingredientsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+            <div class="bg-white rounded-lg p-4 w-full max-w-lg">
+                <h3 class="text-gray-700 font-bold text-xl mb-4">Detected Ingredients</h3>
+                <form id="ingredientsForm">
+                    <ul id="ingredientsList" class="space-y-2"></ul>
+                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Save Ingredients</button>
+                </form>
+            </div>
         </div>
+        
+        <div id="successMessage" class="hidden mt-4 text-green-500 font-bold">Ingredients saved successfully!</div>
     </div>
 </main>
 
@@ -26,8 +34,10 @@
     const fileInput = document.getElementById('fileInput');
     const uploadForm = document.getElementById('uploadForm');
     const imageInput = document.getElementById('image');
-    const ingredientsList = document.getElementById('ingredients-list');
-    const ingredientsUl = document.getElementById('ingredients');
+    const ingredientsModal = document.getElementById('ingredientsModal');
+    const ingredientsList = document.getElementById('ingredientsList');
+    const ingredientsForm = document.getElementById('ingredientsForm');
+    const successMessage = document.getElementById('successMessage');
 
     fileInput.addEventListener('change', (e) => {
         const file = e.target.files[0];
@@ -45,19 +55,67 @@
         const formData = new FormData();
         formData.append('image', imageInput.value);
 
-        const response = await fetch('/analyze-image', {
-            method: 'POST',
-            body: formData
-        });
+        try {
+            const response = await fetch('/analyze-image', {
+                method: 'POST',
+                body: formData
+            });
 
-        const result = await response.json();
+            const result = await response.json();
+            console.log('Analyze Image Response:', result);
 
-        // Display the detected ingredients
-        if (result.ingredients) {
-            ingredientsUl.innerHTML = result.ingredients.map(ingredient => `<li class="border-b border-gray-300 py-2">${ingredient}</li>`).join('');
-            ingredientsList.classList.remove('hidden');
-        } else {
-            alert('No ingredients detected. Please try again.');
+            // Display the detected ingredients
+            if (result.ingredients) {
+                ingredientsList.innerHTML = result.ingredients.map(ingredient => `
+                    <li>
+                        <span class="block font-bold">${ingredient}</span>
+                        <input type="hidden" name="ingredientNames[]" value="${ingredient}">
+                        <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount">
+                        <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit">
+                    </li>
+                `).join('');
+                ingredientsModal.classList.remove('hidden');
+            } else {
+                alert('No ingredients detected. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error analyzing image:', error);
+            alert('Failed to analyze image. Please try again.');
+        }
+    });
+
+    ingredientsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        console.log('Ingredients form submit event triggered');
+        const formData = new FormData(ingredientsForm);
+
+        // Log form data for debugging
+        console.log('FormData entries:');
+        for (const [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
+
+        try {
+            const response = await fetch('/save-ingredients', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                ingredientsModal.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                setTimeout(() => {
+                    successMessage.classList.add('hidden');
+                }, 3000);
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to save ingredients:', errorText);
+                alert('Failed to save ingredients. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error saving ingredients:', error);
+            alert('Failed to save ingredients. Please try again.');
         }
     });
 </script>
+

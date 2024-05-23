@@ -42,10 +42,68 @@ router.get('/camera', async (req, res) => {
 });
 
 /**
- * Route for analyzing an image and returning detected ingredients
+ * Route for analyzing an image
  * @author Shaun Sy
  */
 router.post('/analyze-image', upload.single('image'), analyzeImage);
+
+/**
+ * Route for saving ingredients to the user's profile
+ * @author Shaun Sy
+ */
+router.post('/save-ingredients', upload.none(), (req, res) => { // Use upload.none() for parsing non-file data
+    console.log('Received form data:', req.body); // Log request body for debugging
+
+    try {
+        const { ingredientNames, ingredientAmounts, ingredientUnits } = req.body;
+
+        // Log received data for debugging
+        console.log('Received ingredientNames:', ingredientNames);
+        console.log('Received ingredientAmounts:', ingredientAmounts);
+        console.log('Received ingredientUnits:', ingredientUnits);
+
+        if (!ingredientNames || !ingredientAmounts || !ingredientUnits) {
+            console.error('Invalid data:', req.body);
+            return res.status(400).send('Invalid data');
+        }
+
+        // Convert to arrays if only single element is received
+        const names = Array.isArray(ingredientNames) ? ingredientNames : [ingredientNames];
+        const amounts = Array.isArray(ingredientAmounts) ? ingredientAmounts : [ingredientAmounts];
+        const units = Array.isArray(ingredientUnits) ? ingredientUnits : [ingredientUnits];
+
+        const ingredients = names.map((name, index) => ({
+            name,
+            amount: parseFloat(amounts[index]),
+            unit: units[index] || null,
+        }));
+
+        const userId = req.username._id;
+        if (!userId) {
+            console.error('User ID not found in session');
+            return res.status(401).send('User not authenticated');
+        }
+
+        User.findById(userId, (err, user) => {
+            if (err || !user) {
+                console.error('User not found with ID:', userId);
+                return res.status(404).send('User not found');
+            }
+
+            user.ingredients.push(...ingredients);
+            user.save((err) => {
+                if (err) {
+                    console.error('Error saving ingredients:', err);
+                    return res.status(500).send('Failed to save ingredients');
+                }
+                res.status(200).send('Ingredients saved successfully');
+            });
+        });
+    } catch (error) {
+        console.error('Error saving ingredients:', error);
+        res.status(500).send('Failed to save ingredients');
+    }
+});
 
 
 module.exports = router;

@@ -1,0 +1,14 @@
+<!-- Contains the html document header with the start of the body tag -->
+<%- include("templates/htmlDocHeader") %>
+
+<!-- Top navbar -->
+<%- include("templates/header") %>
+
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="w-full max-w-xs">
+        <%= recipe %>
+    </div>
+</main>
+
+<!-- Bottom navbar with end of body tag -->
+<%- include("templates/footer") %>

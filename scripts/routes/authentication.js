@@ -43,6 +43,22 @@ router.post('/home', async (req, res) => {
         renderInvalidQuery(req, res);
     }});
 
+router.get('/myKitchen', async (req, res) => {
+    let user = await User.findOne({ username: req.session.username });
+    let recipeIDs = user.favorites;
+    let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
+    console.log(recipes[0]._id)
+    res.render('favorites', { recipes: recipes})
+});
+
+router.get('/recipe/:id', async (req, res) => {
+    console.log(req.params.id)
+    const recipe = await Recipe.findOne({ _id: req.params.id });
+    console.log(recipe.recipeName)
+    res.render('recipe', { recipe: recipe.recipeName });
+    // res.send(`Recipe ID: ${req.params.id}`);
+});
+
 /**
  * Renders the favorites page (for testing)
  * @author Alice Huang

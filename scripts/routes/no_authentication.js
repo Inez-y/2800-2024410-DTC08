@@ -32,6 +32,10 @@ router.get('/', async (req, res) => {
 //     }
 // });
 
+router.get('/aboutUs', async (req, res) => {
+    res.render('aboutUs');
+});
+
 /**
  * Generates a recipe based on the user's query and renders the landing page with the response
  * @author Alice Huang

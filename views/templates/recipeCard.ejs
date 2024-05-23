@@ -1,3 +1,10 @@
-<div>
+<div class="flex flex-row justify-around">
     <h3 class="text-gray-700 font-bold"><%= recipe.recipeName %></h3>
+    <div>
+        <form action="/removeRecipe" method="post">
+            <input type="hidden" name="id" value="<%= recipe._id %>">
+            <button type="submit" class="material-icons text-2xl text-green-500">delete</button>
+        </form>
+    </div>
+
 </div>

@@ -9,7 +9,6 @@ const { Recipe, recipeSchema } = require('../models/recipe');
 const multer = require('multer');
 const { analyzeImage } = require('../middlewares/imageController');
 const { renderRecipe, renderOwnedIngredients, renderInvalidQuery } = require('../middlewares/openAI_request_controller');
-const mongoose = require('mongoose');
 
 const {
     validateQuery,
@@ -61,8 +60,17 @@ router.get('/recipe/:id', async (req, res) => {
         console.log(err)
         return res.status(400).send(err);
     }
-    console.log(recipe.recipeName)
-    res.render('recipe', { recipe: recipe.recipeName });
+    console.log(recipe)
+    res.render('recipe', { recipe: recipe });
+});
+
+/**
+ * Removes a recipe from the user's favorites list and from the database
+ * @author Alice Huang
+ */
+router.post('/removeRecipe', async (req, res) => {
+    const recipe = await Recipe.deleteOne({ _id: req.body.id });
+    res.redirect('/myKitchen');
 });
 
 /**

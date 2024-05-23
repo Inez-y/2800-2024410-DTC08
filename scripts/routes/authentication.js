@@ -9,6 +9,7 @@ const { Recipe, recipeSchema } = require('../models/recipe');
 const multer = require('multer');
 const { analyzeImage } = require('../middlewares/imageController');
 const { renderRecipe, renderOwnedIngredients, renderInvalidQuery } = require('../middlewares/openAI_request_controller');
+const mongoose = require('mongoose');
 
 const {
     validateQuery,
@@ -53,10 +54,15 @@ router.get('/myKitchen', async (req, res) => {
 
 router.get('/recipe/:id', async (req, res) => {
     console.log(req.params.id)
-    const recipe = await Recipe.findOne({ _id: req.params.id });
+    let recipe;
+    try {
+        recipe = await Recipe.findById({ _id: req.params.id });
+    } catch (err) {
+        console.log(err)
+        return res.status(400).send(err);
+    }
     console.log(recipe.recipeName)
     res.render('recipe', { recipe: recipe.recipeName });
-    // res.send(`Recipe ID: ${req.params.id}`);
 });
 
 /**

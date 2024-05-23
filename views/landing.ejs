@@ -12,40 +12,125 @@
         </div>
     </div>
 
-
     <div>
-        <p class="text-left text-3xl text-gray-700 py-8">
-            The first page <br>
-            hahaha <br>
-            i hate <br>
-            tailwind <br>
-            it's <br>
-            very <br>
-            annoying <br>
-            worse <br>
-            than <br>
-            bootstrap <br>
-        </p>
+        <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage"></p>
     </div>
+
 </div>
 
 <div class="text-center">
-    <button class="px-10 py-2 m-4 bg-buttongreen rounded-full text-lg text-white" id="bt-getStarted"> Get Started
+    <button class="px-10 py-2 m-4 bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"> Sign Up
     </button>
 </div>
 
 <div class="flex justify-between align-bottom">
-    <button class="text-buttongreen text-sm" id="bt-skip">Skip</button>
-    <!-- Progress bars -->
-    <div class="flex justify-between align-bottom">
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
-            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
-            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
-            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
-            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
-    </div>
-    <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full" id="bt-next">Next</button>
+    <button class="text-buttongreen text-sm" id="skipBtn">Skip</button>
+    <div class="" id="progressBar"></div>
+    <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
 </div>
+
+<script>
+    // *--------------------------------------------*
+    // |   Set default text line and progress bar   |
+    // *--------------------------------------------*
+
+    function setDefaultTextLine() {
+        const flipThePageContents = document.createElement('div');
+        flipThePageContents.innerHTML =
+            `
+        The first page <br>
+        hahaha <br>
+        i hate <br>
+        tailwind <br>
+        it's <br>
+        very <br>
+        annoying <br>
+        worse <br>
+        than <br>
+        bootstrap <br>
+        `;
+        document.getElementById('flipThePage').appendChild(flipThePageContents);
+    }
+
+    function setDefaultProgressBar() {
+        const flipThePageProgressBar = document.createElement('div');
+        flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
+        flipThePageProgressBar.innerHTML =
+            `
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        `;
+        document.getElementById('progressBar').appendChild(flipThePageProgressBar);
+    }
+
+    setDefaultTextLine();
+    setDefaultProgressBar();
+
+    // *---------------------------------------------------------*
+    // |   Switch statement for updating text and progress bar   |
+    // *---------------------------------------------------------*
+    let numberOfClicks = 0;
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        numberOfClicks++;
+        console.log("Next button clicked " + numberOfClicks + " times.");
+
+        const flipThePageContents = document.createElement('div');
+        const flipThePageElement = document.getElementById('flipThePage');
+
+        const flipThePageProgressBar = document.createElement('div');
+        const flipThePageProgressElement = document.getElementById('progressBar');
+        flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
+
+        switch (numberOfClicks) {
+            case 0:
+                flipThePageContents.innerHTML = `     
+                The Second page <br>
+                Do I really like <br>
+                Javascript? <br>
+                Hmmm <br>
+            `;
+                flipThePageElement.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+    
+                `;
+                break;
+
+            case 1:
+                flipThePageContents.innerHTML = `     
+                The Third page <br>
+            `;
+                flipThePageElement.innerHTML = `asdf`;
+                break;
+
+            case 2:
+                flipThePageContents.innerHTML = `     
+                The fourth page <br>
+            `;
+                flipThePageElement.innerHTML = `3434`;
+                break;
+            case 3:
+                // Home router should be connect to home.ejs
+                window.location.href = './home';
+                break;
+        }
+
+        flipThePageElement.innerHTML = '';
+        flipThePageElement.appendChild(flipThePageContents);
+
+        flipThePageProgressElement.innerHTML = '';
+        flipThePageProgressElement.appendChild(flipThePageProgressBar);
+    });
+</script>
+<!-- End of landing.ejs -->

@@ -6,18 +6,18 @@ require('dotenv').config();
  * @author Shaun Sy
  */
 const rawIngredients = [
-    'apple', 'banana', 'carrot', 'potato', 'onion', 'garlic', 'tomato', 
-    'lettuce', 'broccoli', 'spinach', 'chicken', 'beef', 'pork', 'fish', 
-    'egg', 'milk', 'cheese', 'yogurt', 'flour', 'sugar', 'salt', 'pepper',
-    'orange', 'grape', 'berry', 'cucumber', 'celery', 'parsley', 'cilantro', 
-    'basil', 'mint', 'thyme', 'rosemary', 'sage', 'dill', 'corn', 'peas', 
-    'bean', 'lentil', 'rice', 'quinoa', 'barley', 'oat', 'almond', 'walnut',
-    'cashew', 'peanut', 'sesame', 'sunflower', 'pumpkin', 'butter', 'cream', 
-    'honey', 'maple syrup', 'vinegar', 'soy sauce', 'olive oil', 'coconut oil',
-    'avocado', 'bell pepper', 'zucchini', 'eggplant', 'mushroom', 'sweet potato',
-    'beet', 'radish', 'turnip', 'chard', 'kale', 'leek', 'scallion', 'chive', 'ham',
-  ];
-  
+  'apple', 'banana', 'carrot', 'potato', 'onion', 'garlic', 'tomato',
+  'lettuce', 'broccoli', 'spinach', 'chicken', 'beef', 'pork', 'fish',
+  'egg', 'milk', 'cheese', 'yogurt', 'flour', 'sugar', 'salt', 'pepper',
+  'orange', 'grape', 'berry', 'cucumber', 'celery', 'parsley', 'cilantro',
+  'basil', 'mint', 'thyme', 'rosemary', 'sage', 'dill', 'corn', 'peas',
+  'bean', 'lentil', 'rice', 'quinoa', 'barley', 'oat', 'almond', 'walnut',
+  'cashew', 'peanut', 'sesame', 'sunflower', 'pumpkin', 'butter', 'cream',
+  'honey', 'maple syrup', 'vinegar', 'soy sauce', 'olive oil', 'coconut oil',
+  'avocado', 'bell pepper', 'zucchini', 'eggplant', 'mushroom', 'sweet potato',
+  'beet', 'radish', 'turnip', 'chard', 'kale', 'leek', 'scallion', 'chive', 'ham'
+];
+
 /**
  * Middleware that analyzes an image and returns a list of detected ingredients
  * @author Shaun Sy

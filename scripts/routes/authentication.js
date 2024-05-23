@@ -14,7 +14,7 @@ const { analyzeImage } = require('../middlewares/imageController');
  */
 router.get('/profile', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });;
-    res.render("profile", { user, msg: req.query.msg});
+    res.render("profile", { user, msg: req.query.msg });
 });
 
 /**
@@ -51,7 +51,7 @@ router.post('/analyze-image', upload.single('image'), analyzeImage);
  * Route for saving ingredients to the user's profile
  * @author Shaun Sy
  */
-router.post('/save-ingredients', upload.none(), (req, res) => { // Use upload.none() for parsing non-file data
+router.post('/save-ingredients', upload.none(), async (req, res) => { // Use upload.none() for parsing non-file data
     console.log('Received form data:', req.body); // Log request body for debugging
 
     try {
@@ -78,27 +78,20 @@ router.post('/save-ingredients', upload.none(), (req, res) => { // Use upload.no
             unit: units[index] || null,
         }));
 
-        const userId = req.username.id;
-        if (!userId) {
-            console.error('User ID not found in session');
+        const userName = await User.findOne({ username: req.session.username });
+        if (!userName) {
+            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
-        User.findById(userId, (err, user) => {
-            if (err || !user) {
-                console.error('User not found with ID:', userId);
-                return res.status(404).send('User not found');
-            }
+        // Ensure userName.ingredients is an array
+        if (!Array.isArray(userName.ingredients)) {
+            userName.ingredients = [];
+        }
 
-            user.ingredients.push(...ingredients);
-            user.save((err) => {
-                if (err) {
-                    console.error('Error saving ingredients:', err);
-                    return res.status(500).send('Failed to save ingredients');
-                }
-                res.status(200).send('Ingredients saved successfully');
-            });
-        });
+        userName.ingredients.push(...ingredients);
+        await userName.save();
+        res.status(200).send('Ingredients saved successfully');
     } catch (error) {
         console.error('Error saving ingredients:', error);
         res.status(500).send('Failed to save ingredients');

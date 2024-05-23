@@ -33,8 +33,42 @@ const userSchema = new Schema({
         type: String,
         default: 'user',
         required: true
-    }
+    },
+    ingredients : [
+        {
+            name : {
+                type: String,
+                required: true
+            },
+            amount : {
+                type : Number,
+                required: true
+            },
+            unit: String
+        }
+    ],
+    groceryList : [
+        {
+            name : {
+                type: String,
+                required: true
+            },
+            amount : {
+                type : Number,
+                required: true
+            },
+            unit: String
+        }
+    ],
+    favorites : [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Recipe'
+        }
+    ]
 });
+
+
 const User = mongoose.model('User', userSchema);
 
 const userNameValidation = Joi.string().alphanum().min(3).max(30).required();

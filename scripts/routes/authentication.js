@@ -78,7 +78,7 @@ router.post('/save-ingredients', upload.none(), (req, res) => { // Use upload.no
             unit: units[index] || null,
         }));
 
-        const userId = req.username._id;
+        const userId = req.username.id;
         if (!userId) {
             console.error('User ID not found in session');
             return res.status(401).send('User not authenticated');

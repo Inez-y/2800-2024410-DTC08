@@ -60,7 +60,6 @@ router.get('/recipe/:id', async (req, res) => {
         console.log(err)
         return res.status(400).send(err);
     }
-    console.log(recipe)
     res.render('recipe', { recipe: recipe });
 });
 
@@ -74,10 +73,10 @@ router.post('/removeRecipe', async (req, res) => {
 });
 
 /**
- * Renders the favorites page (for testing)
+ * Saves the recipe to the user's cookbook and the database
  * @author Alice Huang
  */
-router.post('/bookmark', async (req, res) => {
+router.post('/save', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
     let steps = await parseSteps(req.body.recipe);
     let name = await parseName(req.body.recipe);
@@ -92,7 +91,7 @@ router.post('/bookmark', async (req, res) => {
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
     
-    res.send(`${recipe}`);
+    res.redirect('/myKitchen');
 });
 
 /**

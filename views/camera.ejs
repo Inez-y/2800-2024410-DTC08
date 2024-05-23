@@ -5,7 +5,6 @@
     <div class="w-full max-w-xs text-center">
         <h2 class="block text-gray-700 text-lg font-bold mb-4">Upload or Capture Food Image</h2>
         
-        <!-- File Upload Section -->
         <input type="file" id="fileInput" accept="image/*" class="mb-4">
         
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
@@ -13,7 +12,6 @@
             <button type="submit" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze Image</button>
         </form>
         
-        <!-- Ingredients List Modal -->
         <div id="ingredientsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
             <div class="bg-white rounded-lg p-4 w-full max-w-lg">
                 <h3 class="text-gray-700 font-bold text-xl mb-4">Detected Ingredients</h3>
@@ -89,7 +87,6 @@
         console.log('Ingredients form submit event triggered');
         const formData = new FormData(ingredientsForm);
 
-        // Log form data for debugging
         console.log('FormData entries:');
         for (const [key, value] of formData.entries()) {
             console.log(`${key}: ${value}`);

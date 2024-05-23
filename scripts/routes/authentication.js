@@ -72,7 +72,7 @@ router.get('/cookbook', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
-    res.render('favorites', { recipes: recipes })
+    res.render('cookbook', { recipes: recipes })
 });
 
 router.get('/recipe/:id', async (req, res) => {

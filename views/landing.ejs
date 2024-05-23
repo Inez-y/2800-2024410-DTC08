@@ -1,40 +1,51 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<main class="flex flex-col items-center justify-center h-screen">
-    <% if (show) { %>
-    <div class="flex flex-col items-center">
-        <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
-        <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
+<div class="">
+    <div class="flex">
+        <h1 class="text-left text-6xl py-2 pr-2">ReciPT</h1>
+        <div class="flex justify-end">
+            <p class="text-right text-lightGrey text-sm">
+                Have an <br> account? <br>
+                <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
+            </p>
+        </div>
     </div>
-    <% } else { %>
-    <div id="query-logs" class="flex flex-col justify-between m-4">
-        <% for(let i=1; i < response.length; i++) { %>
-        <% if (i%2 == 0) { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT'}) %>
-        <% } else { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'You'}) %>
-        <% } %>
-        <% } %>
+
+
+    <div>
+        <p class="text-left text-3xl text-gray-700 py-8">
+            The first page <br>
+            hahaha <br>
+            i hate <br>
+            tailwind <br>
+            it's <br>
+            very <br>
+            annoying <br>
+            worse <br>
+            than <br>
+            bootstrap <br>
+        </p>
     </div>
-    <% } %>
+</div>
 
-    <div id="chatbot-container" class="mt-6 w-full max-w-xs">
-        <form action="/" method="post" class="flex">
-            <input type="text" id="query" name="query" class="rounded-lg pl-3 p-4 px-10 m-1 shadow-lg flex-grow"
-                placeholder="Type a message here">
-            <button id="send-btn" type="submit" class="mt-2 py-2 px-4">
-                <!-- Google Icon: Send -->
-                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="30px"
-                    fill="#779341">
-                    <path
-                        d="M120-160v-640l760 320-760 320Zm66.67-102 520.66-218-520.66-220v158.67L428-480l-241.33 60v158Zm0 0v-438 438Z" />
-                </svg>
-            </button>
-        </form>
+<div class="text-center">
+    <button class="px-10 py-2 m-4 bg-buttongreen rounded-full text-lg text-white" id="bt-getStarted"> Get Started
+    </button>
+</div>
+
+<div class="flex justify-between align-bottom">
+    <button class="text-buttongreen text-sm" id="bt-skip">Skip</button>
+    <!-- Progress bars -->
+    <div class="flex justify-between align-bottom">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" /></svg>
     </div>
-</main>
-
-</main>
-
-<%- include("templates/footer") %>
+    <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full" id="bt-next">Next</button>
+</div>

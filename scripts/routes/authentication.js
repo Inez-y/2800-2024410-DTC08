@@ -60,7 +60,15 @@ router.post('/home', async (req, res) => {
     }
 });
 
+router.get('/myIngredients', async (req, res) => {
+    res.render('myIngredients');
+});
+
 router.get('/myKitchen', async (req, res) => {
+    res.render('myKitchen');
+});
+
+router.get('/cookbook', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });

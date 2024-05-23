@@ -23,7 +23,23 @@ const {
  */
 router.get('/profile', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });;
-    res.render("profile", { user, msg: req.query.msg});
+    res.render("profile", { user, msg: req.query.msg });
+});
+
+router.get('/home', async (req, res) => {
+    if (req.session.loggedin && req.session.message_history.length > 1) {
+        res.render('home', {
+            response: req.session.message_history,
+            show: false,
+            isRecipe: req.session.isRecipe
+        });
+    } else {
+        res.render('home', {
+            response: null,
+            show: true,
+            isRecipe: [0, 0, 0]
+        });
+    }
 });
 
 /**
@@ -41,14 +57,14 @@ router.post('/home', async (req, res) => {
         renderOwnedIngredients(req, res);
     } else {
         renderInvalidQuery(req, res);
-    }});
+    }
+});
 
 router.get('/myKitchen', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
-    console.log(recipes[0]._id)
-    res.render('favorites', { recipes: recipes})
+    res.render('favorites', { recipes: recipes })
 });
 
 router.get('/recipe/:id', async (req, res) => {
@@ -82,7 +98,7 @@ router.post('/save', async (req, res) => {
     let name = await parseName(req.body.recipe);
     console.log(ingredients)
     try {
-        var recipe = new Recipe({recipeName: name, ingredients: ingredients, steps: steps, tags: []})
+        var recipe = new Recipe({ recipeName: name, ingredients: ingredients, steps: steps, tags: [] })
         recipe.save();
     } catch (err) {
         return res.status(400).send(err.details[0].message);
@@ -90,7 +106,7 @@ router.post('/save', async (req, res) => {
     console.log(recipe._id)
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
-    
+
     res.redirect('/myKitchen');
 });
 

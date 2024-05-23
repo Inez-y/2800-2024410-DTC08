@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const Joi = require('joi');
 
 const userSchema = new Schema({
-    username: 
+    username:
     {
         type: String,
         required: true,
@@ -16,12 +16,13 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true},
-    password: 
+        unique: true
+    },
+    password:
     {
         type: String,
         required: true
-    
+
     },
     resetPasswordToken: {
         type: String
@@ -34,33 +35,33 @@ const userSchema = new Schema({
         default: 'user',
         required: true
     },
-    ingredients : [
+    ingredients: [
         {
-            name : {
+            name: {
                 type: String,
                 required: true
             },
-            amount : {
-                type : Number,
+            amount: {
+                type: Number,
                 required: true
             },
             unit: String
         }
     ],
-    groceryList : [
+    groceryList: [
         {
-            name : {
+            name: {
                 type: String,
                 required: true
             },
-            amount : {
-                type : Number,
+            amount: {
+                type: Number,
                 required: true
             },
             unit: String
         }
     ],
-    favorites : [
+    favorites: [
         {
             type: Schema.Types.ObjectId,
             ref: 'Recipe'

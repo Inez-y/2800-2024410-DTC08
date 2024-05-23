@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 
-const { User, userValidationSchema, passwordValidationSchema, userNameValidationSchema, emailValidationSchema} = require('../models/user');
+const { User, userValidationSchema, passwordValidationSchema, userNameValidationSchema, emailValidationSchema } = require('../models/user');
 const expireTimeOneHour = 60 * 60 * 1000;
 
 /**
@@ -19,9 +19,11 @@ function initSession(req, username) {
     req.session.loggedin = true;
     req.session.username = username;
     req.session.cookie.maxAge = expireTimeOneHour;
-    req.session.message_history = [{role: 'system', 
-    content: `You are a helpful assistant. You generate detailed recipes based on user queries. `},
-    {role: 'user', content: `Provide a concrete amount of ingredients instead of a range. For example, use "1 cup of flour" instead of "1-2 cups of flour". `}];
+    req.session.message_history = [{
+        role: 'system',
+        content: `You are a helpful assistant. You generate detailed recipes based on user queries. `
+    },
+    { role: 'user', content: `Provide a concrete amount of ingredients instead of a range. For example, use "1 cup of flour" instead of "1-2 cups of flour". ` }];
     req.session.isRecipe = [0];
 }
 
@@ -48,11 +50,11 @@ router.post('/signUp', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({ username, email, password: hashedPassword, role: 'user' });
-    
+
     await user.save();
 
     initSession(req, username);
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 /**
@@ -77,9 +79,9 @@ router.post('/logIn', async (req, res) => {
     if (!validPassword) {
         return res.redirect('/logIn?msg=Incorrect password');
     }
-    
+
     initSession(req, username);
-    res.redirect('/');
+    res.redirect('/home');
 });
 
 /**
@@ -138,7 +140,7 @@ router.post('/updateUserEmail', async (req, res) => {
 
     const newEmailExists = await User.findOne({ email: newEmail });
     console.log("new email exists: " + newEmailExists);
-   
+
     if (newEmailExists !== null && newEmailExists.username !== user.username) {
         return res.redirect('/profile?msg=Email has been taken');
     }
@@ -214,7 +216,7 @@ router.post('/forgot', async (req, res) => {
  */
 router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
-    const newPassword  = req.body.password;
+    const newPassword = req.body.password;
 
     console.log("token: " + token);
     console.log("new password: " + newPassword);
@@ -227,7 +229,7 @@ router.post('/resetPassword/:token', async (req, res) => {
         return res.redirect('/forgot?msg=Invalid or expired token');
     }
 
-    
+
     const hashedPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashedPassword;

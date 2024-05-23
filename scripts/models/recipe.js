@@ -6,21 +6,21 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const recipeSchema = new Schema({
-    steps : String,
-    ingredients : [
+    steps: String,
+    ingredients: [
         {
-            name : {
+            name: {
                 type: String,
                 required: true
             },
-            amount : {
-                type : Number,
+            amount: {
+                type: Number,
                 required: false
             },
             unit: String
         }
     ],
-    recipeName : {
+    recipeName: {
         type: String,
         required: true
     },

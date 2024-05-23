@@ -16,10 +16,11 @@ const parseIngredients = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      {role: "system", content: `You are a helpful assistant. You extract the ingredients needed in a cooking recipe by returning the ingredients in a 
+      {
+        role: "system", content: `You are a helpful assistant. You extract the ingredients needed in a cooking recipe by returning the ingredients in a 
                                  specific JSON format. For each ingredient, you list the name (a string), amount (a number), and unit (a string). For numbers, do not include fractions. Do not include 'ingredients' header. Do not include context.`},
-      {role: "user", content: `Here is a sample JSON response for you to refer to: [{"name": "tomato", "amount": 2, "unit": "whole"}, {"name": "flour", "quantity": 0.5, "unit": "cup"}, {"name": "salt", "quantity": 1, "unit": "g"}]`},
-      {role: "assistant", content: "Understood. I will now determine the ingredients in the recipe."},
+      { role: "user", content: `Here is a sample JSON response for you to refer to: [{"name": "tomato", "amount": 2, "unit": "whole"}, {"name": "flour", "quantity": 0.5, "unit": "cup"}, {"name": "salt", "quantity": 1, "unit": "g"}]` },
+      { role: "assistant", content: "Understood. I will now determine the ingredients in the recipe." },
       {
         role: 'user',
         content: `${recipe}`
@@ -40,8 +41,8 @@ const parseSteps = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      {role: "system", content: `You are a helpful assistant. You extract and return only the cooking steps in a cooking recipe. Do not include context.`},
-      {role: "assistant", content: "Understood. I will now determine the steps in the recipe."},
+      { role: "system", content: `You are a helpful assistant. You extract and return only the cooking steps in a cooking recipe. Do not include context.` },
+      { role: "assistant", content: "Understood. I will now determine the steps in the recipe." },
       {
         role: 'user',
         content: `${recipe}`
@@ -62,8 +63,8 @@ const parseName = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      {role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe. Do not include context.`},
-      {role: "assistant", content: "Understood. I will now determine the name of the recipe."},
+      { role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe. Do not include context.` },
+      { role: "assistant", content: "Understood. I will now determine the name of the recipe." },
       {
         role: 'user',
         content: `${recipe}`
@@ -82,11 +83,11 @@ const parseName = async (recipe) => {
  * @author Alice Huang
  */
 const generateRecipe = async (query, message_history) => {
-    message_history.push({
-        role: 'user',
-        content: `${query}`
-      });
-    const recipe = await openai.chat.completions.create({
+  message_history.push({
+    role: 'user',
+    content: `${query}`
+  });
+  const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: message_history,
     // max_tokens: 100
@@ -103,11 +104,11 @@ const generateRecipe = async (query, message_history) => {
  * @author Alice Huang
  */
 const generateRecipeFromKitchen = async (ingredients, message_history) => {
-    let ingredientString = ingredients.map((ingredient) => {return `${ingredient.quantity} ${ingredient.name}`;}).join(', ');
+  let ingredientString = ingredients.map((ingredient) => { return `${ingredient.quantity} ${ingredient.name}`; }).join(', ');
 
-    console.log(ingredientString)
-    message_history.push({role: 'user', content: `I have ${ingredientString}, what can I make with them? Do not give me recipes that require more ingredients than I have.`});
-    const recipe = await openai.chat.completions.create({
+  console.log(ingredientString)
+  message_history.push({ role: 'user', content: `I have ${ingredientString}, what can I make with them? Do not give me recipes that require more ingredients than I have.` });
+  const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: message_history,
     // max_tokens: 100
@@ -123,25 +124,26 @@ const generateRecipeFromKitchen = async (ingredients, message_history) => {
  * @author Alice Huang
  */
 const validateQuery = async (query) => {
-    const result = await openai.chat.completions.create({
-      model: "gpt-3.5-turbo",
-      messages: [
-        {role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', or 'invalid'."},
-        {role: "user", content: `Valid queries are ones which ask you to generate a cooking recipe. 
+  const result = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      { role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', or 'invalid'." },
+      {
+        role: "user", content: `Valid queries are ones which ask you to generate a cooking recipe. 
                                  For queries which ask for a cooking recipe based on 0 or more ingredients, return 'recipe'. 
                                  For queries which ask what the user currently has, return 'kitchen'.
                                  For queries which ask you to generate another recipe, return 'recipe'.
                                  All other queries are invalid, and you should return 'invalid'.`},
-        {role: "assistant", content: "Understood. I will now determine whether queries I receive are valid or not."},
-        {
-          role: 'user',
-          content: `${query}`
-        }
-      ],
-      max_tokens: 100
-    })
-    console.log(result.choices[0].message);
-    return result.choices[0].message.content;
-  }
+      { role: "assistant", content: "Understood. I will now determine whether queries I receive are valid or not." },
+      {
+        role: 'user',
+        content: `${query}`
+      }
+    ],
+    max_tokens: 100
+  })
+  console.log(result.choices[0].message);
+  return result.choices[0].message.content;
+}
 
 module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName }

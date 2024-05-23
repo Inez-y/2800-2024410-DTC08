@@ -40,16 +40,16 @@ const setUpVariables = (req, renderingRecipe) => {
 }
 
 /**
- * Renders the landing page with the generated recipe
+ * Renders the home page with the generated recipe
  * @param {*} req 
  * @param {*} res 
  * @author Alice Huang
  */
 const renderRecipe = async (req, res) => {
-    let {message_history, isRecipe} = setUpVariables(req, true);
+    let { message_history, isRecipe } = setUpVariables(req, true);
 
     await generateRecipe(req.body.query, message_history);
-    res.render('landing', {
+    res.render('home', {
         response: message_history,
         show: null,
         isRecipe: isRecipe
@@ -57,13 +57,13 @@ const renderRecipe = async (req, res) => {
 }
 
 /**
- * Renders the landing page with the ingredients the user has in their kitchen
+ * Renders the home page with the ingredients the user has in their kitchen
  * @param {*} req 
  * @param {*} res 
  * @author Alice Huang
  */
 const renderOwnedIngredients = async (req, res) => {
-    let {message_history, isRecipe} = setUpVariables(req, false);
+    let { message_history, isRecipe } = setUpVariables(req, false);
 
     message_history.push({
         role: 'user',
@@ -73,7 +73,7 @@ const renderOwnedIngredients = async (req, res) => {
         content: 'You have ... in your kitchen'
     });
 
-    res.render('landing', {
+    res.render('home', {
         response: message_history,
         show: null,
         isRecipe: isRecipe
@@ -81,13 +81,13 @@ const renderOwnedIngredients = async (req, res) => {
 }
 
 /**
- * Renders the landing page with a message that the user's query is invalid
+ * Renders the home page with a message that the user's query is invalid
  * @param {*} req 
  * @param {*} res 
  * @author Alice Huang
  */
 const renderInvalidQuery = async (req, res) => {
-    let {message_history, isRecipe} = setUpVariables(req, false);
+    let { message_history, isRecipe } = setUpVariables(req, false);
 
     message_history.push({
         role: 'user',
@@ -97,7 +97,7 @@ const renderInvalidQuery = async (req, res) => {
         content: 'That is not a valid query. Please try again.'
     });
 
-    res.render('landing', {
+    res.render('home', {
         response: message_history,
         show: null,
         isRecipe: isRecipe

@@ -1,0 +1,42 @@
+<%- include("templates/htmlDocHeader") %>
+    <%- include("templates/header") %>
+
+        <main class="flex flex-col items-center justify-center h-screen">
+            <% if (show) { %>
+                <div class="flex flex-col items-center">
+                    <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
+                    <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
+                </div>
+                <% } else { %>
+                    <div id="query-logs" class="flex flex-col justify-between m-4">
+                        <% for(let i=1; i < response.length; i++) { %>
+                            <% if (i%2==0) { %>
+                                <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe:
+                                    isRecipe[i]}) %>
+                                    <% } else { %>
+                                        <%- include('templates/chatlog', {log: response[i].content, user: 'You' ,
+                                            isRecipe: isRecipe[i]}) %>
+                                            <% } %>
+                                                <% } %>
+                    </div>
+                    <% } %>
+
+                        <div id="chatbot-container" class="mt-6 w-full max-w-xs">
+                            <% if (session.loggedin) { %>
+                                <form action="/home" method="post">
+                                    <% } else { %>
+                                        <form action="/" method="post">
+                                            <% } %>
+                                                <input type="text" id="query" name="query">
+                                                <button id="send-btn" type="submit"
+                                                    class="mt-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                                    Send
+                                                </button>
+                                        </form>
+                        </div>
+        </main>
+
+        <%- include("templates/footer") %>
+
+            <script>
+            </script>

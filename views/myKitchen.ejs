@@ -1,11 +1,11 @@
 <%- include("templates/htmlDocHeader") %>
     <%- include("templates/header") %>
-
+    <main class="flex flex-col items-center justify-center h-screen">
         <div class="p-4 m-10 rounded-3xl bg-white">
             <div class="p-2 m-2 text-left text-lg text-buttongreen">
-                <button id="chatlogHistoryEditButton"> Edit </button>
+                <!-- <button id="chatlogHistoryEditButton"> Edit </button> -->
             </div>
-            <div class="text-left text-4xl p-2 m-2 font-bold"> My <br>Kitchen </div>
+            <!-- <div class="text-left text-4xl p-2 m-2 font-bold"> My <br>Kitchen </div> -->
 
             <div class="flex justify-center">
                 <a href="/cookbook">
@@ -19,29 +19,6 @@
                 </a>
             </div>
 
-            <div class="flex flex-col" id="chatlogHistoryList">
-                <div class="p-4 m-1 rounded-3xl bg-gray-400 bg-opacity-90">
-                    <p> img </p>
-                    <p> list 1 </p>
-                    <p> date </p>
-                </div>
-                <div class="p-4 m-1 rounded-3xl bg-buttongreen bg-opacity-90">
-                    <p> img </p>
-                    <p> list 2 </p>
-                    <p> date </p>
-                </div>
-                <div class="p-4 m-1 rounded-3xl bg-gray-400 bg-opacity-90">
-                    <p> img </p>
-                    <p> list 3 </p>
-                    <p> date </p>
-                </div>
-                <div class="p-4 m-1 rounded-3xl bg-buttongreen bg-opacity-90">
-                    <p> img </p>
-                    <p> list 4 </p>
-                    <p> date </p>
-                </div>
-            </div>
-
-
         </div>
+    </main>
         <%- include("templates/footer") %>

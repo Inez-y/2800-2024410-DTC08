@@ -86,6 +86,9 @@ router.get('/cookbook', async (req, res) => {
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
     res.render('cookbook', { recipes: recipes })
+    // let user = await User.findOne({ username: req.session.username });
+    // let recipe = await Recipe.findById({ _id: user.favorites[0] });
+    // res.render('recipe', { recipe: recipe });
 });
 
 /**
@@ -102,6 +105,7 @@ router.get('/recipe/:id', async (req, res) => {
         return res.status(400).send(err);
     }
     res.render('recipe', { recipe: recipe });
+    // res.render('aboutus');
 });
 
 /**

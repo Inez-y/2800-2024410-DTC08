@@ -676,6 +676,14 @@ video {
   appearance: none;
 }
 
+.align-baseline {
+  vertical-align: baseline;
+}
+
+.align-text-bottom {
+  vertical-align: text-bottom;
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }

@@ -12,7 +12,9 @@
         <div class="flex justify-end">
             <p class="text-right text-lightGrey text-sm">
                 Have an <br> account? <br>
-                <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
+                <a href="./login">
+                    <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
+                </a>
             </p>
         </div>
     </div>
@@ -29,11 +31,14 @@
     </button>
 </div>
 
-<div class="flex justify-between align-bottom">
-    <a href="./signup"><button class="text-buttongreen text-sm" id="skipBtn">Skip</button></a>
-    <div class="" id="progressBar"></div>
+<div class="flex justify-between items-center">
+    <a href="./signup" class="align-baseline">
+        <button class="text-buttongreen text-sm align-text-bottom" id="skipBtn">Skip</button>
+    </a>
+    <div class="flex-1 mx-2" id="progressBar"></div>
     <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
 </div>
+
 
 <script>
     // *--------------------------------------------*
@@ -51,9 +56,6 @@
         it's <br>
         very <br>
         annoying <br>
-        worse <br>
-        than <br>
-        bootstrap <br>
         `;
         document.getElementById('flipThePage').appendChild(flipThePageContents);
     }
@@ -124,6 +126,11 @@
             case 2:
                 flipThePageContents.innerHTML = `     
                 The Third page <br>
+                I just want to <br>
+                have a <br>
+                short <br>
+                nap <br>
+       
             `;
                 flipThePageProgressBar.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
@@ -144,6 +151,11 @@
             case 3:
                 flipThePageContents.innerHTML = `     
                 The fourth page <br>
+                Oh I forgot <br>
+                my legs day <br>
+                I'll have <br>
+                chicken <br>
+                legs<br>
             `;
                 flipThePageProgressBar.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">

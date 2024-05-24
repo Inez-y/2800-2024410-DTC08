@@ -67,7 +67,8 @@ router.post('/home', async (req, res) => {
 });
 
 router.get('/myIngredients', async (req, res) => {
-    res.render('myIngredients');
+    const user = await User.findOne({ username: req.session.username });
+    res.render('myIngredients', { ingredients: user.ingredients });
 });
 
 /**
@@ -169,7 +170,6 @@ router.post('/analyze-image', upload.single('image'), analyzeImage);
  * @author Shaun Sy
  */
 router.post('/save-ingredients', upload.none(), async (req, res) => {
-    console.log('Received form data:', req.body);
 
     try {
         const { ingredientNames, ingredientAmounts, ingredientUnits } = req.body;
@@ -212,5 +212,64 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
     }
 });
 
+/**
+ * Route for updating ingredients in the user's profile
+ */
+router.post('/update-ingredients', async (req, res) => {
+    const { ingredients } = req.body;
+
+    try {
+        const user = await User.findOne({ username: req.session.username });
+        if (!user) {
+            console.error('User not found in session');
+            return res.status(401).send('User not authenticated');
+        }
+
+        if (!Array.isArray(ingredients)) {
+            console.error('Invalid data format');
+            return res.status(400).send('Invalid data format');
+        }
+
+        ingredients.forEach(updatedIngredient => {
+            const ingredientIndex = user.ingredients.findIndex(i => i._id.toString() === updatedIngredient.id);
+            if (ingredientIndex > -1) {
+                user.ingredients[ingredientIndex].name = updatedIngredient.name;
+                user.ingredients[ingredientIndex].amount = updatedIngredient.amount;
+                user.ingredients[ingredientIndex].unit = updatedIngredient.unit;
+            }
+        });
+
+        await user.save();
+        res.status(200).send('Ingredients updated successfully');
+    } catch (error) {
+        console.error('Error updating ingredients:', error);
+        res.status(500).send('Failed to update ingredients');
+    }
+});
+
+/**
+ * Route for deleting an ingredient from the user's profile
+ */
+router.delete('/delete-ingredient/:id', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.session.username });
+        if (!user) {
+            console.error('User not found in session');
+            return res.status(401).send('User not authenticated');
+        }
+
+        const ingredientIndex = user.ingredients.findIndex(i => i._id.toString() === req.params.id);
+        if (ingredientIndex > -1) {
+            user.ingredients.splice(ingredientIndex, 1);
+            await user.save();
+            res.status(200).send('Ingredient deleted successfully');
+        } else {
+            res.status(404).send('Ingredient not found');
+        }
+    } catch (error) {
+        console.error('Error deleting ingredient:', error);
+        res.status(500).send('Failed to delete ingredient');
+    }
+});
 
 module.exports = router;

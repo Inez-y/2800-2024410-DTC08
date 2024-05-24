@@ -205,9 +205,30 @@
                 </div>
             </div>
         </div>
-        <img id="easterEgg" class="bouncing-image" src="/IYKYK.png" alt="Happy Easter Egg!">
+        <img id="easterEgg" class="hidden" src="/IYKYK.png" alt="Happy Easter Egg!">
         <script>
-            // document.getElementById
+            const nameHeaders = document.querySelectorAll('.font-bold');
+            const easterEgg = document.getElementById('easterEgg');
+            const clickedArray = [0, 0, 0, 0, 0];
+
+            nameHeaders.forEach((div, index) => {
+                div.addEventListener('click', () => {
+                    clickedArray[index - 1] = 1;
+                    div.classList.add('text-buttongreen');
+                    checkEasterEggConditions();
+                });
+            });
+
+            function checkEasterEggConditions() {
+                if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
+                    console.log('Easter Egg activated!');
+                    easterEgg.classList.remove('hidden');
+                    easterEgg.classList.add('bouncing-image');
+                } else {
+                    console.log('Easter Egg not activated!');
+                }
+            }
+            
         </script>
 
         <!-- End of aboutUs.ejs -->

@@ -658,6 +658,10 @@ video {
   width: 12rem;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .w-full {
   width: 100%;
 }
@@ -682,6 +686,10 @@ video {
 
 .align-text-bottom {
   vertical-align: text-bottom;
+}
+
+.fixed {
+  position: fixed;
 }
 
 .grid-cols-1 {
@@ -1040,4 +1048,16 @@ video {
 .focus\:outline-none:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
+}
+
+.z-999 {
+  z-index: 0;
+}
+
+.z-1000 {
+  z-index: 1000;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }

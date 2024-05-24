@@ -1,64 +1,39 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-        <main class="flex flex-col items-center justify-center h-screen">
-            <div class="p-4 m-10 rounded-3xl bg-white">
-                <!-- <div class="p-2 m-2 text-left text-lg text-buttongreen">
+<main class="flex flex-col items-center justify-center h-screen">
+    <div class="p-4 m-10 rounded-3xl bg-white">
+        <!-- <div class="p-2 m-2 text-left text-lg text-buttongreen">
         <button id="chatlogHistoryEditButton"> Edit </button>
     </div> -->
-                <div class="text-left text-4xl p-2 m-2 font-bold"> Favourites </div>
+        <div class="text-left text-4xl p-2 m-2 font-bold"> Favourites </div>
 
-                <div class="flex justify-center">
-                    <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myCookbookButton">
-                        My Cookbook </button>
-                    <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton"> My
-                        Ingredients
-                    </button>
-                </div>
-                <div class="w-full max-w-xs">
-                    <ul id="favorites-list" class="mb-4">
-                        <!-- Favorite recipes will be dynamically added here -->
-                        <% for (let i=0; i < recipes.length; i++) { %>
-                            <a href="/recipe/<%= recipes[i]._id %>">
+        <div class="flex justify-center">
+            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myCookbookButton">
+                My Cookbook </button>
+            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton"> My
+                Ingredients
+            </button>
+        </div>
+        <div class="w-full max-w-xs">
+            <ul id="favorites-list" class="mb-4">
+                <!-- Favorite recipes will be dynamically added here -->
+                <% for (let i=0; i < recipes.length; i++) { %>
+                <a href="/recipe/<%= recipes[i]._id %>">
 
-                                <li
-                                    class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start">
-                                    <%- include('templates/recipeCard', {recipe: recipes[i]}) %>
-                                </li>
-                            </a>
-                            <% } %>
-                    </ul>
-                </div>
-                <div class="flex flex-col" id="chatlogHistoryList">
-                    <div class="p-4 m-1 rounded-3xl bg-gray-400 bg-opacity-90">
-                        <p> img </p>
-                        <p> list 1 </p>
-                        <p> date </p>
-                    </div>
-                    <div class="p-4 m-1 rounded-3xl bg-buttongreen bg-opacity-90">
-                        <p> img </p>
-                        <p> list 2 </p>
-                        <p> date </p>
-                    </div>
-                    <div class="p-4 m-1 rounded-3xl bg-gray-400 bg-opacity-90">
-                        <p> img </p>
-                        <p> list 3 </p>
-                        <p> date </p>
-                    </div>
-                    <div class="p-4 m-1 rounded-3xl bg-buttongreen bg-opacity-90">
-                        <p> img </p>
-                        <p> list 4 </p>
-                        <p> date </p>
-                    </div>
-                </div>
+                    <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start">
+                        <%- include('templates/recipeCard', {recipe: recipes[i]}) %>
+                    </li>
+                </a>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+    <%- include("templates/footer") %>
 
 
-            </div>
-            <%- include("templates/footer") %>
+    <script>
+    </script>
+    </body>
 
-
-                <script>
-                </script>
-                </body>
-
-                </html>
+    </html>

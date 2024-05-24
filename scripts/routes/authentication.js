@@ -143,13 +143,12 @@ router.post('/analyze-image', upload.single('image'), analyzeImage);
  * Route for saving ingredients to the user's profile
  * @author Shaun Sy
  */
-router.post('/save-ingredients', upload.none(), async (req, res) => { // Use upload.none() for parsing non-file data
-    console.log('Received form data:', req.body); // Log request body for debugging
+router.post('/save-ingredients', upload.none(), async (req, res) => {
+    console.log('Received form data:', req.body);
 
     try {
         const { ingredientNames, ingredientAmounts, ingredientUnits } = req.body;
 
-        // Log received data for debugging
         console.log('Received ingredientNames:', ingredientNames);
         console.log('Received ingredientAmounts:', ingredientAmounts);
         console.log('Received ingredientUnits:', ingredientUnits);
@@ -159,7 +158,6 @@ router.post('/save-ingredients', upload.none(), async (req, res) => { // Use upl
             return res.status(400).send('Invalid data');
         }
 
-        // Convert to arrays if only single element is received
         const names = Array.isArray(ingredientNames) ? ingredientNames : [ingredientNames];
         const amounts = Array.isArray(ingredientAmounts) ? ingredientAmounts : [ingredientAmounts];
         const units = Array.isArray(ingredientUnits) ? ingredientUnits : [ingredientUnits];
@@ -176,7 +174,6 @@ router.post('/save-ingredients', upload.none(), async (req, res) => { // Use upl
             return res.status(401).send('User not authenticated');
         }
 
-        // Ensure userName.ingredients is an array
         if (!Array.isArray(userName.ingredients)) {
             userName.ingredients = [];
         }

@@ -254,7 +254,7 @@
 
         nameHeaders.forEach((div, index) => {
             div.addEventListener('click', () => {
-                clickedArray[index - 1] = 1;
+                clickedArray[index - 2] = 1;
                 div.classList.add('text-buttongreen');
                 checkEasterEggConditions();
             });

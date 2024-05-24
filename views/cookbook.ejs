@@ -1,7 +1,7 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<main class="flex flex-col items-center justify-center h-screen">
+<main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
     <% for (let i=0; i < recipes.length; i++) { %>
     <div class="p-4 m-10 rounded-3xl bg-white recipes overflow-y-auto max-h-80" id="recipe-<%= i %>" style="display: none">
         <div class="text-left text-4xl p-2 m-2 font-bold"><%= recipes[i].recipeName %></div>

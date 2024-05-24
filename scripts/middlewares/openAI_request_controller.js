@@ -1,18 +1,14 @@
 // contains functions that determine how to render chatbot responses
-
+const { User } = require('../models/user');
 const {
     generateRecipe,
-    validateQuery,
     generateRecipeFromKitchen,
-    parseIngredients,
-    parseSteps,
-    parseName
+    beautifyStringifiedIngredients
 } = require('../middlewares/openAI_controller');
 
 /**
  * Sets up message_history and isRecipe variables based on whether the user is logged in and rendering a recipe
- * @param {*} req 
- * @param {*} renderingRecipe 
+ * @param {*} renderingRecipe whether the query to be sent now to OpenAI is a recipe or not
  * @returns message_history and isRecipe variables
  * @author Alice Huang
  */
@@ -41,8 +37,6 @@ const setUpVariables = (req, renderingRecipe) => {
 
 /**
  * Renders the home page with the generated recipe
- * @param {*} req 
- * @param {*} res 
  * @author Alice Huang
  */
 const renderRecipe = async (req, res) => {
@@ -57,20 +51,51 @@ const renderRecipe = async (req, res) => {
 }
 
 /**
+ * Renders the home page with the generated recipe based on ingredients the user has
+ * @author Alice Huang 
+ */
+const renderRecipeFromOwnedIngredients = async (req, res) => {
+    let { message_history, isRecipe } = setUpVariables(req, true);
+
+    message_history.push({
+        role: 'user',
+        content: `${req.body.query}`
+    });
+
+    let user = await User.findOne({ username: req.session.username });
+    let ingredients = user.ingredients;
+    await generateRecipeFromKitchen(ingredients, message_history);
+    res.render('home', {
+        response: message_history,
+        show: null,
+        isRecipe: isRecipe
+    });
+};
+
+/**
  * Renders the home page with the ingredients the user has in their kitchen
- * @param {*} req 
- * @param {*} res 
  * @author Alice Huang
  */
 const renderOwnedIngredients = async (req, res) => {
     let { message_history, isRecipe } = setUpVariables(req, false);
+    let user = await User.findOne({ username: req.session.username });
+    let ingredients = user.ingredients;
+
+    let stringifiedIngredients = '';
+    ingredients.forEach((ingredient) => {
+        stringifiedIngredients += `${ingredient.amount} ${ingredient.unit} ${ingredient.name}, `;
+    });
+    stringifiedIngredients = 'You have ' + stringifiedIngredients + ' in your kitchen.';
+
+    stringifiedIngredients = await beautifyStringifiedIngredients(stringifiedIngredients);
+    console.log(stringifiedIngredients)
 
     message_history.push({
         role: 'user',
         content: `${req.body.query}`
     }, {
         role: 'system',
-        content: 'You have ... in your kitchen'
+        content: `You have ${stringifiedIngredients} in your kitchen`
     });
 
     res.render('home', {
@@ -82,8 +107,6 @@ const renderOwnedIngredients = async (req, res) => {
 
 /**
  * Renders the home page with a message that the user's query is invalid
- * @param {*} req 
- * @param {*} res 
  * @author Alice Huang
  */
 const renderInvalidQuery = async (req, res) => {
@@ -104,4 +127,4 @@ const renderInvalidQuery = async (req, res) => {
     });
 }
 
-module.exports = { renderRecipe, renderOwnedIngredients, renderInvalidQuery }
+module.exports = { renderRecipe, renderOwnedIngredients, renderInvalidQuery, renderRecipeFromOwnedIngredients }

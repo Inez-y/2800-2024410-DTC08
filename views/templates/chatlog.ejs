@@ -1,14 +1,10 @@
 <div class="text-gray-700 m-2">
-    <div><i>
-            <%= user %>
-        </i></div>
+    <div><i><%= user %></i></div>
     <% if (isRecipe) { %>
         <form action="/save" method="post">
             <input type="hidden" name="recipe" value="<%= log %>">
             <button type="submit" class="material-icons text-2xl text-green-500">star</button>
         </form>
         <% } %>
-            <span style="white-space: pre-line">
-                <%= log %>
-            </span>
+        <span style="white-space: pre-line"><%= log %></span>
 </div>

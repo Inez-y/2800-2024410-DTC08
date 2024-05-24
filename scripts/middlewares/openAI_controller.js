@@ -7,6 +7,30 @@ const openai = new OpenAI({
 });
 
 /**
+ * Beautifies a string of ingredients.
+ * @param {*} ingredients a string of ingredients
+ * @returns a beautified string of ingredients
+ * @author Alice Huang
+ */
+const beautifyStringifiedIngredients = async (ingredients) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system", content: `You are a helpful assistant. You beautify a string of ingredients given to you. Do not include 'ingredients' header. 
+                                  Do not include context.`},
+      { role: "assistant", content: "Understood. I will now beautify the stringified ingredients." },
+      {
+        role: 'user',
+        content: `${ingredients}`
+      }
+    ],
+    // max_tokens: 100
+  })
+  return response.choices[0].message.content;
+}
+
+/**
  * Parses the ingredients needed in a recipe and returns the ingredients in a specific JSON format
  * @param {*} recipe string of the recipe
  * @returns JSON string of ingredients in the recipe
@@ -77,8 +101,8 @@ const parseName = async (recipe) => {
 
 /**
  * Generates a recipe based on the user's query
- * @param {*} query 
- * @param {*} message_history 
+ * @param {*} query user's query as a string
+ * @param {*} message_history message history as an array of objects to provide context for OpenAI
  * @returns response from OpenAI as a string
  * @author Alice Huang
  */
@@ -104,13 +128,19 @@ const generateRecipe = async (query, message_history) => {
  * @author Alice Huang
  */
 const generateRecipeFromKitchen = async (ingredients, message_history) => {
-  let ingredientString = ingredients.map((ingredient) => { return `${ingredient.quantity} ${ingredient.name}`; }).join(', ');
+  let stringifiedIngredients = '';
+  ingredients.forEach((ingredient) => {
+      stringifiedIngredients += `${ingredient.amount} ${ingredient.unit} ${ingredient.name}, `;
+  });
 
-  console.log(ingredientString)
-  message_history.push({ role: 'user', content: `I have ${ingredientString}, what can I make with them? Do not give me recipes that require more ingredients than I have.` });
+  let temporaryMessageHistory = message_history.slice();
+  temporaryMessageHistory.push({
+    role: 'user',
+    content: `I have ${stringifiedIngredients} in my kitchen, what can I make with them? Give me one recipe. Do not give me recipes that require more ingredients than I have. You do not need to use all ingredients.`});
+
   const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: message_history,
+    messages: temporaryMessageHistory,
     // max_tokens: 100
   })
   message_history.push(recipe.choices[0].message)
@@ -127,9 +157,10 @@ const validateQuery = async (query) => {
   const result = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      { role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', or 'invalid'." },
+      { role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', 'kitchen recipe', or 'invalid'." },
       {
         role: "user", content: `Valid queries are ones which ask you to generate a cooking recipe. 
+                                 For queries which ask for a cooking recipe based on what the user currently has, and queries which ask "what can i make", return 'kitchen recipe'.
                                  For queries which ask for a cooking recipe based on 0 or more ingredients, return 'recipe'. 
                                  For queries which ask what the user currently has, return 'kitchen'.
                                  For queries which ask you to generate another recipe, return 'recipe'.
@@ -146,4 +177,4 @@ const validateQuery = async (query) => {
   return result.choices[0].message.content;
 }
 
-module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName }
+module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName, beautifyStringifiedIngredients }

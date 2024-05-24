@@ -27,42 +27,91 @@
             /* Adjust as needed */
             height: 100px;
             /* Adjust as needed */
-            animation: bounce 5s infinite, rotate 2s infinite linear;
+            animation: bounce 10s infinite, rotate 2s infinite linear;
+        }
+
+        .hidden {
+            display: none;
         }
 
         @keyframes bounce {
-
-            0%,
-            100% {
-                top: 0;
-                left: 0;
+            0% {
+                top: 10%;
+                left: 20%;
             }
 
-            25% {
-                top: 0;
-                left: calc(100vw - 100px);
+            10% {
+                top: 40%;
+                left: 70%;
+            }
+
+            20% {
+                top: 80%;
+                left: 50%;
+            }
+
+            30% {
+                top: 30%;
+                left: 10%;
+            }
+
+            40% {
+                top: 60%;
+                left: 90%;
             }
 
             50% {
-                top: calc(100vh - 100px);
-                left: 0;
+                top: 20%;
+                left: 40%;
             }
 
-            75% {
-                top: calc(100vh - 100px);
-                left: 0;
-                top: calc(100vh - 100px);
-                left: calc(100vw - 100px);
+            60% {
+                top: 70%;
+                left: 30%;
+            }
+
+            70% {
+                top: 50%;
+                left: 80%;
+            }
+
+            80% {
+                top: 10%;
+                left: 60%;
+            }
+
+            90% {
+                top: 40%;
+                left: 20%;
+            }
+
+            100% {
+                top: 10%;
+                left: 20%;
             }
         }
 
         @keyframes rotate {
             0% {
-                transform: rotate(0deg);
+                transform: scale(1) rotate(0deg);
+            }
+            20% {
+                transform: scale(1.5) rotate(160deg);
             }
 
+            40% {
+                transform: scale(0.8) rotate(-160deg);
+            }
+
+            60% {
+                transform: scale(1.2) rotate(180deg);
+            }
+
+            80% {
+                transform: scale(0.9) rotate(-180deg);
+            }
             100% {
-                transform: rotate(360deg);
+                transform: scale(1) rotate(360deg);
             }
         }
     </style>
@@ -156,7 +205,7 @@
                 </div>
             </div>
         </div>
-        <img id="easterEgg" class="" src="/IYKYK.png" alt="Happy Easter Egg!">
+        <img id="easterEgg" class="bouncing-image" src="/IYKYK.png" alt="Happy Easter Egg!">
         <script>
             // document.getElementById
         </script>

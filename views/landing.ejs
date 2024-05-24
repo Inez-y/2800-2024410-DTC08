@@ -6,11 +6,11 @@
 |   User must sign up to use a chat box   |
 *-----------------------------------------* -->
 
-<div class="">
-    <div class="flex">
-        <h1 class="text-left text-6xl py-2 pr-2">ReciPT</h1>
+<div class="relative" style="height:85vh">
+    <div class="flex justify-between">
+        <h1 class="text-left text-6xl py-2 pr-2" style="margin-left:20px;">ReciPT</h1>
         <div class="flex justify-end">
-            <p class="text-right text-lightGrey text-sm">
+            <p class="text-right text-lightGrey text-sm" style="margin-right:20px;">
                 Have an <br> account? <br>
                 <a href="./login">
                     <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
@@ -20,24 +20,24 @@
     </div>
 
     <div>
-        <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage"></p>
+        <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage" style="padding:20px; padding-top:100px"></p>
     </div>
 
+    <div class="text-center absolute" style="bottom:7vh; width:100%;" >
+        <button class="px-10 py-2 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn" style="max-width:85vw"> Sign
+            Up
+        </button>
+    </div>
+    
+    <div class="flex justify-between items-center absolute" style=" bottom:2vh;width:100%;">
+        <a href="./signup" class="align-baseline">
+            <button class="text-buttongreen text-sm align-text-bottom" id="skipBtn">Skip</button>
+        </a>
+        <div class="flex-1 mx-2" id="progressBar"></div>
+        <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
+    </div>
 </div>
 
-<div class="text-center">
-    <button class="px-10 py-2 m-4 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"> Sign
-        Up
-    </button>
-</div>
-
-<div class="flex justify-between items-center">
-    <a href="./signup" class="align-baseline">
-        <button class="text-buttongreen text-sm align-text-bottom" id="skipBtn">Skip</button>
-    </a>
-    <div class="flex-1 mx-2" id="progressBar"></div>
-    <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
-</div>
 
 
 <script>
@@ -49,13 +49,11 @@
         const flipThePageContents = document.createElement('div');
         flipThePageContents.innerHTML =
             `
-        The first page <br>
-        hahaha <br>
-        i hate <br>
-        tailwind <br>
-        it's <br>
-        very <br>
-        annoying <br>
+            Tired of deciding <br> 
+            what to make for dinner? <br>
+            <br>
+            ReciPT is here to help
+        
         `;
         document.getElementById('flipThePage').appendChild(flipThePageContents);
     }
@@ -102,10 +100,11 @@
         switch (numberOfClicks) {
             case 1:
                 flipThePageContents.innerHTML = `     
-                The Second page <br>
-                Do I really like <br>
-                Javascript? <br>
-                Hmmm <br>
+                Not sure what to <br>
+                make with the ingredients <br> 
+                in your fridge? <br>
+                <br>
+                ReciPT is here to help
             `;
                 flipThePageProgressBar.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
@@ -125,11 +124,10 @@
 
             case 2:
                 flipThePageContents.innerHTML = `     
-                The Third page <br>
-                I just want to <br>
-                have a <br>
-                short <br>
-                nap <br>
+                Are you bad <br>
+                at cooking?<br> 
+                <br>
+                ReciPT is here to help
        
             `;
                 flipThePageProgressBar.innerHTML = `
@@ -150,12 +148,10 @@
 
             case 3:
                 flipThePageContents.innerHTML = `     
-                The fourth page <br>
-                Oh I forgot <br>
-                my legs day <br>
-                I'll have <br>
-                chicken <br>
-                legs<br>
+                Tired of wasting <br>
+                precious food? <br>
+                <br>
+                ReciPT is here to help
             `;
                 flipThePageProgressBar.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">

@@ -9,18 +9,19 @@
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
             <input type="hidden" name="image" id="image">
             <button type="submit"
-                class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze
+                class="bg-buttongreen hover:bg-lightGrey text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze
                 Image</button>
         </form>
 
-        <div id="ingredientsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
+        <div id="ingredientsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center ">
             <div class="bg-white rounded-lg p-4 w-11/12 max-w-lg relative">
                 <span id="closeModal" class="absolute top-2 right-2 text-gray-500 cursor-pointer">✖</span>
+                <br>
                 <h3 class="text-gray-700 font-bold text-xl mb-4">Detected Ingredients</h3>
                 <form id="ingredientsForm">
                     <ul id="ingredientsList" class="space-y-2"></ul>
                     <button type="submit"
-                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Save
+                        class="bg-buttongreen hover:bg-lightGrey text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Save
                         Ingredients</button>
                 </form>
             </div>

@@ -17,11 +17,9 @@
     <div id="query-logs" class="flex flex-col justify-between m-4">
         <% for(let i=1; i < response.length; i++) { %>
         <% if (i%2==0) { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe:
-                                    isRecipe[i]}) %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe: isRecipe[i]}) %>
         <% } else { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'You' ,
-                                            isRecipe: isRecipe[i]}) %>
+        <%- include('templates/chatlog', {log: response[i].content, user: 'You' , isRecipe: isRecipe[i]}) %>
         <% } %>
         <% } %>
     </div>
@@ -41,6 +39,13 @@
 </main>
 
 <%- include("templates/footer") %>
+
+<style>
+#query-logs {
+    overflow-y: auto;
+    max-height: 80vh; /* Adjust the value as needed */
+}
+</style>
 
 <script>
 </script>

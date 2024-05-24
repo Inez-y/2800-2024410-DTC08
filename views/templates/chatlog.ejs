@@ -13,25 +13,25 @@
             <%= log %>
         </div>
         <% } else { %>
-        <div class="px-4 font-semibold">
-            <p> ReciPT </p>
-        </div>
+            <div class="flex flex-row justify-between">
+                <div class="px-4 font-semibold">
+                    <p> ReciPT </p>
+                </div>
+                <div>
+                    <% if (isRecipe) { %>
+                    <form action="/save" method="post">
+                        <input type="hidden" name="recipe" value="<%= log %>">
+                        <button type="submit" class="material-icons text-2xl text-red-400 text-right">star</button>
+                    </form>
+                    <% } %>
+                </div>
+            </div>
+        
         <div class="p-10 bg-buttongreen rounded-3xl text-gray-50 opacity-0">
             <span style="white-space: pre-line"><%= log %></span>
         </div>
         <%} %>
     </div>
-
-    <!-- To save favourite -->
-    <div>
-        <% if (isRecipe) { %>
-        <form action="/save" method="post">
-            <input type="hidden" name="recipe" value="<%= log %>">
-            <button type="submit" class="material-icons text-2xl text-red-400 text-right">star</button>
-        </form>
-        <% } %>
-    </div>
-
 
 </div>
 <!-- End of chatlog.ejs -->

@@ -136,7 +136,7 @@ const generateRecipeFromKitchen = async (ingredients, message_history) => {
   let temporaryMessageHistory = message_history.slice();
   temporaryMessageHistory.push({
     role: 'user',
-    content: `I have ${stringifiedIngredients} in my kitchen, what can I make with them? Do not give me recipes that require more ingredients than I have.`});
+    content: `I have ${stringifiedIngredients} in my kitchen, what can I make with them? Give me one recipe. Do not give me recipes that require more ingredients than I have. You do not need to use all ingredients.`});
 
   const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",

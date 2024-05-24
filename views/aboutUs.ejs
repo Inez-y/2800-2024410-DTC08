@@ -21,7 +21,50 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="icon" type="image/x-icon" href="/recipt_logo.png">
     <style>
-        
+        .bouncing-image {
+            position: absolute;
+            width: 100px;
+            /* Adjust as needed */
+            height: 100px;
+            /* Adjust as needed */
+            animation: bounce 5s infinite, rotate 2s infinite linear;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                top: 0;
+                left: 0;
+            }
+
+            25% {
+                top: 0;
+                left: calc(100vw - 100px);
+            }
+
+            50% {
+                top: calc(100vh - 100px);
+                left: 0;
+            }
+
+            75% {
+                top: calc(100vh - 100px);
+                left: 0;
+                top: calc(100vh - 100px);
+                left: calc(100vw - 100px);
+            }
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
@@ -113,9 +156,9 @@
                 </div>
             </div>
         </div>
-        <img  src="/IYKYK.png" alt="Happy Easter Egg!">
+        <img id="easterEgg" class="" src="/IYKYK.png" alt="Happy Easter Egg!">
         <script>
-            document.getElementById
+            // document.getElementById
         </script>
 
         <!-- End of aboutUs.ejs -->

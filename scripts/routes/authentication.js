@@ -5,10 +5,10 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require('../models/user');
-const { Recipe, recipeSchema } = require('../models/recipe');
+const { Recipe } = require('../models/recipe');
 const multer = require('multer');
 const { analyzeImage } = require('../middlewares/imageController');
-const { renderRecipe, renderOwnedIngredients, renderInvalidQuery } = require('../middlewares/openAI_request_controller');
+const { renderRecipe, renderOwnedIngredients, renderInvalidQuery, renderRecipeFromOwnedIngredients } = require('../middlewares/openAI_request_controller');
 
 const {
     validateQuery,
@@ -27,10 +27,10 @@ router.get('/profile', async (req, res) => {
 });
 
 /**
- * Renders the home page after user logs in and displays the user's message history
+ * Renders the home page after user logs in and displays the user's message history if any
+ * @author Alice Huang
  */
 router.get('/home', async (req, res) => {
-    console.log(req.session.message_history)
     if (req.session.loggedin && req.session.message_history.length > 2) {
         res.render('home', {
             response: req.session.message_history,
@@ -58,10 +58,9 @@ router.post('/home', async (req, res) => {
     if (valid === 'recipe') {
         renderRecipe(req, res);
     } else if (valid === 'kitchen') {
-        let user = await User.findOne({ username: req.session.username });
-        renderOwnedIngredients(req, res, user.ingredients);
+        renderOwnedIngredients(req, res);
     } else if (valid === 'kitchen recipe') {
-        res.send('kitchen recipe');
+        renderRecipeFromOwnedIngredients(req, res);
     } else {
         renderInvalidQuery(req, res);
     }
@@ -71,10 +70,17 @@ router.get('/myIngredients', async (req, res) => {
     res.render('myIngredients');
 });
 
+/**
+ * Renders the myKitchen page
+ */
 router.get('/myKitchen', async (req, res) => {
     res.render('myKitchen');
 });
 
+/**
+ * Renders the cookbook page
+ * @author Alice Huang
+ */
 router.get('/cookbook', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
@@ -82,6 +88,10 @@ router.get('/cookbook', async (req, res) => {
     res.render('cookbook', { recipes: recipes })
 });
 
+/**
+ * Renders the recipe page with the recipe details
+ * @author Alice Huang
+ */
 router.get('/recipe/:id', async (req, res) => {
     console.log(req.params.id)
     let recipe;

@@ -6,6 +6,12 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY
 });
 
+/**
+ * Beautifies a string of ingredients.
+ * @param {*} ingredients a string of ingredients
+ * @returns a beautified string of ingredients
+ * @author Alice Huang
+ */
 const beautifyStringifiedIngredients = async (ingredients) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
@@ -95,8 +101,8 @@ const parseName = async (recipe) => {
 
 /**
  * Generates a recipe based on the user's query
- * @param {*} query 
- * @param {*} message_history 
+ * @param {*} query user's query as a string
+ * @param {*} message_history message history as an array of objects to provide context for OpenAI
  * @returns response from OpenAI as a string
  * @author Alice Huang
  */
@@ -122,13 +128,19 @@ const generateRecipe = async (query, message_history) => {
  * @author Alice Huang
  */
 const generateRecipeFromKitchen = async (ingredients, message_history) => {
-  let ingredientString = ingredients.map((ingredient) => { return `${ingredient.quantity} ${ingredient.name}`; }).join(', ');
+  let stringifiedIngredients = '';
+  ingredients.forEach((ingredient) => {
+      stringifiedIngredients += `${ingredient.amount} ${ingredient.unit} ${ingredient.name}, `;
+  });
 
-  console.log(ingredientString)
-  message_history.push({ role: 'user', content: `I have ${ingredientString}, what can I make with them? Do not give me recipes that require more ingredients than I have.` });
+  let temporaryMessageHistory = message_history.slice();
+  temporaryMessageHistory.push({
+    role: 'user',
+    content: `I have ${stringifiedIngredients} in my kitchen, what can I make with them? Do not give me recipes that require more ingredients than I have.`});
+
   const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: message_history,
+    messages: temporaryMessageHistory,
     // max_tokens: 100
   })
   message_history.push(recipe.choices[0].message)

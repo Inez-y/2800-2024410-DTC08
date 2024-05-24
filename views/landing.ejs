@@ -1,44 +1,49 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-        <div class="">
-            <div class="flex">
-                <h1 class="text-left text-6xl py-2 pr-2">ReciPT</h1>
-                <div class="flex justify-end">
-                    <p class="text-right text-lightGrey text-sm">
-                        Have an <br> account? <br>
-                        <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
-                    </p>
-                </div>
-            </div>
+<!-- 
+*-----------------------------------------*
+|   User must sign up to use a chat box   |
+*-----------------------------------------* -->
 
-            <div>
-                <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage"></p>
-            </div>
-
+<div class="">
+    <div class="flex">
+        <h1 class="text-left text-6xl py-2 pr-2">ReciPT</h1>
+        <div class="flex justify-end">
+            <p class="text-right text-lightGrey text-sm">
+                Have an <br> account? <br>
+                <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
+            </p>
         </div>
+    </div>
 
-        <div class="text-center">
-            <button class="px-10 py-2 m-4 bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"> Sign
-                Up
-            </button>
-        </div>
+    <div>
+        <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage"></p>
+    </div>
 
-        <div class="flex justify-between align-bottom">
-            <button class="text-buttongreen text-sm" id="skipBtn">Skip</button>
-            <div class="" id="progressBar"></div>
-            <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
-        </div>
+</div>
 
-        <script>
-            // *--------------------------------------------*
-            // |   Set default text line and progress bar   |
-            // *--------------------------------------------*
+<div class="text-center">
+    <button class="px-10 py-2 m-4 bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"> Sign
+        Up
+    </button>
+</div>
 
-            function setDefaultTextLine() {
-                const flipThePageContents = document.createElement('div');
-                flipThePageContents.innerHTML =
-                    `
+<div class="flex justify-between align-bottom">
+    <a href="./signup"><button class="text-buttongreen text-sm" id="skipBtn">Skip</button></a>
+    <div class="" id="progressBar"></div>
+    <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
+</div>
+
+<script>
+    // *--------------------------------------------*
+    // |   Set default text line and progress bar   |
+    // *--------------------------------------------*
+
+    function setDefaultTextLine() {
+        const flipThePageContents = document.createElement('div');
+        flipThePageContents.innerHTML =
+            `
         The first page <br>
         hahaha <br>
         i hate <br>
@@ -50,14 +55,14 @@
         than <br>
         bootstrap <br>
         `;
-                document.getElementById('flipThePage').appendChild(flipThePageContents);
-            }
+        document.getElementById('flipThePage').appendChild(flipThePageContents);
+    }
 
-            function setDefaultProgressBar() {
-                const flipThePageProgressBar = document.createElement('div');
-                flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
-                flipThePageProgressBar.innerHTML =
-                    `
+    function setDefaultProgressBar() {
+        const flipThePageProgressBar = document.createElement('div');
+        flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
+        flipThePageProgressBar.innerHTML =
+            `
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
             <path d="M160-446.67v-66.66h640v66.66H160Z" />
         </svg>
@@ -71,67 +76,100 @@
             <path d="M160-446.67v-66.66h640v66.66H160Z" />
         </svg>
         `;
-                document.getElementById('progressBar').appendChild(flipThePageProgressBar);
-            }
+        document.getElementById('progressBar').appendChild(flipThePageProgressBar);
+    }
 
-            setDefaultTextLine();
-            setDefaultProgressBar();
+    setDefaultTextLine();
+    setDefaultProgressBar();
 
-            // *---------------------------------------------------------*
-            // |   Switch statement for updating text and progress bar   |
-            // *---------------------------------------------------------*
-            let numberOfClicks = 0;
-            document.getElementById('nextBtn').addEventListener('click', () => {
-                numberOfClicks++;
-                console.log("Next button clicked " + numberOfClicks + " times.");
+    // *---------------------------------------------------------*
+    // |   Switch statement for updating text and progress bar   |
+    // *---------------------------------------------------------*
+    let numberOfClicks = 0;
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        numberOfClicks++;
+        console.log("Next button clicked " + numberOfClicks + " times.");
 
-                const flipThePageContents = document.createElement('div');
-                const flipThePageElement = document.getElementById('flipThePage');
+        const flipThePageContents = document.createElement('div');
+        const flipThePageElement = document.getElementById('flipThePage');
 
-                const flipThePageProgressBar = document.createElement('div');
-                const flipThePageProgressElement = document.getElementById('progressBar');
-                flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
+        const flipThePageProgressBar = document.createElement('div');
+        const flipThePageProgressElement = document.getElementById('progressBar');
+        flipThePageProgressBar.classList.add('flex', 'justify-between', 'align-bottom');
 
-                switch (numberOfClicks) {
-                    case 0:
-                        flipThePageContents.innerHTML = `     
+        switch (numberOfClicks) {
+            case 1:
+                flipThePageContents.innerHTML = `     
                 The Second page <br>
                 Do I really like <br>
                 Javascript? <br>
                 Hmmm <br>
             `;
-                        flipThePageElement.innerHTML = `
+                flipThePageProgressBar.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
             <path d="M160-446.67v-66.66h640v66.66H160Z" />
         </svg>
-    
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
                 `;
-                        break;
+                break;
 
-                    case 1:
-                        flipThePageContents.innerHTML = `     
+            case 2:
+                flipThePageContents.innerHTML = `     
                 The Third page <br>
             `;
-                        flipThePageElement.innerHTML = `asdf`;
-                        break;
+                flipThePageProgressBar.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        `;
+                break;
 
-                    case 2:
-                        flipThePageContents.innerHTML = `     
+            case 3:
+                flipThePageContents.innerHTML = `     
                 The fourth page <br>
             `;
-                        flipThePageElement.innerHTML = `3434`;
-                        break;
-                    case 3:
-                        // Home router should be connect to home.ejs
-                        window.location.href = './home';
-                        break;
-                }
+                flipThePageProgressBar.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#779300">
+            <path d="M160-446.67v-66.66h640v66.66H160Z" />
+        </svg>
+                `;
+                break;
+            case 4:
+                window.location.href = '/signup';
+                break;
+        }
 
-                flipThePageElement.innerHTML = '';
-                flipThePageElement.appendChild(flipThePageContents);
+        flipThePageElement.innerHTML = '';
+        flipThePageElement.appendChild(flipThePageContents);
 
-                flipThePageProgressElement.innerHTML = '';
-                flipThePageProgressElement.appendChild(flipThePageProgressBar);
-            });
-        </script>
-        <!-- End of landing.ejs -->
+        flipThePageProgressElement.innerHTML = '';
+        flipThePageProgressElement.appendChild(flipThePageProgressBar);
+    });
+</script>
+<!-- End of landing.ejs -->

@@ -14,7 +14,11 @@ const { renderRecipe, renderOwnedIngredients, renderInvalidQuery } = require('..
  * @author Daylen Smith
  */
 router.get('/', async (req, res) => {
-    res.render('landing');
+    if (req.session.loggedin) {
+        res.redirect('/home');
+    } else {
+        res.render('landing');
+    }
 });
 // router.get('/home', async (req, res) => {
 //     if (req.session.loggedin && req.session.message_history.length > 1) {

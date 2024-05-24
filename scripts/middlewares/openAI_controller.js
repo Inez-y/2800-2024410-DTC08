@@ -6,6 +6,24 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI_KEY
 });
 
+const beautifyStringifiedIngredients = async (ingredients) => {
+  const response = await openai.chat.completions.create({
+    model: "gpt-3.5-turbo",
+    messages: [
+      {
+        role: "system", content: `You are a helpful assistant. You beautify a string of ingredients given to you. Do not include 'ingredients' header. 
+                                  Do not include context.`},
+      { role: "assistant", content: "Understood. I will now beautify the stringified ingredients." },
+      {
+        role: 'user',
+        content: `${ingredients}`
+      }
+    ],
+    // max_tokens: 100
+  })
+  return response.choices[0].message.content;
+}
+
 /**
  * Parses the ingredients needed in a recipe and returns the ingredients in a specific JSON format
  * @param {*} recipe string of the recipe
@@ -127,9 +145,10 @@ const validateQuery = async (query) => {
   const result = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      { role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', or 'invalid'." },
+      { role: "system", content: "You are a helpful assistant. You determine whether a query is valid or not and the type of query by responding with 'recipe', 'kitchen', 'kitchen recipe', or 'invalid'." },
       {
         role: "user", content: `Valid queries are ones which ask you to generate a cooking recipe. 
+                                 For queries which ask for a cooking recipe based on what the user currently has, and queries which ask "what can i make", return 'kitchen recipe'.
                                  For queries which ask for a cooking recipe based on 0 or more ingredients, return 'recipe'. 
                                  For queries which ask what the user currently has, return 'kitchen'.
                                  For queries which ask you to generate another recipe, return 'recipe'.
@@ -146,4 +165,4 @@ const validateQuery = async (query) => {
   return result.choices[0].message.content;
 }
 
-module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName }
+module.exports = { generateRecipe, validateQuery, generateRecipeFromKitchen, parseIngredients, parseSteps, parseName, beautifyStringifiedIngredients }

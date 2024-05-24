@@ -6,7 +6,8 @@ const {
     generateRecipeFromKitchen,
     parseIngredients,
     parseSteps,
-    parseName
+    parseName,
+    beautifyStringifiedIngredients
 } = require('../middlewares/openAI_controller');
 
 /**
@@ -62,15 +63,25 @@ const renderRecipe = async (req, res) => {
  * @param {*} res 
  * @author Alice Huang
  */
-const renderOwnedIngredients = async (req, res) => {
+const renderOwnedIngredients = async (req, res, ingredients) => {
     let { message_history, isRecipe } = setUpVariables(req, false);
+    console.log(ingredients)
+
+    let stringifiedIngredients = '';
+    ingredients.forEach((ingredient) => {
+        stringifiedIngredients += `${ingredient.amount} ${ingredient.unit} ${ingredient.name}, `;
+    });
+    stringifiedIngredients = 'You have ' + stringifiedIngredients + ' in your kitchen.';
+
+    stringifiedIngredients = await beautifyStringifiedIngredients(stringifiedIngredients);
+    console.log(stringifiedIngredients)
 
     message_history.push({
         role: 'user',
         content: `${req.body.query}`
     }, {
         role: 'system',
-        content: 'You have ... in your kitchen'
+        content: `You have ${stringifiedIngredients} in your kitchen`
     });
 
     res.render('home', {

@@ -26,8 +26,12 @@ router.get('/profile', async (req, res) => {
     res.render("profile", { user, msg: req.query.msg });
 });
 
+/**
+ * Renders the home page after user logs in and displays the user's message history
+ */
 router.get('/home', async (req, res) => {
-    if (req.session.loggedin && req.session.message_history.length > 1) {
+    console.log(req.session.message_history)
+    if (req.session.loggedin && req.session.message_history.length > 2) {
         res.render('home', {
             response: req.session.message_history,
             show: false,
@@ -54,7 +58,10 @@ router.post('/home', async (req, res) => {
     if (valid === 'recipe') {
         renderRecipe(req, res);
     } else if (valid === 'kitchen') {
-        renderOwnedIngredients(req, res);
+        let user = await User.findOne({ username: req.session.username });
+        renderOwnedIngredients(req, res, user.ingredients);
+    } else if (valid === 'kitchen recipe') {
+        res.send('kitchen recipe');
     } else {
         renderInvalidQuery(req, res);
     }
@@ -102,6 +109,14 @@ router.post('/removeRecipe', async (req, res) => {
  */
 router.post('/save', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
+
+    //test
+    // const user = await User.findOne({ username: req.session.username });
+    // user.ingredients = ingredients;
+    // user.save();
+    // console.log(user.ingredients)
+
+
     let steps = await parseSteps(req.body.recipe);
     let name = await parseName(req.body.recipe);
     console.log(ingredients)

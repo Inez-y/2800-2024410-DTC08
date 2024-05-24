@@ -9,8 +9,8 @@
                 </div>
                 <% } else { %>
                     <div id="query-logs" class="flex flex-col justify-between m-4">
-                        <% for(let i=1; i < response.length; i++) { %>
-                            <% if (i%2==0) { %>
+                        <% for(let i=2; i < response.length; i++) { %>
+                            <% if (i%2!=0) { %>
                                 <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe:
                                     isRecipe[i]}) %>
                                     <% } else { %>

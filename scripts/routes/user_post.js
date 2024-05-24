@@ -24,7 +24,7 @@ function initSession(req, username) {
         content: `You are a helpful assistant. You generate detailed recipes based on user queries. `
     },
     { role: 'user', content: `Provide a concrete amount of ingredients instead of a range. For example, use "1 cup of flour" instead of "1-2 cups of flour". ` }];
-    req.session.isRecipe = [0];
+    req.session.isRecipe = [0, 0];
 }
 
 /**

@@ -205,7 +205,12 @@
                 </div>
             </div>
         </div>
-        <img id="easterEgg" class="hidden" src="/IYKYK.png" alt="Happy Easter Egg!">
+        <img id="B" class="hidden" src="/B.jpg" alt="Happy Easter Egg!">
+        <img id="Pa" class="hidden" src="/P.jpg" alt="Happy Easter Egg!">
+        <img id="C" class="hidden" src="/C.jpg" alt="Happy Easter Egg!">
+        <img id="Pb" class="hidden" src="/P.jpg" alt="Happy Easter Egg!">
+        <img id="L" class="hidden" src="/L.jpg" alt="Happy Easter Egg!">
+        <img id="S" class="hidden" src="/S.jpg" alt="Happy Easter Egg!">
         <script>
             const nameHeaders = document.querySelectorAll('.font-bold');
             const easterEgg = document.getElementById('easterEgg');
@@ -222,8 +227,11 @@
             function checkEasterEggConditions() {
                 if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
                     console.log('Easter Egg activated!');
-                    easterEgg.classList.remove('hidden');
-                    easterEgg.classList.add('bouncing-image');
+                    document.querySelectorAll(".hidden").forEach((img, index) => {
+                        img.classList.remove('hidden');
+                        img.classList.add('bouncing-image');
+                        img.style.animationDelay = `${index * 0.5}s`;
+                    });
                 } else {
                     console.log('Easter Egg not activated!');
                 }

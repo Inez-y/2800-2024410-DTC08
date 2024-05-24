@@ -30,7 +30,7 @@
             animation: bounce 10s infinite, rotate 2s infinite linear;
         }
 
-        .hidden {
+        .hiddenImg {
             display: none;
         }
 
@@ -231,7 +231,7 @@
                 <a href="https://github.com/tonylai2022/" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
                 <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img
-                        src="/linkedin.png" " style=" width:30px; height: 30px; margin-left: 20px;"></a>
+                        src="/linkedin.png" style=" width:30px; height: 30px; margin-left: 20px;"></a>
             </div>
         </div>
 
@@ -241,12 +241,12 @@
     </div>
 
 
-    <img id="B" class="hidden" src="/B.jpg" alt="Happy Easter Egg!">
-    <img id="Pa" class="hidden" src="/P.jpg" alt="Happy Easter Egg!">
-    <img id="C" class="hidden" src="/C.jpg" alt="Happy Easter Egg!">
-    <img id="Pb" class="hidden" src="/P.jpg" alt="Happy Easter Egg!">
-    <img id="L" class="hidden" src="/L.jpg" alt="Happy Easter Egg!">
-    <img id="S" class="hidden" src="/S.jpg" alt="Happy Easter Egg!">
+    <img id="B" class="hiddenImg" src="/B.jpg" alt="Happy Easter Egg!">
+    <img id="Pa" class="hiddenImg" src="/P.jpg" alt="Happy Easter Egg!">
+    <img id="C" class="hiddenImg" src="/C.jpg" alt="Happy Easter Egg!">
+    <img id="Pb" class="hiddenImg" src="/P.jpg" alt="Happy Easter Egg!">
+    <img id="L" class="hiddenImg" src="/L.jpg" alt="Happy Easter Egg!">
+    <img id="S" class="hiddenImg" src="/S.jpg" alt="Happy Easter Egg!">
     <script>
         const nameHeaders = document.querySelectorAll('.font-bold');
         const easterEgg = document.getElementById('easterEgg');
@@ -263,8 +263,8 @@
         function checkEasterEggConditions() {
             if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
                 console.log('Easter Egg activated!');
-                document.querySelectorAll(".hidden").forEach((img, index) => {
-                    img.classList.remove('hidden');
+                document.querySelectorAll(".hiddenImg").forEach((img, index) => {
+                    img.classList.remove('hiddenImg');
                     img.classList.add('bouncing-image');
                     img.style.animationDelay = `${index * 0.5}s`;
                 });

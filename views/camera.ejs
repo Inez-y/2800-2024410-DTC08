@@ -1,31 +1,30 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<main class="flex flex-col items-center justify-center min-h-screen">
-    <div class="w-full max-w-xs text-center">
+<main class="flex flex-col items-center justify-center h-screen" style="max-height:60vh;">
+    <div id="uploadSection" class="w-full max-w-xs text-center flex flex-col justify-center" style="overflow:hidden;">
         <h2 class="block text-gray-700 text-lg font-bold mb-4">Upload or Capture Food Image</h2>
-        <input type="file" id="fileInput" accept="image/*" class="mb-4">
-
+        <input type="file" id="fileInput" accept="image/*" class="mb-4" style="overflow:hidden;" >
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
             <input type="hidden" name="image" id="image">
             <button type="submit"
                 class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Analyze
                 Image</button>
         </form>
+    </div>
 
-        <div id="ingredientsModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
-            <div class="bg-white rounded-lg p-4 w-11/12 max-w-lg relative">
-                <span id="closeModal" class="absolute top-2 right-2 text-gray-500 cursor-pointer">✖</span>
-                <h3 class="text-gray-700 font-bold text-xl mb-4">Detected Ingredients</h3>
-                <form id="ingredientsForm">
-                    <ul id="ingredientsList" class="space-y-2"></ul>
-                    <button type="submit"
-                        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Save
-                        Ingredients</button>
-                </form>
-            </div>
-        </div>
-
+    <div id="ingredientsSection" class="relative w-full max-w-xs text-center hidden" style="max-height: 60vh;">
+        <div id="closeModal" class="absolute top-0 right-0 text-gray-500 cursor-pointer">✖</div>
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Detected Ingredients</h2>
+        <form id="ingredientsForm" class="relative bg-gray-100 rounded-lg p-4 shadow-md" style="max-height: calc(100% - 2rem); overflow-y: auto;">
+            <ul id="ingredientsList" class="space-y-2"></ul>
+            <button type="button" id="addIngredientBtn"
+                class="bg-buttongreen text-white hover:text-black text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Add
+                Ingredient</button>
+            <button type="submit"
+                class="bg-buttongreen text-white hover:text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4">Save
+                Ingredients</button>
+        </form>
         <div id="successMessage" class="hidden mt-4 text-green-500 font-bold">Ingredients saved successfully!</div>
     </div>
 </main>
@@ -37,7 +36,8 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
     
     const fileInput = document.getElementById('fileInput');
     const imageInput = document.getElementById('image');
-    const ingredientsModal = document.getElementById('ingredientsModal');
+    const uploadSection = document.getElementById('uploadSection');
+    const ingredientsSection = document.getElementById('ingredientsSection');
     const ingredientsList = document.getElementById('ingredientsList');
     const successMessage = document.getElementById('successMessage');
 
@@ -70,15 +70,17 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
 
                 // Display the detected ingredients
                 if (result.ingredients) {
-                    ingredientsList.innerHTML = result.ingredients.map(ingredient => `
-                        <li>
+                    ingredientsList.innerHTML = result.ingredients.map((ingredient, index) => `
+                        <li class="ingredient-item">
                             <span class="block font-bold">${ingredient}</span>
                             <input type="hidden" name="ingredientNames[]" value="${ingredient}">
                             <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount">
                             <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit">
+                            <button type="button" class="removeIngredientBtn text-red-500 mt-1">Remove</button>
                         </li>
                     `).join('');
-                    ingredientsModal.classList.remove('hidden');
+                    uploadSection.classList.add('hidden');
+                    ingredientsSection.classList.remove('hidden');
                 } else {
                     alert('No ingredients detected. Please try again.');
                 }
@@ -99,7 +101,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
 document.getElementById('ingredientsForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const ingredientsModal = document.getElementById('ingredientsModal');
+    const ingredientsSection = document.getElementById('ingredientsSection');
     const successMessage = document.getElementById('successMessage');
     const formData = new FormData(e.target);
 
@@ -110,7 +112,6 @@ document.getElementById('ingredientsForm').addEventListener('submit', async (e) 
         });
 
         if (response.ok) {
-            ingredientsModal.classList.add('hidden');
             successMessage.classList.remove('hidden');
             setTimeout(() => {
                 successMessage.classList.add('hidden');
@@ -127,6 +128,26 @@ document.getElementById('ingredientsForm').addEventListener('submit', async (e) 
 });
 
 document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('ingredientsModal').classList.add('hidden');
+    document.getElementById('uploadSection').classList.remove('hidden');
+    document.getElementById('ingredientsSection').classList.add('hidden');
+});
+
+document.getElementById('addIngredientBtn').addEventListener('click', () => {
+    const ingredientsList = document.getElementById('ingredientsList');
+    const newIngredientItem = document.createElement('li');
+    newIngredientItem.classList.add('ingredient-item');
+    newIngredientItem.innerHTML = `
+        <input type="text" name="ingredientNames[]" class="border rounded py-1 px-2 mt-1" placeholder="Ingredient">
+        <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount">
+        <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit">
+        <button type="button" class="removeIngredientBtn text-red-500 mt-1">Remove</button>
+    `;
+    ingredientsList.appendChild(newIngredientItem);
+});
+
+document.getElementById('ingredientsList').addEventListener('click', (e) => {
+    if (e.target.classList.contains('removeIngredientBtn')) {
+        e.target.closest('.ingredient-item').remove();
+    }
 });
 </script>

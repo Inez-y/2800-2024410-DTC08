@@ -1,105 +1,135 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-        <!-- Main box -->
-        <div class="m-10 grid grid-cols-2 gap-4 text-center items-center">
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/alice.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Alice Huang</h3>
-                <h5> Backend Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;">
-                    <a href=" https://github.com/orangeepop" target="_blank"> <img src="/github.png"
-                            style="width:30px; height: 30px; margin-right: 20px;"></a>
-                    <a href="https://www.linkedin.com/in/al-huang/" target="_blank"> <img src="/linkedin.png" " styl
-                            width:30px; height: 30px; margin-left: 20px;"></a>
-                </div>
+<!-- 
+
+*--------------------------------------------*
+|   Introduce team members and the project   |
+|   This page contains an easter egg         |
+*--------------------------------------------* 
+
+-->
+
+<!-- For the proejct -->
+<div class="p-4 m-4 rounded-full bg-white justify-center shadow-lg" id="aboutUsIntroduceContainer">
+    <div style="display: flex; justify-content: center;">
+        <p class="font-bold text-7xl text-center"> DTC-08 </p>
+    </div>
+    <div style="display: flex; justify-content: center;">
+        <p class="text-m text-center"> We thought we still have extra one week...! <br> We are donkies </p>
+    </div>
+</div>
+
+<!-- For teammates -->
+<div class="m-10 flex flex-wrap justify-center gap-4 text-center" id="aboutUsTeammatesContainer">
+    <!-- Teammate 1: Alice Huang -->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/alice.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/gordonRamsay.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Daylen Smith</h3>
-                <h5> Backend Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;">
-                    <a href="https://github.com/rockclimber147" target="_blank"> <img src="/github.png"
-                            style="width:30px; height: 30px; margin-right: 20px;"></a>
-                    <a href="https://www.linkedin.com/in/daylensmith/" target="_blank"> <img
-                            src="/linkedin.png" " style=" width:30px; height: 30px; margin-left: 20px;"></a>
-                </div>
+        </div>
+        <h3 class="font-bold">Alice Huang</h3>
+        <h5> Backend Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;">
+            <a href="https://github.com/orangeepop" target="_blank">
+                <img src="/github.png" style="width:30px; height: 30px; margin-right: 20px;"></a>
+            <a href="https://www.linkedin.com/in/al-huang/" target="_blank">
+                <img src="/linkedin.png" " style=" width:30px; height: 30px; margin-left: 20px;"></a>
+        </div>
+    </div>
+
+    <!-- Teammate 2: Daylen Smith-->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/daylen.jpg" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/gordonRamsay.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Shaun Marco Sy</h3>
-                <h5> Backend Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;">
-                    <a href="https://github.com/ShaunMLS" target="_blank"> <img src="/github.png"
-                            style="width:30px; height: 30px; margin-right: 20px;"></a>
-                    <a href="https://www.linkedin.com/in/shaunmls/" target="_blank"> <img src="/linkedin.png" " style="
-                            width:30px; height: 30px; margin-left: 20px;"></a>
-                </div>
+        </div>
+        <h3 class="font-bold">Daylen Smith</h3>
+        <h5> Backend Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;">
+            <a href="https://github.com/rockclimber147" target="_blank"> <img src="/github.png"
+                    style="width:30px; height: 30px; margin-right: 20px;"></a>
+            <a href="https://www.linkedin.com/in/daylensmith/" target="_blank"> <img src="/linkedin.png" " style="
+                    width:30px; height: 30px; margin-left: 20px;"></a>
+        </div>
+    </div>
+
+    <!-- Teammate 3: Shaun Marco Sy -->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/shaun.jpg" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/inez.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Inez Yoon</h3>
-                <h5> Frontend Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;">
-                    <a href="https://github.com/Inez-y" target="_blank"> <img src="/github.png"
-                            style="width:30px; height: 30px; margin-right: 20px;"></a>
-                    <a href="https://www.linkedin.com/in/inez-y" target="_blank"> <img src="/linkedin.png" " style="
-                            width:30px; height: 30px; margin-left: 20px;"></a>
-                </div>
+        </div>
+        <h3 class="font-bold">Shaun Marco Sy</h3>
+        <h5> Backend Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;">
+            <a href="https://github.com/ShaunMLS" target="_blank"> <img src="/github.png"
+                    style="width:30px; height: 30px; margin-right: 20px;"></a>
+            <a href="https://www.linkedin.com/in/shaunmls/" target="_blank"> <img src="/linkedin.png" " style="
+                    width:30px; height: 30px; margin-left: 20px;"></a>
+        </div>
+    </div>
+
+    <!-- Teammate 4: Inez Yoon -->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/inez.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/tony.jpg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Tony Lai</h3>
-                <h5> Frontend Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;">
-                    <a href="https://github.com/tonylai2022/" target="_blank"> <img src="/github.png"
-                            style="width:30px; height: 30px; margin-right: 20px;"></a>
-                    <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img
-                            src="/linkedin.png" " style=" width:30px; height: 30px; margin-left: 20px;"></a>
-                </div>
+        </div>
+        <h3 class="font-bold">Inez Yoon</h3>
+        <h5> Frontend Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;">
+            <a href="https://github.com/Inez-y" target="_blank"> <img src="/github.png"
+                    style="width:30px; height: 30px; margin-right: 20px;"></a>
+            <a href="https://www.linkedin.com/in/inez-y" target="_blank"> <img src="/linkedin.png" " style=" width:30px;
+                    height: 30px; margin-left: 20px;"></a>
+        </div>
+    </div>
+
+    <!-- Teammate 5: Tony Lai -->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/tony.jpg" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
-            <div class="p-4 m-4 rounded-full bg-white">
-                <div style="display: flex; justify-content: center;">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
-                        <img src="/gordonRamsay.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
-                    </div>
-                </div>
-                <h3 class="font-bold">Gordon Ramsay</h3>
-                <h5> Recipe Developper </h5>
-                <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-                <div style="display: flex; justify-content: center;"">
+        </div>
+        <h3 class="font-bold">Tony Lai</h3>
+        <h5> Frontend Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;">
+            <a href="https://github.com/tonylai2022/" target="_blank"> <img src="/github.png"
+                    style="width:30px; height: 30px; margin-right: 20px;"></a>
+            <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img src="/linkedin.png" " style="
+                    width:30px; height: 30px; margin-left: 20px;"></a>
+        </div>
+    </div>
+
+    <!-- Teammate 6: Gordon Ramsay -->
+    <div class="p-4 m-4 rounded-full bg-white shadow-lg">
+        <div style="display: flex; justify-content: center;">
+            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;">
+                <img src="/gordonRamsay.jpeg" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+        </div>
+        <h3 class="font-bold">Gordon Ramsay</h3>
+        <h5> Recipe Developper </h5>
+        <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
+        <div style="display: flex; justify-content: center;"">
             <img src=" /github.png" href="" style="width:30px; height: 30px; margin-right: 20px;">
-                    <img src="/linkedin.png" href="" style="width:30px; height: 30px; margin-left: 20px;">
-                </div>
-            </div>
+            <img src="/linkedin.png" href="" style="width:30px; height: 30px; margin-left: 20px;">
         </div>
+    </div>
+</div>
 
-        </div>
+</div>
 
-        <!-- End of aboutUs.ejs -->
-        <%- include("templates/footer") %>
+<!-- End of aboutUs.ejs -->
+<%- include("templates/footer") %>

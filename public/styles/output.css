@@ -674,6 +674,10 @@ video {
   flex-grow: 1;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
 .appearance-none {
   -webkit-appearance: none;
   -moz-appearance: none;

@@ -1,9 +1,9 @@
 <header class="p-4 m-4 bg-white flex justify-between relative shadow-md rounded-full">
     <div class="flex flex-row justify-center items-center">
-        <a href="./" class="flex items-center text-lg font-bold text-white hover:text-white-300 px-3">
+        <a href="./" class="flex items-center text-lg text-gray-900 px-3">
             <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10">
+            <div class="px-3"> ReciPT </div>
         </a>
-        <div>ReciPT</div>
     </div>
 
     <button class="menu-btn pr-2" id="menu-btn">
@@ -44,8 +44,10 @@
 
 <!-- Main content box -->
 <% if(session.loggedin) { %>
-    <div class="p-1 m-1 rounded-3xl bg-gray-100" style="overflow: auto; height: calc(100vh - 104px - 112px); width: 92vw; margin: auto;">
-<% } else { %>
-    <div class="p-1 m-1 rounded-3xl bg-gray-100" style="overflow: auto; height: calc(100vh - 112px); width: 92vw; margin: auto;">
-<% } %>
-    <!-- Code starts here -->
+<div class="p-1 m-1 rounded-3xl bg-gray-100"
+    style="overflow: auto; height: calc(100vh - 104px - 112px); width: 92vw; margin: auto;">
+    <% } else { %>
+    <div class="p-1 m-1 rounded-3xl bg-gray-100"
+        style="overflow: auto; height: calc(100vh - 112px); width: 92vw; margin: auto;">
+        <% } %>
+        <!-- Code starts here -->

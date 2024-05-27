@@ -7,23 +7,24 @@
 *-----------------------------------------------------------*  
 -->
 <!-- Chatbox: connected to chatlog.ejs -->
-<main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
-    <% if (show) { %>
-    <div class="flex flex-col items-center">
-        <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
-        <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
-    </div>
-    <% } else { %>
-    <div id="query-logs" class="flex flex-col justify-between m-4">
-        <% for(let i=2; i < response.length; i++) { %>
-        <% if (i%2==0) { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe: isRecipe[i]}) %>
+<main class="flex flex-col items-center justify-between h-screen" style="max-height:75vh;">
+        <% if (show) { %>
+            <div class="flex flex-col justify-center items-center grow" style="flex-grow: 5">
+                <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
+                <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
+            <!-- </div> -->
         <% } else { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'You' , isRecipe: isRecipe[i]}) %>
+            <div id="query-logs" class="flex flex-col justify-start" style="flex-grow: 5">
+                <% for(let i=2; i < response.length; i++) { %>
+                <% if (i%2==0) { %>
+                <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe: isRecipe[i]}) %>
+                <% } else { %>
+                <%- include('templates/chatlog', {log: response[i].content, user: 'You' , isRecipe: isRecipe[i]}) %>
+                <% } %>
+                <% } %>
         <% } %>
-        <% } %>
-    </div>
-    <% } %>
+            </div>
+
 
     <!-- Send user input to database -->
     <div id="chatbot-container" class="flex flex-row items-center">

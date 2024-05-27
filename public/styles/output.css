@@ -842,7 +842,6 @@ video {
   padding: 2.5rem;
 }
 
-
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -974,6 +973,10 @@ video {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-snug {
+  line-height: 1.375;
 }
 
 .text-black {

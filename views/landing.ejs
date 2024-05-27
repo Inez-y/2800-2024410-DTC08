@@ -1,16 +1,12 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<!-- 
-*-----------------------------------------*
-|   User must sign up to use a chat box   |
-*-----------------------------------------* -->
 
-<div class="relative" style="height:85vh">
-    <div class="flex justify-between">
-        <h1 class="text-left text-6xl py-2 pr-2" style="margin-left:20px;">ReciPT</h1>
-        <div class="flex justify-end">
-            <p class="text-right text-lightGrey text-sm" style="margin-right:20px;">
+<div class="relative py-8" style="height:85vh">
+    <div class="flex justify-between p-2">
+        <h1 class="text-left text-6xl p-2 m-4">ReciPT</h1>
+        <div class="flex justify-end p-2 m-4">
+            <p class="text-right text-lightGrey text-sm">
                 Have an <br> account? <br>
                 <a href="./login">
                     <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
@@ -20,16 +16,18 @@
     </div>
 
     <div>
-        <p class="text-left text-3xl text-gray-700 py-8" id="flipThePage" style="padding:20px; padding-top:100px"></p>
+        <p class="text-left text-3xl text-gray-700 p-4 m-4 leading-snug" id="flipThePage">
+        </p>
     </div>
 
-    <div class="text-center absolute" style="bottom:7vh; width:100%;" >
-        <a href="./signup"><button class="px-10 py-2 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn" style="max-width:85vw"> Sign
+    <div class="text-center absolute py-4" style="bottom:7vh; width:100%;">
+        <button class="px-10 py-4 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"
+            style="max-width:85vw"> Sign
             Up
         </button></a>
     </div>
-    
-    <div class="flex justify-between items-center absolute" style=" bottom:2vh;width:100%;">
+
+    <div class="flex justify-between items-center absolute px-4 py-4" style=" bottom:2vh;width:100%;">
         <a href="./signup" class="align-baseline">
             <button class="text-buttongreen text-sm align-text-bottom" id="skipBtn">Skip</button>
         </a>
@@ -41,18 +39,18 @@
 
 
 <script>
-    // *--------------------------------------------*
-    // |   Set default text line and progress bar   |
-    // *--------------------------------------------*
-
     function setDefaultTextLine() {
         const flipThePageContents = document.createElement('div');
         flipThePageContents.innerHTML =
             `
             Tired of deciding <br> 
-            what to make for dinner? <br>
+            what to make <br>
+            for dinner? <br>
             <br>
-            ReciPT is here to help
+            <span class="font-semibold">
+            ReciPT <br>
+            </span>
+            is here to help
         
         `;
         document.getElementById('flipThePage').appendChild(flipThePageContents);
@@ -100,11 +98,15 @@
         switch (numberOfClicks) {
             case 1:
                 flipThePageContents.innerHTML = `     
-                Not sure what to <br>
-                make with the ingredients <br> 
+                Not sure  <br> 
+                what to make <br>
+                with the ingredients <br> 
                 in your fridge? <br>
                 <br>
-                ReciPT is here to help
+                <span class="font-semibold">
+                ReciPT <br>
+                </span>
+                is here to help
             `;
                 flipThePageProgressBar.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">
@@ -124,10 +126,14 @@
 
             case 2:
                 flipThePageContents.innerHTML = `     
-                Are you bad <br>
-                at cooking?<br> 
+                Are you <br>
+                bad <br>
+                at cooking? <br> 
                 <br>
-                ReciPT is here to help
+                <span class="font-semibold">
+                ReciPT <br>
+                </span>
+                is here to help
        
             `;
                 flipThePageProgressBar.innerHTML = `
@@ -148,10 +154,14 @@
 
             case 3:
                 flipThePageContents.innerHTML = `     
-                Tired of wasting <br>
+                Tired of <br>
+                wasting <br>
                 precious food? <br>
                 <br>
-                ReciPT is here to help
+                <span class="font-semibold">
+                ReciPT <br>
+                </span>
+                is here to help
             `;
                 flipThePageProgressBar.innerHTML = `
                 <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#9A9BB1">

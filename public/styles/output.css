@@ -65,11 +65,11 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
-  background-image: url(../background1.jpeg);
+  background-image: url(../background8.png);
   background-size: percentage;
   background-position: center;
   background-repeat: cover;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /*

@@ -18,19 +18,67 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="/recipt_logo.png">
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            padding-top: 100px;
+            /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
 
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 
 <!-- Fonts and background -->
 
 <body class="font-Poppins bg-opacity-90">
-    <!-- Code starts here -->
+    <!-- Main content box -->
+    <div class="p-1 m-1 rounded-3xl bg-gray-100"
+        style="overflow: auto; max-height: 85vh; max-width: 92vw; margin: auto;">
+        <!-- Code starts here -->
 
-    <!-- Body -->
-
-    <body class="font-Poppins"
-        style="background-image: url(public/background1.jpeg); opacity: 70%; background-size:percentage; background-position: center; background-repeat: cover;">
+        <!-- Body -->
         <!-- Header -->
         <header class="p-4 m-4 bg-white flex justify-between relative shadow-md rounded-full">
             <div class="flex flex-row justify-center items-center">
@@ -44,29 +92,92 @@
         <!-- 
         Actual code starts here - copy and paste
         -->
-        <div class="p-4 m-10 rounded-3xl bg-white">
-            <div class="p-2 m-2 text-left text-lg text-buttongreen">
-                <button id="chatlogHistoryEditButton"> Edit </button>
-            </div>
-            <div class="">
-                <p class="text-left text-4xl p-2 m-2 font-bold"> Username's <br> My <br> Ingredients </p>
-            </div>
+        <main class="flex flex-col items-center justify-center h-screen">
+            <div class="w-full max-w-xs">
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold text-left">Welcome to <span class="text-buttongreen">ReciPT</span>
+                    </h2>
+                    <h1 class="text-3xl font-bold text-left">Sign up</h1>
+                </div>
+                <form action='/signUp' method='post' class="w-full max-w-xs">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name</label>
+                        <input id="name" name='username' type='text' placeholder='username'
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                        <input id="email" name='email' type='email' placeholder='email'
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+                        <input id="password" name='password' type='password' placeholder='password'
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Re-enter
+                            password</label>
+                        <input id="confirm-password" name='confirm-password' type='password'
+                            placeholder='re-enter password'
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="flex items-center justify-center">
+                        <button
+                            class="bg-buttongreen text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                            type="submit" id="submitButton">
+                            Sign up
+                        </button>
+                    </div>
+                </form>
 
-            <div class="flex justify-center p-10">
-                <button class="p-2 w-full m-10 rounded-full bg-gray-400 text-white" id="myCookbookButton">
-                    My Cookbook </button>
-            </div>
-            <div class="flex justify-center p-10">
-                <button class="p-2 w-full m-10 rounded-full bg-buttongreen text-white" id="myRecipiesButton">
-                    My Recipies </button>
-            </div>
-        </div>
+
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Some text in the Modal..</p>
+                    </div>
+
+                </div>
+
+        </main>
+
+        <script>
+            var modal = document.getElementById("myModal");
+
+            // Get the button that opens the modal
+            var btn = document.getElementById("submitButton");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks the button, open the modal 
+            btn.onclick = function () {
+                modal.style.display = "block";
+            }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function () {
+                modal.style.display = "none";
+            }
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
         <!-- 
         Actual code ends here - copy and paste
         -->
 
 
         <!-- Code ends here -->
-    </body>
+    </div>
+</body>
 
 </html>

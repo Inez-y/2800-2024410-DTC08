@@ -1,8 +1,9 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<main class="flex flex-col items-center justify-center h-screen">
-    <div class="w-full max-w-xs">
+
+<div class="m-10 p-4 flex justify-center">
+    <div>
         <div class="mb-4">
             <h2 class="text-xl font-semibold text-left">Welcome to <span class="text-buttongreen">ReciPT</span>
             </h2>
@@ -32,56 +33,54 @@
             </div>
             <div class="flex items-center justify-center">
                 <button
-                    class="bg-buttongreen text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
                     id="submitButton" type="submit">
                     Sign up
                 </button>
             </div>
         </form>
+    </div>
 
-        <!-- The Modal -->
-        <div id="myModal" class="modal flex justify-center w-full h-screen">
-            <div class="modalContent rounded-3xl flex justify-center">
-
-                <p id="errorMessage"> message </p>
-                <button class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full justify-center close">
-                    Close </button>
-            </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal flex justify-center w-full h-screen">
+        <div class="modalContent rounded-3xl flex justify-center">
+            <!-- Error -->
+            <%- include("templates/messasge") %>
+            <button class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full justify-center close">
+                Close </button>
         </div>
-</main>
+    </div>
 
 
-<script>
-    var modal = document.getElementById("myModal");
-    var form = document.querySelector("form");
-    var btn = document.getElementById("submitButton");
-    var closeBtn = document.getElementsByClassName("close")[0];
 
-    // id
-    var errorMessage = document.getElementById("errorMessage");
-    var userName = document.getElementById("name");
+    <script>
+        var modal = document.getElementById("myModal");
+        var form = document.querySelector("form");
+        var btn = document.getElementById("submitButton");
+        var closeBtn = document.getElementsByClassName("close")[0];
 
-    btn.onclick = function (event) {
-        // Prevent form submission if errors
-        if (userName == null) {
-            event.preventDefault();
+        // id
+        var errorMessage = document.getElementById("errorMessage");
+        var userName = document.getElementById("name");
+        var modalContent = document.getElementById("modalContent");
+
+        btn.onclick = function (event) {
+
             modal.style.display = "block";
-
-            errorMessage.append("error");
+            event.preventDefault();
         }
 
-        // else submit
-    }
-
-    closeBtn.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function (event) {
-        if (event.target == modal) {
+        closeBtn.onclick = function () {
             modal.style.display = "none";
         }
-    }
-</script>
 
-<%- include("templates/footer") %>
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="js/contact_modal.js"></script>
+
+    <%- include("templates/footer") %>

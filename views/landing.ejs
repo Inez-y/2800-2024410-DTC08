@@ -2,10 +2,8 @@
 <%- include("templates/header") %>
 
 
-<div class="relative py-8" style="height:85vh">
-    <div class="flex justify-between p-2">
-        <h1 class="text-left text-6xl p-2 m-4">ReciPT</h1>
-        <div class="flex justify-end p-2 m-4">
+<div class="relative" style="height: 85vh">
+        <div class="flex flex-col justify-end m-4">
             <p class="text-right text-lightGrey text-sm">
                 Have an <br> account? <br>
                 <a href="./login">
@@ -13,7 +11,8 @@
                 </a>
             </p>
         </div>
-    </div>
+
+    <h1 class="text-left text-6xl p-2 m-4">ReciPT</h1>
 
     <div>
         <p class="text-left text-3xl text-gray-700 p-4 m-4 leading-snug" id="flipThePage">
@@ -21,10 +20,12 @@
     </div>
 
     <div class="text-center absolute py-4" style="bottom:7vh; width:100%;">
-        <button class="px-10 py-4 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"
-            style="max-width:85vw"> Sign
-            Up
-        </button></a>
+        <a href="./signup">
+            <button class="px-10 py-4 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn"
+                style="max-width:85vw"> Sign
+                Up
+            </button>
+        </a>
     </div>
 
     <div class="flex justify-between items-center absolute px-4 py-4" style=" bottom:2vh;width:100%;">

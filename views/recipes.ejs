@@ -8,7 +8,7 @@
         style="display: none">
         <div class="flex flex-row m-0 justify-between">
             <!-- Form to remove recipe -->
-            <form action="/removeRecipe" method="post">
+            <form action="/removeRecipe" method="post" onsubmit="return confirm('Do you really want to delete this recipe?');">
                 <input type="hidden" name="id" value="<%= recipes[i]._id %>">
                 <button type="submit" class="material-icons text-2xl text-buttongreen">delete</button>
             </form>

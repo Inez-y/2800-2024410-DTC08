@@ -56,6 +56,9 @@
 <script>
     document.querySelectorAll('.delete-ingredient').forEach(button => {
         button.addEventListener('click', async () => {
+            if (!confirm('Are you sure you want to delete this ingredient?')) {
+                return;
+            }
             const id = button.getAttribute('data-id');
 
             const response = await fetch(`/delete-ingredient/${id}`, {

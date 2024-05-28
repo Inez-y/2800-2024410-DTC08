@@ -1,30 +1,49 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-<main class="h-screen" style="max-height: 75vh;">
-    <div class="p-4 m-5 rounded-3xl bg-gray-100 relative" style="width:80vw; margin: 0 auto;">
+<main class="flex flex-col items-center justify-center h-halfScreen">
+    <div class="justify-center w-full p-4 m-10 rounded-3xl bg-white">
         <div class="flex justify-center">
-            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myRecipeButton" style="font-size: 14.5px;"><a href="/recipes">My Recipes</a></button>
-            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton" style="font-size: 14.5px;"><a href="/myIngredients">My Ingredients</a></button>
+            <!-- Button to view all recipes -->
+            <button class="py-2 m-2 w-full rounded-full bg-gray-400 text-white" id="homeButton">
+                <a href="/">Home</a>
+            </button>
+            <!-- Button to view all ingredients -->
+            <button class="py-2 m-2 w-full rounded-full bg-buttongreen text-white" id="myIngredientsButton">
+                <a href="/recipes">My Recipes</a>
+            </button>
         </div>
 
-        <div class="text-center text-3xl p-2 m-2 font-bold">My Ingredients</div>
+        <div class="text-5xl p-2 m-2 font-semibold text-gray-700">My <br> Ingredients</div>
         <div class="max-w-s">
-            <div class="relative bg-gray-100 rounded-lg p-4 shadow-md" style="max-height: 60vh; overflow-y: auto; width:100%; max-height: 95%;">
+            <div class="relative bg-white rounded-lg p-4"
+                style="max-height: 60vh; overflow-y: auto; width:100%; max-height: 95%;">
                 <ul id="ingredients-list" class="space-y-2">
                     <% for (let i = 0; i < ingredients.length; i++) { %>
-                        <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start">
-                            <div class="w-24 items-center">
-                                <div class="ingredient-details">
-                                    <div class="text-xl font-bold"><input type="text" class="ingredient-name bg-white" value="<%= ingredients[i].name %>" disabled style="width:200px;"></div>
-                                    <div class="text-gray-700">
-                                        <input type="number" class="ingredient-amount bg-white" value="<%= ingredients[i].amount %>" disabled> 
-                                        <input type="text" class="ingredient-unit bg-white" value="<%= ingredients[i].unit %>" disabled>
-                                    </div>
+                    <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-betgween items-start">
+                        <div class="w-24 items-center">
+                            <div class="ingredient-details">
+                                <div class="text-2xl font-bold text-gray-700">
+                                    <input type="text" class="ingredient-name bg-white"
+                                        value="<%= ingredients[i].name %>" disabled style="width:200px;">
+                                    <button class="delete-ingredient" data-id="<%= ingredients[i]._id %>">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960"
+                                            width="24px" fill="#D16D6A">
+                                            <path
+                                                d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                        </svg>
+                                    </button>
                                 </div>
-                                <button class="delete-ingredient bg-buttongreen text-white rounded px-3 py-1" data-id="<%= ingredients[i]._id %>" style="margin-top:10px;">Delete</button>
+                                <div class="text-gray-700">
+                                    <p> Amount: <input type="number" class="ingredient-amount bg-white"
+                                            value="<%= ingredients[i].amount %>" disabled></p>
+                                    <p> Unit: <input type="text" class="ingredient-unit bg-white"
+                                            value="<%= ingredients[i].unit %>" disabled></p>
+                                </div>
                             </div>
-                        </li>
+
+                        </div>
+                    </li>
                     <% } %>
                 </ul>
             </div>
@@ -35,21 +54,22 @@
 <%- include("templates/footer") %>
 
 <script>
-document.querySelectorAll('.delete-ingredient').forEach(button => {
-    button.addEventListener('click', async () => {
-        const id = button.getAttribute('data-id');
-        
-        const response = await fetch(`/delete-ingredient/${id}`, {
-            method: 'DELETE'
-        });
+    document.querySelectorAll('.delete-ingredient').forEach(button => {
+        button.addEventListener('click', async () => {
+            const id = button.getAttribute('data-id');
 
-        if (response.ok) {
-            location.reload();
-        } else {
-            alert('Failed to delete ingredient. Please try again.');
-        }
+            const response = await fetch(`/delete-ingredient/${id}`, {
+                method: 'DELETE'
+            });
+
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert('Failed to delete ingredient. Please try again.');
+            }
+        });
     });
-});
 </script>
 </body>
+
 </html>

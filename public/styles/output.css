@@ -650,6 +650,10 @@ video {
   height: 2.5rem;
 }
 
+.h-halfScreen {
+  height: 75vh;
+}
+
 .h-screen {
   height: 100vh;
 }

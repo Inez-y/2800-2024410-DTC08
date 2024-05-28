@@ -1,22 +1,32 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-        <form class="w-full max-w-xs" action="/forgot" method="post">
+<main class="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <!-- Password Reset Form Container -->
+    <div class="w-full max-w-xs bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <h2 class="block text-gray-700 text-lg font-bold mb-4">Reset Password</h2>
+        <!-- Password Reset Form -->
+        <form action="/forgot" method="post">
+            <!-- Email Field -->
             <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
                 <input
                     class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    id="email" name="email" type="email" placeholder="Email">
+                    id="email" name="email" type="email" placeholder="Email" required>
             </div>
+            <!-- Submit Button -->
             <div class="flex items-center justify-center">
                 <button
-                    class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    class="bg-buttongreen rounded-lg hover:bg-green-700 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
                     type="submit">
-                    Reset password
+                    Reset Password
                 </button>
             </div>
         </form>
-        <!-- Displays messages from server -->
+    </div>
+    <!-- Displays messages from server -->
+    <div class="w-full max-w-xs">
         <%- include("templates/message") %>
+    </div>
+</main>
 
-            <%- include("templates/footer") %>
+<%- include("templates/footer") %>

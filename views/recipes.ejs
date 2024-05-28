@@ -3,8 +3,10 @@
 
 <main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
     <% for (let i=0; i < recipes.length; i++) { %>
+    <!-- Recipe details section -->    
     <div class="p-4 m-10 rounded-3xl bg-white recipes overflow-y-auto max-h-80" id="recipe-<%= i %>" style="display: none">
         <div class="flex flex-row m-0" style="justify-content: flex-end">
+            <!-- Form to remove recipe -->
             <form action="/removeRecipe" method="post">
                 <input type="hidden" name="id" value="<%= recipes[i]._id %>">
                 <button type="submit" class="material-icons text-2xl text-buttongreen">delete</button>
@@ -25,11 +27,14 @@
     </div>
     <% } %>
 
+    <!-- Container for the main recipe content -->
     <div class="p-4 m-10 rounded-3xl bg-white" id="recipe-content-container">
         <div class="flex justify-center mb-4" id="recipe-buttons">
+            <!-- Button to view all recipes -->
             <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myRecipeButton">
                 <a href="/recipes">My Recipes</a>
             </button>
+            <!-- Button to view all ingredients -->
             <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton">
                <a href="/myIngredients">My Ingredients</a>
             </button>
@@ -39,6 +44,7 @@
             <div class="w-full max-w-xs">
                 <ul id="favorites-list" class="mb-4">
                     <% for (let i=0; i < recipes.length; i++) { %>
+                    <!-- List of recipes -->
                     <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start recipe-name"
                         id="<%= i %>">
                         <%- include('templates/recipeCard', {recipe: recipes[i]}) %>
@@ -55,7 +61,7 @@
         .recipes,
         #recipe-content {
             overflow-y: auto;
-            max-height: 80vh; /* Adjust the value as needed */
+            max-height: 80vh; 
         }
 
         #recipe-content-container {
@@ -71,6 +77,11 @@
     </style>
 
     <script>
+        /**
+         * Event listener for displaying selected recipe details.
+         *
+         * When a recipe item is clicked on, the recipe content container is hidden and the selected recipe is displayed.
+         */
         const recipe = document.getElementsByClassName("recipe-name");
         for (let i = 0; i < recipe.length; i++) {
             recipe[i].addEventListener("click", function () {

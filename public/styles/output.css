@@ -1138,3 +1138,65 @@ video {
   width: 80%;
   /* Could be more or less, depending on screen size */
 }
+
+/* Animation Effect for landing page*/
+.fadeIn {
+  opacity: 0;
+  animation: fadeInAnimation 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation Effect for next button in landing page */
+
+.nextBtn {
+  --color: 119, 147, 65;
+  border-radius: .2em;
+  transition: .3s;
+  background-color: rgba(var(--color), .2);
+  color: rgb(var(--color));
+  fill: rgb(var(--color));
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(var(--color), .4);
+  outline: none;
+  display: flex;
+  align-items: center;
+
+}
+
+.nextBtn:hover {
+  box-shadow: 0 0 0 5px rgba(var(--color), .5);
+}
+
+.nextBtn span {
+  transform: scale(.8);
+  transition: .3s;
+}
+
+.nextBtn:hover span {
+  transform: scale(1);
+}
+
+.nextBtn svg {
+  font-size: 0;
+  transform: scale(0.5) translateX(0%) rotate(-180deg);
+  transition: .3s;
+}
+
+.nextBtn:hover svg {
+  font-size: 20px;
+  transform: scale(1) translateX(20%) rotate(0deg);
+}
+
+.nextBtn:active {
+  transition: 0s;
+  box-shadow: 0 0 0 5px rgb(var(--color));
+}

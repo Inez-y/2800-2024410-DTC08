@@ -1,9 +1,9 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
 
-
-<div class="relative" style="height: 85vh">
-    <div class="flex flex-row justify-between py-4">
+<div class="relative h-halfScreen m-2">
+    <!-- Welcomes logged out users -->
+    <div class="flex py-4 justify-between">
         <h1 class="text-left text-6xl font-semibold p-2 m-4">ReciPT</h1>
         <div class="text-right flex flex-col justify-end m-4">
             <p class=" text-lightGrey text-sm">
@@ -15,31 +15,38 @@
         </div>
     </div>
 
-
+    <!-- Generates welcoming messages to users-->
     <div>
-        <p class="text-left text-3xl text-gray-700 p-4 m-4 leading-snug" id="flipThePage">
+        <p class="text-left text-3xl text-gray-700 p-4 m-4 leading-snug fadeIn" id="flipThePage">
         </p>
     </div>
 
-    <div class="text-center absolute py-4" style="bottom:7vh; width:100%;">
-        <a href="./signup">
-            <button class="px-10 py-4 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg"
-                id="signUpBtn" style="max-width:85vw"> Sign
+    <!-- Sign up button -->
+    <div class="text-center">
+        <a href="./signup" class="flex justify-center w-full">
+            <button class="py-2 m-2 w-full bg-buttongreen rounded-full text-lg text-white shadow-lg" id="signUpBtn">
+                Sign
                 Up
             </button>
         </a>
     </div>
 
-    <div class="flex justify-between items-center absolute px-4 py-4" style=" bottom:2vh;width:100%;">
+    <!-- Skip and next button -->
+    <div class="flex justify-between items-center m-4 px-4 py-4" style="bottom:2vh;width:100%;">
         <a href="./signup" class="align-baseline">
             <button class="text-buttongreen text-sm align-text-bottom" id="skipBtn">Skip</button>
         </a>
         <div class="flex-1 mx-2" id="progressBar"></div>
-        <button class="m-1 p-1 bg-buttongreen text-white text-sm rounded-full shadow-lg" id="nextBtn">Next</button>
+        <button class="m-4 p-1 bg-buttongreen rounded-full shadow-lg nextBtn" id="nextBtn">
+            <span>Next</span>
+            <svg viewBox="0 0 320 512" height="1em" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z">
+                </path>
+            </svg>
+        </button>
     </div>
 </div>
-
-
 
 <script>
     /**
@@ -62,7 +69,6 @@
         document.getElementById('flipThePage').appendChild(flipThePageContents);
     }
 
-    
     /**
      * Sets the default progress bar content in the element with ID 'progressBar'.
      */
@@ -90,9 +96,6 @@
     setDefaultTextLine();
     setDefaultProgressBar();
 
-    // *---------------------------------------------------------*
-    // |   Switch statement for updating text and progress bar   |
-    // *---------------------------------------------------------*
     let numberOfClicks = 0;
     /**
      * Updates the text and progress bar based on the number of clicks.
@@ -103,6 +106,7 @@
 
         const flipThePageContents = document.createElement('div');
         const flipThePageElement = document.getElementById('flipThePage');
+        flipThePageContents.classList.add('fadeIn');
 
         const flipThePageProgressBar = document.createElement('div');
         const flipThePageProgressElement = document.getElementById('progressBar');
@@ -191,8 +195,15 @@
         </svg>
                 `;
                 break;
+
             case 4:
-                window.location.href = './signup';
+                flipThePageContents.innerHTML = `     
+                Are you ready <br>
+                to join us? <br>
+            `;
+                setTimeout(() => {
+                    window.location.href = './signup';;
+                }, 2000);
                 break;
         }
 

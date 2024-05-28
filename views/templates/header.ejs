@@ -46,8 +46,10 @@
 
 <!-- Main content box -->
 <% if(session.loggedin) { %>
-<div class="p-1 m-1 rounded-3xl bg-gray-100"
-    style="overflow: auto; height: calc(100vh - 104px - 112px); width: 92vw; margin: auto;">
+<div class="p-1 m-1 rounded-3xl bg-gray-100 h-halfScreen" style="overflow: auto; max-height: 75vh; width: 92vw; margin: auto; border-radius: 30px;
+    background: #e0e0e0;
+    box-shadow: 15px 15px 30px #bebebe,
+               -15px -15px 30px #ffffff;">
     <% } else { %>
     <div class="p-1 m-1 rounded-3xl bg-gray-100"
         style="overflow: auto; height: calc(100vh - 112px); width: 92vw; margin: auto;">

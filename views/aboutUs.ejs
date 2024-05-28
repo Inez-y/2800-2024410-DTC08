@@ -124,22 +124,24 @@
 <body class="font-Poppins bg-opacity-90">
     <%- include("templates/header") %>
 
-    <!-- 
-
-*--------------------------------------------*
-|   Introduce team members and the project   |
-|   This page contains an easter egg         |
-*--------------------------------------------* 
-
--->
-
     <!-- For the proejct -->
-    <div class="p-4 m-4 rounded-full bg-white justify-center shadow-lg" id="aboutUsIntroduceContainer">
+    <div class="p-4 m-4 rounded-lg bg-white justify-center shadow-lg" id="aboutUsIntroduceContainer">
         <div style="display: flex; justify-content: center;">
-            <p class="font-bold text-7xl text-center"> DTC-08 </p>
+            <p class="font-semibold text-6xl text-center"> DTC-08 </p>
         </div>
-        <div style="display: flex; justify-content: center;">
-            <p class="text-m text-center"> We thought we still have extra one week...! <br> We are donkies </p>
+        <div class="flex justify-center p-2">
+            <button onclick=" openProjectPitch()" class="p-2 text-center"> Project pitch </button>
+        </div>
+        <div class="flex justify-center px-8">
+            <p class="text-center text-gray-700" id="projectPitch" style="display: none;">
+                Our team, DTC-08, is developing <span class="font-semibold">ReciPT</span>, <br>
+                a recipe suggestion app<br>
+                to help individuals <br>
+                who lead busy lives, <br>
+                those with dietary restrictions, <br>
+                and aspiring cooks <br>
+                in choosing what to prepare <br>
+                based on what users currently have in their pantry/fridge.<br>
         </div>
     </div>
 
@@ -230,8 +232,8 @@
             <div style="display: flex; justify-content: center;">
                 <a href="https://github.com/tonylai2022/" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
-                <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img
-                        src="/linkedin.png" style=" width:30px; height: 30px; margin-left: 20px;"></a>
+                <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img src="/linkedin.png"
+                        style=" width:30px; height: 30px; margin-left: 20px;"></a>
             </div>
         </div>
 
@@ -270,6 +272,20 @@
                 });
             } else {
                 console.log('Easter Egg not activated!');
+            }
+        }
+
+
+        function openProjectPitch() {
+            var clickPitch = document.getElementById("projectPitch");
+            if (clickPitch) {
+                if (clickPitch.style.display === "none") {
+                    clickPitch.style.display = "block";
+                } else {
+                    clickPitch.style.display = "none";
+                }
+            } else {
+                console.error("Element with ID 'projectPitch' not found.");
             }
         }
     </script>

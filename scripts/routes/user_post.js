@@ -38,7 +38,7 @@ router.post('/signUp', async (req, res) => {
     const { error } = userValidationSchema.validate({ username, email, password, role: "user" });
 
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).redirect(`/signUp?msg=${error.details[0].message}`);
     }
 
     let userExists = await User.findOne({ username });

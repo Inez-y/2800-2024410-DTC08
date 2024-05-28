@@ -50,60 +50,20 @@
             </button>
         </div>
     </form>
-</div>
-
-
-
-<!-- Modal for displaying messages -->
-<div id="myModal" class="modal flex justify-center w-full h-screen">
-    <div class="modalContent rounded-3xl flex justify-center">
-        <!-- Error Message -->
-        <%- include("templates/message") %>
-        <!-- Close Button -->
-        <button class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full justify-center close">
-            Close </button>
-    </div>
+    <%- include("templates/message") %>
 </div>
 
 <script>
-     // Get elements from the DOM
-    var modal = document.getElementById("myModal");
-    var form = document.querySelector("form");
     var btn = document.getElementById("submitButton");
-    var closeBtn = document.getElementsByClassName("close")[0];
-    var errorMessage = document.getElementById("errorMessage");
-    var userName = document.getElementById("name");
-    var modalContent = document.getElementById("modalContent");
-
-    /**
-     * Show the modal when the submit button is clicked.
-     * Prevents the form from submitting.
-     *
-     * @param {Event} event - The event object.
-     */
-    btn.onclick = function (event) {
-
-        modal.style.display = "block";
-        event.preventDefault();
-    }
-
-    /**
-     * Close the modal when the close button is clicked.
-     */
-    closeBtn.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    /**
-     * Close the modal when clicking outside of the modal.
-     *
-     * @param {Event} event - The event object.
-     */
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
+    btn.addEventListener("click", function () {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+        if (password !== confirmPassword) {
+            window.location.href = `http://${window.location.host}/signUp?msg=passwords%20do%20not%20match`;
+            console.log("Passwords do not match");
+            event.preventDefault();
         }
-    }
+    });
 </script>
 <!-- jQuery and custom JS for modal -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>

@@ -15,11 +15,11 @@
                 </div>
             </div>
         <% } else { %>
-            <div class="flex flex-row justify-start">
-                <div class="px-4 font-semibold">
+            <div class="flex flex-row justify-between px-4">
+                <div class=" font-semibold">
                     <p> ReciPT </p>
                 </div>
-                <div>
+                <div class="pr-4">
                     <% if (isRecipe) { %>
                     <form action="/save" method="post">
                         <input type="hidden" name="recipe" value="<%= log %>">

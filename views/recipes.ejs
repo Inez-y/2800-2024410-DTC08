@@ -3,21 +3,24 @@
 
 <main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
     <% for (let i=0; i < recipes.length; i++) { %>
-    <!-- Recipe details section -->    
-    <div class="p-4 m-10 rounded-3xl bg-white recipes overflow-y-auto max-h-80" id="recipe-<%= i %>" style="display: none">
-        <div class="flex flex-row m-0" style="justify-content: flex-end">
+    <!-- Recipe details section -->
+    <div class="p-4 m-10 rounded-3xl bg-white recipes overflow-y-auto max-h-80 justify-center flex" id="recipe-<%= i %>"
+        style="display: none">
+        <div class="flex flex-row m-0 justify-between">
             <!-- Form to remove recipe -->
             <form action="/removeRecipe" method="post">
                 <input type="hidden" name="id" value="<%= recipes[i]._id %>">
                 <button type="submit" class="material-icons text-2xl text-buttongreen">delete</button>
             </form>
         </div>
+
         <div class="text-2xl p-1 mx-2 mb-2"><%= recipes[i].recipeName %></div>
         <h4>Ingredients:</h4>
         <ul class="list-disc list-inside">
             <% for(let j=0; j < recipes[i].ingredients.length; j++) { %>
             <li>
-                <%= recipes[i].ingredients[j].amount %> <%= recipes[i].ingredients[j].unit %> <%= recipes[i].ingredients[j].name %>
+                <%= recipes[i].ingredients[j].amount %> <%= recipes[i].ingredients[j].unit %>
+                <%= recipes[i].ingredients[j].name %>
             </li>
             <% } %>
         </ul>
@@ -31,21 +34,21 @@
     <div class="p-4 m-10 rounded-3xl bg-white" id="recipe-content-container">
         <div class="flex justify-center mb-4" id="recipe-buttons">
             <!-- Button to view all recipes -->
-            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myRecipeButton">
-                <a href="/recipes">My Recipes</a>
+            <button class="py-2 m-2 w-full rounded-full bg-gray-400 text-white" id="homeButton">
+                <a href="/">Home</a>
             </button>
             <!-- Button to view all ingredients -->
-            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton">
-               <a href="/myIngredients">My Ingredients</a>
+            <button class="py-2 m-2 w-full rounded-full bg-buttongreen text-white" id="myIngredientsButton">
+                <a href="/myIngredients">My Ingredients</a>
             </button>
         </div>
-        <div class="text-center text-3xl p-2 m-2 font-bold">My Recipes</div>
+        <div class="text-6xl p-2 m-2 font-semibold text-gray-700">My <br> Recipes</div>
         <div class="p-4 rounded-3xl bg-white overflow-y-auto max-h-80" id="recipe-content">
-            <div class="w-full max-w-xs">
+            <div class="w-full">
                 <ul id="favorites-list" class="mb-4">
                     <% for (let i=0; i < recipes.length; i++) { %>
                     <!-- List of recipes -->
-                    <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start recipe-name"
+                    <li class="bg-white shadow-md rounded mb-4 p-4 w-full flex flex-col items-start recipe-name"
                         id="<%= i %>">
                         <%- include('templates/recipeCard', {recipe: recipes[i]}) %>
                     </li>
@@ -61,7 +64,7 @@
         .recipes,
         #recipe-content {
             overflow-y: auto;
-            max-height: 80vh; 
+            max-height: 80vh;
         }
 
         #recipe-content-container {
@@ -92,4 +95,5 @@
     </script>
 </main>
 </body>
+
 </html>

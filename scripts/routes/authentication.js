@@ -193,6 +193,7 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
 
 /**
  * Route for updating ingredients in the user's profile
+ * @author Shaun Sy
  */
 router.post('/update-ingredients', async (req, res) => {
     const { ingredients } = req.body;
@@ -227,7 +228,8 @@ router.post('/update-ingredients', async (req, res) => {
 });
 
 /**
- * Route for deleting an ingredient from the user's profile
+ * Route for updating ingredients in the user's profile
+ * @author Shaun Sy
  */
 router.delete('/delete-ingredient/:id', async (req, res) => {
     try {

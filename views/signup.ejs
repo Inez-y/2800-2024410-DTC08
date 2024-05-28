@@ -2,93 +2,91 @@
 <%- include("templates/header") %>
 
 
-<div class="m-4 flex flex-col justify-between h-screen" style="max-height: 75vh;">
-    <div class="flex flex-col justify-end">
-        <p class="text-right text-lightGrey text-sm">
-            Have an <br> account? <br>
-            <a href="./login">
-                <button class="text-right text-buttongreen" id="bt-signIn">Sign in</button>
-            </a>
-        </p>
+<div class="m-4 p-2 flex flex-col justify-between" style="max-height: 75vh;">
+    <div class="flex flex-col justify-between py-4">
+        <h1 class="text-left text-6xl font-semibold">Sign <br> Up</h1>
+        <div class="text-right">
+            <p class=" text-lightGrey text-sm">
+                Have an <br> account? <br>
+                <a href="./login">
+                    <button class=" text-buttongreen font-bold">Sign in</button>
+                </a>
+            </p>
+        </div>
     </div>
-    <div class="mb-6 flex flex-col justify-center items-center">
+
+    <form action='/signUp' method='post' class="py-2">
         <div class="mb-4">
-            <h2 class="text-xl font-semibold text-left">Welcome to <span class="text-buttongreen">ReciPT</span>
-            </h2>
-            <h1 class="text-3xl font-bold text-left">Sign up</h1>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name</label>
+            <input id="name" name='username' type='text' placeholder='username'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
-        <form action='/signUp' method='post' class="w-full max-w-xs">
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name</label>
-                <input id="name" name='username' type='text' placeholder='username'
-                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                <input id="email" name='email' type='email' placeholder='email'
-                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                <input id="password" name='password' type='password' placeholder='password'
-                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-6">
-                <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Re-enter
-                    password</label>
-                <input id="confirm-password" name='confirm-password' type='password' placeholder='re-enter password'
-                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="flex items-center justify-center">
-                <button
-                    class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
-                    id="submitButton" type="submit">
-                    Sign up
-                </button>
-            </div>
-        </form>
-    </div>
-
-
-
-    <!-- The Modal -->
-    <div id="myModal" class="modal flex justify-center w-full h-screen">
-        <div class="modalContent rounded-3xl flex justify-center">
-            <!-- Error -->
-            <%- include("templates/message") %>
-            <button class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full justify-center close">
-                Close </button>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+            <input id="email" name='email' type='email' placeholder='email'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
+            <input id="password" name='password' type='password' placeholder='password'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Re-enter
+                password</label>
+            <input id="confirm-password" name='confirm-password' type='password' placeholder='re-enter password'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class="flex items-center justify-center py-2">
+            <button
+                class="bg-buttongreen text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                id="submitButton" type="submit">
+                Sign up
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal flex justify-center w-full h-screen">
+    <div class="modalContent rounded-3xl flex justify-center">
+        <!-- Error -->
+        <%- include("templates/message") %>
+        <button class="bg-buttongreen text-white font-bold py-2 px-4 rounded-full justify-center close">
+            Close </button>
     </div>
+</div>
 
-    <script>
-        var modal = document.getElementById("myModal");
-        var form = document.querySelector("form");
-        var btn = document.getElementById("submitButton");
-        var closeBtn = document.getElementsByClassName("close")[0];
+<script>
+    var modal = document.getElementById("myModal");
+    var form = document.querySelector("form");
+    var btn = document.getElementById("submitButton");
+    var closeBtn = document.getElementsByClassName("close")[0];
 
-        // id
-        var errorMessage = document.getElementById("errorMessage");
-        var userName = document.getElementById("name");
-        var modalContent = document.getElementById("modalContent");
+    // id
+    var errorMessage = document.getElementById("errorMessage");
+    var userName = document.getElementById("name");
+    var modalContent = document.getElementById("modalContent");
 
-        btn.onclick = function (event) {
+    btn.onclick = function (event) {
 
-            modal.style.display = "block";
-            event.preventDefault();
-        }
+        modal.style.display = "block";
+        event.preventDefault();
+    }
 
-        closeBtn.onclick = function () {
+    closeBtn.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
             modal.style.display = "none";
         }
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/contact_modal.js"></script>
 
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="js/contact_modal.js"></script>
-
-    <%- include("templates/footer") %>
+<%- include("templates/footer") %>

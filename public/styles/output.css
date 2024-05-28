@@ -740,6 +740,10 @@ video {
   justify-content: space-around;
 }
 
+.justify-items-end {
+  justify-items: end;
+}
+
 .gap-4 {
   gap: 1rem;
 }

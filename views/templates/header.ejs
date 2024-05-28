@@ -6,17 +6,19 @@
         </a>
     </div>
 
-    <button class="menu-btn pr-2" id="menu-btn">
+    <button class="menuButton pr-2" id="menuButton">
         <span class="material-icons">menu</span>
     </button>
-    <div id="dropdown-menu" class="hidden absolute right-4 top-12 bg-white shadow-md rounded w-48" style="z-index:100;">
+    <div id="dropdownMenu" class="hidden absolute right-4 top-12 bg-white shadow-md rounded-xl w-48"
+        style="z-index:100;">
         <% if(session.loggedin) { %>
-        <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Profile</a>
-        <a href="/aboutUs" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">About Us</a>
-        <a href="/logOut" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Log Out</a>
+        <a href="/profile" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">Profile</a>
+        <a href="/aboutUs" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">About Us</a>
+        <a href="/logOut" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">Log Out</a>
         <% } else { %>
-        <a href="/signup" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Sign Up</a>
-        <a href="/login" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Log In</a>
+        <a href="/signup" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">Sign Up</a>
+        <a href="/aboutUs" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">About Us</a>
+        <a href="/login" class="block px-4 py-2 text-gray-700 hover:bg-buttongreen">Log In</a>
         <% } %>
 
     </div>
@@ -25,8 +27,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const menuBtn = document.getElementById('menu-btn');
-        const dropdownMenu = document.getElementById('dropdown-menu');
+        const menuBtn = document.getElementById('menuButton');
+        const dropdownMenu = document.getElementById('dropdownMenu');
 
         menuBtn.addEventListener('click', () => {
             dropdownMenu.classList.toggle('hidden');

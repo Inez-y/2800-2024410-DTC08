@@ -1155,7 +1155,7 @@ video {
   }
 }
 
-/* Animation Effect for next button in landing page */
+/* Animation Effect for the next button in landing page */
 
 .nextBtn {
   --color: 119, 147, 65;
@@ -1199,4 +1199,67 @@ video {
 .nextBtn:active {
   transition: 0s;
   box-shadow: 0 0 0 5px rgb(var(--color));
+}
+
+/* Animation effect for the submit button in sign up page */
+.loadingAnimation {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(10px) contrast(20);
+}
+
+.circleOne,
+.circleTwo {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  background: #b88eb2;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.circleOne {
+  left: 20%;
+  animation: osc-l 2.5s ease infinite;
+  background: #edaae3;
+}
+
+.circleTwo {
+  left: 80%;
+  animation: osc-r 2.5s ease infinite;
+  background: #779341;
+}
+
+@keyframes osc-l {
+  0% {
+    left: 20%;
+  }
+
+  50% {
+    left: 50%;
+  }
+
+  100% {
+    left: 20%;
+  }
+}
+
+@keyframes osc-r {
+  0% {
+    left: 80%;
+  }
+
+  50% {
+    left: 50%;
+  }
+
+  100% {
+    left: 80%;
+  }
 }

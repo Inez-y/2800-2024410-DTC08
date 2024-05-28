@@ -25,17 +25,17 @@
     </div>
     <% } %>
 
-    <div class="p-4 m-10 rounded-3xl bg-white" id="cookbook-content-container">
-        <div class="flex justify-center mb-4" id="cookbook-buttons">
-            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myCookbookButton">
-                <a href="/Cookbook">My Cookbook</a>
+    <div class="p-4 m-10 rounded-3xl bg-white" id="recipe-content-container">
+        <div class="flex justify-center mb-4" id="recipe-buttons">
+            <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myRecipeButton">
+                <a href="/recipes">My Recipes</a>
             </button>
             <button class="px-3 m-2 rounded-full bg-buttongreen text-white" id="myIngredientsButton">
                <a href="/myIngredients">My Ingredients</a>
             </button>
         </div>
-        <div class="text-center text-4xl p-2 m-2 font-bold">My Cookbook</div>
-        <div class="p-4 rounded-3xl bg-white overflow-y-auto max-h-80" id="cookbook-content">
+        <div class="text-center text-3xl p-2 m-2 font-bold">My Recipes</div>
+        <div class="p-4 rounded-3xl bg-white overflow-y-auto max-h-80" id="recipe-content">
             <div class="w-full max-w-xs">
                 <ul id="favorites-list" class="mb-4">
                     <!-- Favorite recipes will be dynamically added here -->
@@ -54,16 +54,16 @@
 
     <style>
         .recipes,
-        #cookbook-content {
+        #recipe-content {
             overflow-y: auto;
             max-height: 80vh; /* Adjust the value as needed */
         }
 
-        #cookbook-content-container {
+        #recipe-content-container {
             width: 100%;
         }
 
-        #cookbook-buttons {
+        #recipe-buttons {
             position: sticky;
             top: 0;
             z-index: 10;
@@ -75,7 +75,7 @@
         const recipe = document.getElementsByClassName("recipe-name");
         for (let i = 0; i < recipe.length; i++) {
             recipe[i].addEventListener("click", function () {
-                document.getElementById("cookbook-content-container").style.display = "none";
+                document.getElementById("recipe-content-container").style.display = "none";
                 document.getElementById("recipe-" + i).style.display = "block";
             });
         }

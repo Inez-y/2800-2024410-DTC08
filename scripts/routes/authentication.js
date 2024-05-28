@@ -72,21 +72,21 @@ router.get('/myIngredients', async (req, res) => {
 });
 
 /**
- * Renders the myKitchen page
+ * Renders the saved page
  */
-router.get('/myKitchen', async (req, res) => {
-    res.render('myKitchen');
+router.get('/saved', async (req, res) => {
+    res.render('saved');
 });
 
 /**
- * Renders the cookbook page
+ * Renders the recipes page
  * @author Alice Huang
  */
-router.get('/cookbook', async (req, res) => {
+router.get('/recipes', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
-    res.render('cookbook', { recipes: recipes })
+    res.render('recipes', { recipes: recipes })
     // let user = await User.findOne({ username: req.session.username });
     // let recipe = await Recipe.findById({ _id: user.favorites[0] });
     // res.render('recipe', { recipe: recipe });
@@ -115,11 +115,11 @@ router.get('/recipe/:id', async (req, res) => {
  */
 router.post('/removeRecipe', async (req, res) => {
     const recipe = await Recipe.deleteOne({ _id: req.body.id });
-    res.redirect('/myKitchen');
+    res.redirect('/saved');
 });
 
 /**
- * Saves the recipe to the user's cookbook and the database
+ * Saves the recipe to the the database
  * @author Alice Huang
  */
 router.post('/save', async (req, res) => {
@@ -145,7 +145,7 @@ router.post('/save', async (req, res) => {
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
 
-    res.redirect('/myKitchen');
+    res.redirect('/saved');
 });
 
 /**

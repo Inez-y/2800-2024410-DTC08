@@ -1,53 +1,81 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
-
-
-        <main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
-            <div class="w-full max-w-xs">
-                <!-- Container for user information -->
-                <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-                     <!-- Title -->
-                    <h2 class="block text-gray-700 text-lg font-bold mb-4">User Information</h2>
-                    <!-- Display user name -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
-                        <p id="name"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                            <%= user.username %>
-                        </p>
-                    </div>
-                     <!-- Display user email -->
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                        <p id="email"
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                            <%= user.email %>
-                        </p>
-                    </div>
-                    <!-- Form to update user email -->
-                    <form action="/updateUserEmail" method="post">
-                        <input type="email" name="newEmail" placeholder="New email">
-                        <button type="submit">Update email</button>
-                        <br>
-                        <!-- Display user role -->
-                        <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2" for="role">Role</label>
-                            <p id="role"
-                                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight">
-                                <%= user.role %>
-                            </p>
-                        </div>
-                        <!-- Button to edit profile -->
-                        <div class="flex items-center justify-between">
-                            <a href="/edit-profile"
-                                class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Edit Profile
-                            </a>
-                        </div>
-                </div>
+<%- include("templates/header") %>
+<main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
+    <div class="w-full max-w-xs">
+        <!-- Container for user information -->
+        <div class="bg-white shadow-md rounded-lg px-8 py-8 mb-4">
+            <!-- Title -->
+            <h2 class="block text-gray-700 text-4xl font-bold mb-4"> <%= user.username %>'s <br>Profile</h2>
+            <!-- Display user name -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Name</label>
+                <input id="name" type="text" value="<%= user.username %>"
+                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight"
+                    disabled>
             </div>
-        </main>
-        <!-- Displays messages from server -->
-        <%- include("templates/message") %>
+            <!-- Display user role -->
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="role">Role</label>
+                <input id="role" type="text" value="<%= user.role %>"
+                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight"
+                    disabled>
+            </div>
+            <!-- Display user email -->
+            <div class="mb-4">
+                <div class="flex items-center justify-between">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
+                    <!-- Edit button -->
+                    <div onclick="toggleEditProfile()">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                            fill="#779341" onclick="showEmailForm()">
+                            <path
+                                d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                        </svg>
+                    </div>
+                </div>
 
-            <%- include("templates/footer") %>
+                <input id="email" type="email" value="<%= user.email %>"
+                    class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight"
+                    disabled>
+
+                <!-- Form to update user email and submit button(initially hidden) -->
+                <form action="/updateUserEmail" method="post">
+                    <input type="email" name="newEmail" placeholder="New Email" id="newEmailForm"
+                        class="shadow appearance-none border rounded-lg w-full py-2 px-3 mt-4 text-gray-700 leading-tight"
+                        style="display: none;" required>
+                    <br>
+
+                    <button type="submit" id="submitEmailButton"
+                        class="bg-buttongreen text-white font-semibold py-2 px-4 rounded-full shadow-lg"
+                        style="display: none; margin: 0 auto;">Update Email</button>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<!-- Displays messages from server -->
+<%- include("templates/message") %>
+
+<script>
+    function toggleEditProfile() {
+        var newEmailForm = document.getElementById('newEmailForm');
+        var submitEmailButton = document.getElementById('submitEmailButton');
+
+        if (newEmailForm.style.display === 'none') {
+            // Show email form and submit button, hide user's email
+            submitEmailButton.style.display = 'block';
+            newEmailForm.style.display = 'block';
+        } else {
+            // Hide email form and submit button, show user's email
+            submitEmailButton.style.display = 'none';
+            newEmailForm.style.display = 'none';
+        }
+    }
+</script>
+
+<!-- End of profile.ejs -->
+<%- include("templates/footer") %>

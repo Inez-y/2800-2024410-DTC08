@@ -8,7 +8,7 @@
         <div class="flex flex-row">
             <form action="/removeRecipe" method="post">
                 <input type="hidden" name="id" value="<%= recipes[i]._id %>">
-                <button type="submit" class="material-icons text-2xl text-green-500">delete</button>
+                <button type="submit" class="material-icons text-2xl text-buttongreen">delete</button>
             </form>
         </div>
         <h4>Ingredients:</h4>
@@ -38,7 +38,6 @@
         <div class="p-4 rounded-3xl bg-white overflow-y-auto max-h-80" id="recipe-content">
             <div class="w-full max-w-xs">
                 <ul id="favorites-list" class="mb-4">
-                    <!-- Favorite recipes will be dynamically added here -->
                     <% for (let i=0; i < recipes.length; i++) { %>
                     <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start recipe-name"
                         id="<%= i %>">

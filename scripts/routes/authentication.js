@@ -93,23 +93,6 @@ router.get('/recipes', async (req, res) => {
 });
 
 /**
- * Renders the recipe page with the recipe details
- * @author Alice Huang
- */
-router.get('/recipe/:id', async (req, res) => {
-    console.log(req.params.id)
-    let recipe;
-    try {
-        recipe = await Recipe.findById({ _id: req.params.id });
-    } catch (err) {
-        console.log(err)
-        return res.status(400).send(err);
-    }
-    res.render('recipe', { recipe: recipe });
-    // res.render('aboutus');
-});
-
-/**
  * Removes a recipe from the user's favorites list and from the database
  * @author Alice Huang
  */
@@ -124,14 +107,6 @@ router.post('/removeRecipe', async (req, res) => {
  */
 router.post('/save', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
-
-    //test
-    // const user = await User.findOne({ username: req.session.username });
-    // user.ingredients = ingredients;
-    // user.save();
-    // console.log(user.ingredients)
-
-
     let steps = await parseSteps(req.body.recipe);
     let name = await parseName(req.body.recipe);
     console.log(ingredients)

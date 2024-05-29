@@ -48,17 +48,13 @@
                     <button type="submit" id="submitEmailButton"
                         class="bg-buttongreen text-white font-semibold py-2 px-4 rounded-full shadow-lg"
                         style="display: none; margin: 0 auto;">Update Email</button>
-
                 </form>
-
             </div>
         </div>
+        <!-- Displays messages from server -->
+        <%- include("templates/message") %>
     </div>
 </main>
-
-
-<!-- Displays messages from server -->
-<%- include("templates/message") %>
 
 <script>
     function toggleEditProfile() {

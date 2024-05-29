@@ -98,7 +98,7 @@ router.get('/recipes', async (req, res) => {
  */
 router.post('/removeRecipe', async (req, res) => {
     const recipe = await Recipe.deleteOne({ _id: req.body.id });
-    res.redirect('/saved');
+    res.redirect('/recipes');
 });
 
 /**

@@ -87,7 +87,7 @@ const parseName = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      { role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe. Do not include context.` },
+      { role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe from a given recipe. Do not include context. Do not include things like "The name of the recipe is...". Only return the name. If there is an ending period, do not include the period.` },
       { role: "assistant", content: "Understood. I will now determine the name of the recipe." },
       {
         role: 'user',

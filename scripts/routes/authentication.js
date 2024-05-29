@@ -120,7 +120,7 @@ router.post('/save', async (req, res) => {
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
 
-    res.redirect('/saved');
+    res.redirect('/recipes');
 });
 
 /**

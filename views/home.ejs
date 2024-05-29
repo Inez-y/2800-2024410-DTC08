@@ -64,7 +64,7 @@
      *
      * @param {Event} e - The event object.
      */
-    document.getElementById("query").addEventListener("keypress", e => {
+    document.getElementById("query").addEventListener("keyup", e => {
         document.getElementById("submit-button").disabled = !nonEmptyInput();
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();

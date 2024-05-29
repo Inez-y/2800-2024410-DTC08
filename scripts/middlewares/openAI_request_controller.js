@@ -64,12 +64,22 @@ const renderRecipeFromOwnedIngredients = async (req, res) => {
 
     let user = await User.findOne({ username: req.session.username });
     let ingredients = user.ingredients;
-    await generateRecipeFromKitchen(ingredients, message_history);
+
+    if (user.ingredients.length === 0) {
+        message_history.push({
+            role: 'system',
+            content: 'You do not have any ingredients to cook with. Please add ingredients with your camera or ask for a recipe with specific ingredients you have in mind.'
+        });
+        isRecipe[isRecipe.length - 1] = 0;
+    } else {
+        await generateRecipeFromKitchen(ingredients, message_history);
+    }
+
     res.render('home', {
         response: message_history,
         show: null,
         isRecipe: isRecipe
-    });
+    })
 };
 
 /**

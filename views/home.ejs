@@ -7,10 +7,7 @@
 *-----------------------------------------------------------*  
 -->
 <!-- Chatbox: connected to chatlog.ejs -->
-
 <main class="flex flex-col items-center justify-between h-screen" style="max-height:75vh;">
-
-    <div class="loader-position"><span class="loader"></span></div>
         <% if (show) { %>
             <div class="flex flex-col justify-center items-center grow" style="flex-grow: 5">
                 <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
@@ -34,7 +31,7 @@
                     type="text" placeholder="Ask ReciPT" id="query" name="query"></textarea>
                 <span
                     class="flex items-center rounded rounded-l-none border-0">
-                    <button class="rounded" type="submit">
+                    <button class="rounded" type="submit" id="submit-button" disabled>
                         <span class="material-symbols-outlined text-buttongreen">arrow_circle_up</span>
                     </button>
                 </span>
@@ -52,16 +49,29 @@
 </style>
 
 <script>
+    function nonEmptyInput() {
+        const query = document.getElementById("query").value;
+        if (query.trim() === "") {
+            document.getElementById("query").value = "";
+            document.getElementById("query").focus();
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Adds an event listener to the textarea to submit the form on Enter key press without shift.
      *
      * @param {Event} e - The event object.
      */
     document.getElementById("query").addEventListener("keypress", e => {
-    if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-
-        e.currentTarget.closest("form").submit();
+        document.getElementById("submit-button").disabled = !nonEmptyInput();
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            if (nonEmptyInput()) {
+                e.currentTarget.closest("form").submit();
+            }
     }
+
 });
 </script>

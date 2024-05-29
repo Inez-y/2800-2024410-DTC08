@@ -19,27 +19,27 @@
     <form action='/signUp' method='post' class="py-2">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name*</label>
-            <input id="name" name='username' type='text' placeholder='username' required minlength="3"
+            <input required id="name" name='username' type='text' placeholder='username' minlength="3"
                 class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <!-- Email Field -->
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email*</label>
-            <input id="email" name='email' type='email' placeholder='email' required
+            <input required id="email" name='email' type='email' placeholder='email'
                 class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <!-- Password Field -->
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password*</label>
-            <input id="password" name='password' type='password' placeholder='password' required
+            <input required id="password" name='password' type='password' placeholder='password'
                 class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <!-- Confirm Password Field -->
         <div class="mb-6">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Re-enter
                 password*</label>
-            <input id="confirm-password" name='confirm-password' type='password' placeholder='re-enter password'
-                required
+            <input required id="confirm-password" name='confirm-password' type='password'
+                placeholder='re-enter password'
                 class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
         </div>
         <!-- Submit Button -->
@@ -51,8 +51,9 @@
             </button>
         </div>
 
+        <!-- Animation EFfect -->
         <div class="hidden loadingAnimation" id="successAnimation" role="alert">
-            <div class=" circleOne"></div>
+            <div class="circleOne"></div>
             <div class="circleTwo"></div>
         </div>
 
@@ -73,20 +74,25 @@
     btn.addEventListener("click", function (event) {
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirm-password").value;
+        var username = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
 
         if (password !== confirmPassword) {
             window.location.href = `http://${window.location.host}/signUp?msg=passwords%20do%20not%20match`;
             console.log("Passwords do not match");
             event.preventDefault();
-        } else {
-            successMessage.classList.remove("hidden");
-            successAnimation.classList.remove("hidden");
-            event.preventDefault();
-
-            setTimeout(function () {
-                document.getElementById("submitButton").form.submit();
-            }, 3000);
         }
+        // When other meesages are filterd properly, we can put confirmation effect
+        // else {
+        //     successMessage.classList.remove("hidden");
+        //     successAnimation.classList.remove("hidden");
+        //     event.preventDefault();
+
+        //     setTimeout(function () {
+        //         document.getElementById("submitButton").form.submit();
+        //     }, 3000);
+        // }
     });
 </script>
 

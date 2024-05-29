@@ -20,10 +20,10 @@
                 style="width:100%; max-height: 100%;">
                 <ul id="ingredients-list" class="space-y-2" style="overflow-y: auto; max-height: 45vh;">
                     <% for (let i = 0; i < ingredients.length; i++) { %>
-                    <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-betgween items-start">
+                    <li class="bg-white shadow-md rounded mb-4 p-4 flex flex-col justify-between items-start">
                         <div class="w-24 items-center">
                             <div class="ingredient-details">
-                                <div class="text-2xl font-bold text-gray-700">
+                                <div class="text-2xl font-bold text-gray-700 flex justify-between">
                                     <input type="text" class="ingredient-name bg-white"
                                         value="<%= ingredients[i].name %>" disabled style="width:200px;">
                                     <button class="delete-ingredient" data-id="<%= ingredients[i]._id %>">

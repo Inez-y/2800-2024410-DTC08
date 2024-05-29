@@ -33,7 +33,7 @@ function initSession(req, username) {
  */
 router.post('/signUp', async (req, res) => {
 
-    const { username, email, password } = req.body;
+    let { username, email, password } = req.body;
     username = username.trim();
     email = email.trim();
     password = password.trim();
@@ -65,7 +65,7 @@ router.post('/signUp', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/logIn', async (req, res) => {
-    const { username, password } = req.body;
+    let { username, password } = req.body;
     username = username.trim();
     password = password.trim();
 

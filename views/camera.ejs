@@ -7,7 +7,7 @@
         <input type="file" id="fileInput" accept="image/*" class="mb-4" style="overflow:hidden; display: block; width: 70%; margin: 20px auto;">
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
             <input type="hidden" name="image" id="image">
-            <button type="submit" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Analyze Image</button>
+            <button type="submit" class="bg-buttongreen hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Analyze Image</button>
         </form>
     </div>
 
@@ -75,7 +75,7 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
                         <li class="ingredient-item m-2" style="display: block; width: 70%; margin: 0 auto;">
                             <span class="block font-bold m-2" style="display: block;">${ingredient}</span>
                             <input type="hidden" name="ingredientNames[]" value="${ingredient}">
-                            <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount" style="display: block;">
+                            <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount" style="display: block;" min="0">
                             <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit" style="display: block;">
                             <button type="button" class="removeIngredientBtn text-red-500 mt-2" style="display: block;">Remove</button>
                         </li>
@@ -141,7 +141,7 @@ document.getElementById('addIngredientBtn').addEventListener('click', () => {
     newIngredientItem.innerHTML = 
     `
         <input type="text" name="ingredientNames[]" class="border rounded py-1 px-2 mt-1" placeholder="Ingredient" style="display: block;">
-        <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount" style="display: block;">
+        <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount" style="display: block;" min="0">
         <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit" style="display: block;">
         <button type="button" class="removeIngredientBtn text-red-500 mt-2" style="display: block;">Remove</button>
     `;

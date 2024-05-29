@@ -17,7 +17,7 @@
 
 
     <!-- Login form section -->
-    <form class="" action='/logIn' method='post'>
+    <form class="" action='/logIn' method='post' id="loginForm">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="email">User Name*</label>
             <input id="email" name='username' type='text' placeholder='User Name' required
@@ -34,6 +34,11 @@
                 type="submit">
                 Login
             </button>
+            <button
+                class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                type="button" id="clearButton">
+                Clear
+            </button>
         </div>
     </form>
 
@@ -46,5 +51,14 @@
 
 <!-- Displays messages from server -->
 <%- include("templates/message") %>
+
+<script>
+    var clearBtn = document.getElementById("clearButton");
+
+    clearBtn.addEventListener("click", function () {
+        document.getElementById("loginForm").reset();
+    });
+</script>
+
 
 <%- include("templates/footer") %>

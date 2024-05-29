@@ -49,6 +49,11 @@
                 id="submitButton" type="submit">
                 Sign Up
             </button>
+            <button
+                class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                id="clearButton" type="button">
+                Clear
+            </button>
         </div>
 
         <!-- Animation EFfect -->
@@ -68,6 +73,7 @@
 
 <script>
     var btn = document.getElementById("submitButton");
+    var clearBtn = document.getElementById("clearButton");
     var successMessage = document.getElementById("successMessage");
     var successAnimation = document.getElementById("successAnimation");
 
@@ -93,6 +99,14 @@
         //         document.getElementById("submitButton").form.submit();
         //     }, 3000);
         // }
+    });
+
+    clearBtn.addEventListener("click", function () {
+        // Clear all input fields
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("confirm-password").value = "";
     });
 </script>
 

@@ -66,12 +66,15 @@
      */
     document.getElementById("query").addEventListener("keyup", e => {
         document.getElementById("submit-button").disabled = !nonEmptyInput();
+    });
+
+    document.getElementById("query").addEventListener("keypress", e => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();
             if (nonEmptyInput()) {
                 e.currentTarget.closest("form").submit();
             }
-    }
+    }});
 
-});
+
 </script>

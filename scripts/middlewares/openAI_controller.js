@@ -45,6 +45,8 @@ const parseIngredients = async (recipe) => {
                                  specific JSON format. For each ingredient, you list the name (a string), amount (a number), and unit (a string). For numbers, do not include fractions. Do not include 'ingredients' header. Do not include context.`},
       { role: "user", content: `Here is a sample JSON response for you to refer to: [{"name": "tomato", "amount": 2, "unit": "whole"}, {"name": "flour", "quantity": 0.5, "unit": "cup"}, {"name": "salt", "quantity": 1, "unit": "g"}]` },
       { role: "assistant", content: "Understood. I will now determine the ingredients in the recipe." },
+      { role: "user", content: "For ingredients which do not have an amount or unit like 'salt to taste' or 'parsley for garnish', you can use 1 as amount and 'to taste' or 'for garnish' as unit." },
+      { role: "assistant", content: 'Understood. I will do that.' },
       {
         role: 'user',
         content: `${recipe}`

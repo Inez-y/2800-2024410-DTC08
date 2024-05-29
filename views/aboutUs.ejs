@@ -256,13 +256,14 @@
 
         nameHeaders.forEach((div, index) => {
             div.addEventListener('click', () => {
-                clickedArray[index - 2] = 1;
+                clickedArray[index] = 1;
                 div.classList.add('text-buttongreen');
                 checkEasterEggConditions();
             });
         });
 
         function checkEasterEggConditions() {
+            console.log(clickedArray)
             if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
                 console.log('Easter Egg activated!');
                 document.querySelectorAll(".hiddenImg").forEach((img, index) => {

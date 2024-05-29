@@ -34,6 +34,9 @@ function initSession(req, username) {
 router.post('/signUp', async (req, res) => {
 
     const { username, email, password } = req.body;
+    username = username.trim();
+    email = email.trim();
+    password = password.trim();
 
     const { error } = userValidationSchema.validate({ username, email, password, role: "user" });
 
@@ -63,6 +66,8 @@ router.post('/signUp', async (req, res) => {
  */
 router.post('/logIn', async (req, res) => {
     const { username, password } = req.body;
+    username = username.trim();
+    password = password.trim();
 
     const { nameError } = userNameValidationSchema.validate(username);
     const { pwError } = passwordValidationSchema.validate(password);
@@ -105,6 +110,8 @@ router.post('/updateUserRole', async (req, res) => {
  */
 router.post('/updateUserPassword', async (req, res) => {
     const { oldPassword, newPassword } = req.body;
+    oldPassword = oldPassword.trim();
+    newPassword = newPassword.trim();
 
     const { error } = passwordValidationSchema.validate({ oldPassword, newPassword });
     if (error) {
@@ -129,6 +136,7 @@ router.post('/updateUserPassword', async (req, res) => {
  */
 router.post('/updateUserEmail', async (req, res) => {
     const { newEmail } = req.body;
+    newEmail = newEmail.trim();
     console.log("new Email:" + newEmail);
 
     const { error } = emailValidationSchema.validate({ email: newEmail });
@@ -161,6 +169,11 @@ router.post('/updateUserEmail', async (req, res) => {
  */
 router.post('/forgot', async (req, res) => {
     const { email } = req.body;
+    email = email.trim();
+    const error = emailValidationSchema.validate({ email }).error;
+    if (error) {
+        return res.redirect(`/forgot?msg=${error.details[0].message}`);
+    }
     const user = await User.findOne({ email });
     if (!user) {
         return res.redirect('/forgot?msg=Email does not exist');
@@ -218,6 +231,11 @@ router.post('/forgot', async (req, res) => {
 router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
     const newPassword = req.body.password;
+    newPassword = newPassword.trim();
+    const { error } = passwordValidationSchema.validate({ password: newPassword });
+    if (error) {
+        return res.redirect(`/forgot?msg=${error.details[0].message}`);
+    }
 
     console.log("token: " + token);
     console.log("new password: " + newPassword);

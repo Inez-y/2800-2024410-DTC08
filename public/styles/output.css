@@ -846,6 +846,10 @@ video {
   padding: 1rem;
 }
 
+.p-5 {
+  padding: 1.25rem;
+}
+
 .p-10 {
   padding: 2.5rem;
 }

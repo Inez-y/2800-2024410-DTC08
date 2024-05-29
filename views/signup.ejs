@@ -18,7 +18,7 @@
     <!-- Sign Up Form -->
     <form action='/signUp' method='post' class="py-2">
         <div class="mb-4">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name*</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Username*</label>
             <input required id="name" name='username' type='text' placeholder='username' minlength="3"
                 class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
         </div>
@@ -55,18 +55,6 @@
                 Clear
             </button>
         </div>
-
-        <!-- Animation EFfect -->
-        <div class="hidden loadingAnimation" id="successAnimation" role="alert">
-            <div class="circleOne"></div>
-            <div class="circleTwo"></div>
-        </div>
-
-        <!-- Success Message Container -->
-        <div class="hidden relative justify-center text-center" id="successMessage" role="alert">
-            <p class="text-buttongreen">Success!</p>
-            <span class="text-grey-700">Your account has been created successfully.</span>
-        </div>
     </form>
     <%- include("templates/message") %>
 </div>
@@ -74,35 +62,19 @@
 <script>
     var btn = document.getElementById("submitButton");
     var clearBtn = document.getElementById("clearButton");
-    var successMessage = document.getElementById("successMessage");
-    var successAnimation = document.getElementById("successAnimation");
 
     btn.addEventListener("click", function (event) {
         var password = document.getElementById("password").value;
         var confirmPassword = document.getElementById("confirm-password").value;
-        var username = document.getElementById("name").value;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
 
         if (password !== confirmPassword) {
             window.location.href = `http://${window.location.host}/signUp?msg=passwords%20do%20not%20match`;
             console.log("Passwords do not match");
             event.preventDefault();
         }
-        // When other meesages are filterd properly, we can put confirmation effect
-        // else {
-        //     successMessage.classList.remove("hidden");
-        //     successAnimation.classList.remove("hidden");
-        //     event.preventDefault();
-
-        //     setTimeout(function () {
-        //         document.getElementById("submitButton").form.submit();
-        //     }, 3000);
-        // }
     });
 
     clearBtn.addEventListener("click", function () {
-        // Clear all input fields
         document.getElementById("name").value = "";
         document.getElementById("email").value = "";
         document.getElementById("password").value = "";

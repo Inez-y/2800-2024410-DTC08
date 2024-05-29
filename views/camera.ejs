@@ -4,74 +4,85 @@
 <main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
     <div id="uploadSection" class="w-full max-w-xs text-center flex flex-col justify-center" style="overflow:hidden;">
         <h2 class="block text-gray-700 text-lg font-bold">Upload or Capture Food Image</h2>
-        <input type="file" id="fileInput" accept="image/*" class="mb-4" style="overflow:hidden; display: block; width: 70%; margin: 20px auto;">
+        <input type="file" id="fileInput" accept="image/*" class="mb-4"
+            style="overflow:hidden; display: block; width: 70%; margin: 20px auto;">
         <form id="uploadForm" method="post" action="/analyze-image" enctype="multipart/form-data">
             <input type="hidden" name="image" id="image">
-            <button type="submit" class="bg-buttongreen hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Analyze Image</button>
+            <button type="submit"
+                class="bg-buttongreen hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Analyze
+                Image</button>
         </form>
     </div>
 
     <div id="ingredientsSection" class="relative w-full max-w-xs text-center hidden" style="max-height: 60vh;">
         <div id="closeModal" class="absolute top-0 right-0 text-gray-500 cursor-pointer">✖</div>
-        <h2 class="block text-gray-700 text-lg font-bold mb-4">Detected Ingredients</h2>
-        <form id="ingredientsForm" class="relative bg-gray-100 rounded-lg p-4 shadow-md" style="max-height: calc(100% - 2rem); overflow-y: auto;">
+        <h2 class="block text-gray-700 text-2xl font-bold mb-4">Detected Ingredients</h2>
+        <form id="ingredientsForm" class="relative bg-gray-100 rounded-lg p-4 shadow-md"
+            style="max-height: calc(100% - 2rem); overflow-y: auto;">
             <ul id="ingredientsList" class="space-y-2"></ul>
-            <button type="button" id="addIngredientBtn" class="bg-buttongreen  text-white hover:text-black text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mt-4">Add Ingredient</button>
-            <button type="submit" class="bg-buttongreen text-white hover:text-black font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline mt-4">Save Ingredients</button>
+            <button type="button" id="addIngredientBtn"
+                class="bg-buttongreen text-white font-semibold mt-4 py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full">Add
+                Ingredient</button>
+            <button type="submit"
+                class="bg-buttongreen text-white font-semibold mt-4 py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full">Save
+                Ingredients</button>
         </form>
     </div>
 </main>
 
-<div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden" style="display: none; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000;">
-    <div class="bg-white rounded-lg p-6 shadow-lg text-center" style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 90%; max-width: 400px; text-align: center;">
+<div id="successModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden"
+    style="display: none; justify-content: center; align-items: center; background-color: rgba(0, 0, 0, 0.5); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 1000;">
+    <div class="bg-white rounded-lg p-6 shadow-lg text-center"
+        style="background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); width: 90%; max-width: 400px; text-align: center;">
         <h3 class="text-lg font-bold mb-4">Success</h3>
         <p class="text-green-500 font-bold">Ingredients saved successfully!</p>
-        <button id="closeSuccessModal" class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full mt-4 focus:outline-none focus:shadow-outline">Close</button>
+        <button id="closeSuccessModal"
+            class="bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-full mt-4 focus:outline-none focus:shadow-outline">Close</button>
     </div>
 </div>
 
 <%- include("templates/footer") %>
 
 <script>
-document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const fileInput = document.getElementById('fileInput');
-    const imageInput = document.getElementById('image');
-    const uploadSection = document.getElementById('uploadSection');
-    const ingredientsSection = document.getElementById('ingredientsSection');
-    const ingredientsList = document.getElementById('ingredientsList');
-    const successModal = document.getElementById('successModal');
+    document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    if (!fileInput.files.length) {
-        alert('Please select an image.');
-        return;
-    }
+        const fileInput = document.getElementById('fileInput');
+        const imageInput = document.getElementById('image');
+        const uploadSection = document.getElementById('uploadSection');
+        const ingredientsSection = document.getElementById('ingredientsSection');
+        const ingredientsList = document.getElementById('ingredientsList');
+        const successModal = document.getElementById('successModal');
 
-    const file = fileInput.files[0];
-    const reader = new FileReader();
+        if (!fileInput.files.length) {
+            alert('Please select an image.');
+            return;
+        }
 
-    reader.onloadend = async () => {
-        const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
-        imageInput.value = base64String;
+        const file = fileInput.files[0];
+        const reader = new FileReader();
 
-        const formData = new FormData();
-        formData.append('image', base64String);
+        reader.onloadend = async () => {
+            const base64String = reader.result.replace('data:', '').replace(/^.+,/, '');
+            imageInput.value = base64String;
 
-        try {
-            const response = await fetch('/analyze-image', {
-                method: 'POST',
-                body: formData
-            });
-
-            const text = await response.text();
+            const formData = new FormData();
+            formData.append('image', base64String);
 
             try {
-                const result = JSON.parse(text);
-                console.log('Analyze Image Response:', result);
+                const response = await fetch('/analyze-image', {
+                    method: 'POST',
+                    body: formData
+                });
 
-                if (result.ingredients) {
-                    ingredientsList.innerHTML = result.ingredients.map((ingredient, index) => `
+                const text = await response.text();
+
+                try {
+                    const result = JSON.parse(text);
+                    console.log('Analyze Image Response:', result);
+
+                    if (result.ingredients) {
+                        ingredientsList.innerHTML = result.ingredients.map((ingredient, index) => `
                         <li class="ingredient-item m-2" style="display: block; width: 70%; margin: 0 auto;">
                             <span class="block font-bold m-2" style="display: block;">${ingredient}</span>
                             <input type="hidden" name="ingredientNames[]" value="${ingredient}">
@@ -80,81 +91,81 @@ document.getElementById('uploadForm').addEventListener('submit', async (e) => {
                             <button type="button" class="removeIngredientBtn text-red-500 mt-2" style="display: block;">Remove</button>
                         </li>
                     `).join('');
-                    uploadSection.classList.add('hidden');
-                    ingredientsSection.classList.remove('hidden');
-                } else {
-                    alert('No ingredients detected. Please try again.');
+                        uploadSection.classList.add('hidden');
+                        ingredientsSection.classList.remove('hidden');
+                    } else {
+                        alert('No ingredients detected. Please try again.');
+                    }
+                } catch (jsonError) {
+                    console.error('Error parsing JSON:', jsonError);
+                    alert('Failed to analyze image. Server response is not valid JSON.');
                 }
-            } catch (jsonError) {
-                console.error('Error parsing JSON:', jsonError);
-                alert('Failed to analyze image. Server response is not valid JSON.');
+
+            } catch (error) {
+                console.error('Error analyzing image:', error);
+                alert('Failed to analyze image. Please try again.');
             }
+        };
 
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('ingredientsForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const ingredientsSection = document.getElementById('ingredientsSection');
+        const successModal = document.getElementById('successModal');
+        const formData = new FormData(e.target);
+
+        try {
+            const response = await fetch('/save-ingredients', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                successModal.classList.remove('hidden');
+                successModal.style.display = 'flex';
+            } else {
+                const errorText = await response.text();
+                console.error('Failed to save ingredients:', errorText);
+                alert('Failed to save ingredients. Please try again.');
+            }
         } catch (error) {
-            console.error('Error analyzing image:', error);
-            alert('Failed to analyze image. Please try again.');
-        }
-    };
-
-    reader.readAsDataURL(file);
-});
-
-document.getElementById('ingredientsForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const ingredientsSection = document.getElementById('ingredientsSection');
-    const successModal = document.getElementById('successModal');
-    const formData = new FormData(e.target);
-
-    try {
-        const response = await fetch('/save-ingredients', {
-            method: 'POST',
-            body: formData
-        });
-
-        if (response.ok) {
-            successModal.classList.remove('hidden');
-            successModal.style.display = 'flex';
-        } else {
-            const errorText = await response.text();
-            console.error('Failed to save ingredients:', errorText);
+            console.error('Error saving ingredients:', error);
             alert('Failed to save ingredients. Please try again.');
         }
-    } catch (error) {
-        console.error('Error saving ingredients:', error);
-        alert('Failed to save ingredients. Please try again.');
-    }
-});
+    });
 
-document.getElementById('closeModal').addEventListener('click', () => {
-    document.getElementById('uploadSection').classList.remove('hidden');
-    document.getElementById('ingredientsSection').classList.add('hidden');
-});
+    document.getElementById('closeModal').addEventListener('click', () => {
+        document.getElementById('uploadSection').classList.remove('hidden');
+        document.getElementById('ingredientsSection').classList.add('hidden');
+    });
 
-document.getElementById('addIngredientBtn').addEventListener('click', () => {
-    const ingredientsList = document.getElementById('ingredientsList');
-    const newIngredientItem = document.createElement('li');
-    newIngredientItem.classList.add('ingredient-item', 'm-2');
-    newIngredientItem.style.display = 'block';
-    newIngredientItem.style.width = '70%';
-    newIngredientItem.style.margin = '20px auto';
-    newIngredientItem.innerHTML = 
-    `
+    document.getElementById('addIngredientBtn').addEventListener('click', () => {
+        const ingredientsList = document.getElementById('ingredientsList');
+        const newIngredientItem = document.createElement('li');
+        newIngredientItem.classList.add('ingredient-item', 'm-2');
+        newIngredientItem.style.display = 'block';
+        newIngredientItem.style.width = '70%';
+        newIngredientItem.style.margin = '20px auto';
+        newIngredientItem.innerHTML =
+            `
         <input type="text" name="ingredientNames[]" class="border rounded py-1 px-2 mt-1" placeholder="Ingredient" style="display: block;">
         <input type="number" name="ingredientAmounts[]" class="border rounded py-1 px-2 mt-1" placeholder="Amount" style="display: block;" min="0">
         <input type="text" name="ingredientUnits[]" class="border rounded py-1 px-2 mt-1" placeholder="Unit" style="display: block;">
         <button type="button" class="removeIngredientBtn text-red-500 mt-2" style="display: block;">Remove</button>
     `;
-    ingredientsList.appendChild(newIngredientItem);
-});
+        ingredientsList.appendChild(newIngredientItem);
+    });
 
-document.getElementById('ingredientsList').addEventListener('click', (e) => {
-    if (e.target.classList.contains('removeIngredientBtn')) {
-        e.target.closest('.ingredient-item').remove();
-    }
-});
+    document.getElementById('ingredientsList').addEventListener('click', (e) => {
+        if (e.target.classList.contains('removeIngredientBtn')) {
+            e.target.closest('.ingredient-item').remove();
+        }
+    });
 
-document.getElementById('closeSuccessModal').addEventListener('click', () => {
-    window.location.href = '/myIngredients'; // Redirect to /myIngredients page
-});
+    document.getElementById('closeSuccessModal').addEventListener('click', () => {
+        window.location.href = '/myIngredients'; // Redirect to /myIngredients page
+    });
 </script>

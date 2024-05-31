@@ -1,11 +1,11 @@
 # ReciPT
-
+![Alt text](https://github.com/Inez-y/2800-2024410-DTC08/blob/main/public/recipt_logo.png?raw=true "ReciPT Logo")
 ## CapWise
 
 * [Project Description](#project-description)
 * [Technologies](#technologies)
 * [Contents](#content)
-* [Usage Guide](#usage-guide)\
+* [Usage Guide](#usage-guide)
 * [Product Guide](#product-guide)
 * [Acknowledgements](#acknowledgements)
 * [How did you use AI?](#how-did-you-use-ai)

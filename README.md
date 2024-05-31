@@ -17,7 +17,7 @@
 
 
 ## Project Description
-Our team is developing ReciPT, a daily food and recipe managing app that helps reduce food waste by suggesting healthy reicpes using available ingredients in your refrigerator and pantry. 
+Our team is developing ReciPT, a daily food and recipe managing app that helps reduce food waste by suggesting healthy recipes using available ingredients in your refrigerator and pantry. 
 	
 ## Technologies
 ### Front-end:

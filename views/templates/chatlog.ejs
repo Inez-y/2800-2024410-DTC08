@@ -1,34 +1,29 @@
-<!-- 
-*----------------------------------------------------------------------*
-|   Chatlog logic to display a dialogue and communicate with database  |    
-*----------------------------------------------------------------------*  
--->
+<!-- Chatlog logic to display a dialogue and communicate with database -->
 <div class="flex m-2 justify-end">
+    <!-- Chat bubble -->
     <div id="chatBubble" style="flex-grow: 1">
-        <!-- If that's user, chat bubble appears on the right side -->
-        <!-- Why if statements works in opposite way?! -->
         <% if (user == 'ReciPT') { %>
-            <div class="flex flex-col justify-end">
-                <div class="text-right px-4 font-semibold"> You </div>
-                <div class="text-right align-middle p-4 bg-white rounded-3xl">
-                    <span style="display: inline-block; text-align: left;"><%= log %></span>
-                </div>
+        <div class="flex flex-col justify-end">
+            <div class="text-right px-4 font-semibold"> You </div>
+            <div class="text-right align-middle p-4 bg-white rounded-3xl">
+                <span style="display: inline-block; text-align: left;"><%= log %></span>
             </div>
+        </div>
         <% } else { %>
-            <div class="flex flex-row justify-between px-4">
-                <div class=" font-semibold">
-                    <p> ReciPT </p>
-                </div>
-                <div class="pr-4">
-                    <% if (isRecipe) { %>
-                    <form action="/save" method="post">
-                        <input type="hidden" name="recipe" value="<%= log %>">
-                        <button type="submit" class="material-icons text-2xl text-red-400 text-right">star</button>
-                    </form>
-                    <% } %>
-                </div>
+        <div class="flex flex-row justify-between px-4">
+            <div class=" font-semibold">
+                <p> ReciPT </p>
             </div>
-        
+            <div class="pr-4">
+                <% if (isRecipe) { %>
+                <form action="/save" method="post">
+                    <input type="hidden" name="recipe" value="<%= log %>">
+                    <button type="submit" class="material-icons text-2xl text-red-400 text-right">star</button>
+                </form>
+                <% } %>
+            </div>
+        </div>
+        <!-- Display content -->
         <div class="p-4 bg-buttongreen rounded-3xl text-gray-50 opacity-0">
             <span style="white-space: pre-line"><%= log %></span>
         </div>

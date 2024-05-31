@@ -33,12 +33,15 @@ function initSession(req, username) {
  */
 router.post('/signUp', async (req, res) => {
 
-    const { username, email, password } = req.body;
+    let { username, email, password } = req.body;
+    username = username.trim();
+    email = email.trim();
+    password = password.trim();
 
     const { error } = userValidationSchema.validate({ username, email, password, role: "user" });
 
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.status(400).redirect(`/signUp?msg=${error.details[0].message}`);
     }
 
     let userExists = await User.findOne({ username });
@@ -62,7 +65,9 @@ router.post('/signUp', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/logIn', async (req, res) => {
-    const { username, password } = req.body;
+    let { username, password } = req.body;
+    username = username.trim();
+    password = password.trim();
 
     const { nameError } = userNameValidationSchema.validate(username);
     const { pwError } = passwordValidationSchema.validate(password);
@@ -90,7 +95,7 @@ router.post('/logIn', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserRole', async (req, res) => {
-    const { username, role } = req.body;
+    let { username, role } = req.body;
     const u = await User.findOne({ username });
     if (!u) {
         return res.redirect('/admin?msg=Username does not exist');
@@ -104,11 +109,13 @@ router.post('/updateUserRole', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserPassword', async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
+    let { oldPassword, newPassword } = req.body;
+    oldPassword = oldPassword.trim();
+    newPassword = newPassword.trim();
 
     const { error } = passwordValidationSchema.validate({ oldPassword, newPassword });
     if (error) {
-        return res.status(400).send(error.details[0].message);
+        return res.redirect(`/profile?msg=${error.details[0].message}`);
     }
 
     const user = await User.findOne({ username: req.session.username });
@@ -128,8 +135,8 @@ router.post('/updateUserPassword', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserEmail', async (req, res) => {
-    const { newEmail } = req.body;
-    console.log("new Email:" + newEmail);
+    let { newEmail } = req.body;
+    newEmail = newEmail.trim();
 
     const { error } = emailValidationSchema.validate({ email: newEmail });
     if (error) {
@@ -139,7 +146,6 @@ router.post('/updateUserEmail', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
 
     const newEmailExists = await User.findOne({ email: newEmail });
-    console.log("new email exists: " + newEmailExists);
 
     if (newEmailExists !== null && newEmailExists.username !== user.username) {
         return res.redirect('/profile?msg=Email has been taken');
@@ -160,7 +166,12 @@ router.post('/updateUserEmail', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/forgot', async (req, res) => {
-    const { email } = req.body;
+    let { email } = req.body;
+    email = email.trim();
+    const error = emailValidationSchema.validate({ email }).error;
+    if (error) {
+        return res.redirect(`/forgot?msg=${error.details[0].message}`);
+    }
     const user = await User.findOne({ email });
     if (!user) {
         return res.redirect('/forgot?msg=Email does not exist');
@@ -180,31 +191,20 @@ router.post('/forgot', async (req, res) => {
     });
 
     // Verify connection configuration
-    transporter.verify((error, success) => {
-        if (error) {
-            console.error('Error with email transporter configuration:', error);
-        } else {
-            console.log('Email transporter is ready to send emails');
-        }
-    });
+    transporter.verify();
 
     const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
         to: email,
         subject: 'Password Reset',
-        text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/resetPassword/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`
+        html: `<p>You are receiving this because you (or someone else) have requested the reset of the password for your account.</p>
+        <p>Please click on the following link, or paste this into your browser to complete the process:</p>
+        <a href="http://${req.headers.host}/resetPassword/${token}">Reset Password</a>
+        <p>If you did not request this, please ignore this email and your password will remain unchanged.</p>
+        <img src="https://two800-2024410-dtc08.onrender.com/logo.png" alt="logo" width="100">`
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+    transporter.sendMail(mailOptions);
 
     res.redirect('/forgot?msg=Email sent');
 
@@ -216,15 +216,14 @@ router.post('/forgot', async (req, res) => {
  */
 router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
-    const newPassword = req.body.password;
+    newPassword = req.body.password;
+    newPassword = newPassword.trim();
 
-    console.log("token: " + token);
-    console.log("new password: " + newPassword);
-
+    const { error } = passwordValidationSchema.validate({ password: newPassword });
+    if (error) {
+        return res.redirect(`/forgot?msg=${error.details[0].message}`);
+    }
     const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
-
-    console.log("user: " + user);
-
     if (!user) {
         return res.redirect('/forgot?msg=Invalid or expired token');
     }

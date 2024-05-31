@@ -24,8 +24,7 @@ const beautifyStringifiedIngredients = async (ingredients) => {
         role: 'user',
         content: `${ingredients}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 }
@@ -45,12 +44,13 @@ const parseIngredients = async (recipe) => {
                                  specific JSON format. For each ingredient, you list the name (a string), amount (a number), and unit (a string). For numbers, do not include fractions. Do not include 'ingredients' header. Do not include context.`},
       { role: "user", content: `Here is a sample JSON response for you to refer to: [{"name": "tomato", "amount": 2, "unit": "whole"}, {"name": "flour", "quantity": 0.5, "unit": "cup"}, {"name": "salt", "quantity": 1, "unit": "g"}]` },
       { role: "assistant", content: "Understood. I will now determine the ingredients in the recipe." },
+      { role: "user", content: "For ingredients which do not have an amount or unit like 'salt to taste' or 'parsley for garnish', you can use 1 as amount and 'to taste' or 'for garnish' as unit." },
+      { role: "assistant", content: 'Understood. I will do that.' },
       {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 }
@@ -71,8 +71,7 @@ const parseSteps = async (recipe) => {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 };
@@ -87,14 +86,13 @@ const parseName = async (recipe) => {
   const response = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
     messages: [
-      { role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe. Do not include context.` },
+      { role: "system", content: `You are a helpful assistant. You extract and return only the name of a cooking recipe from a given recipe. Do not include context. Do not include things like "The name of the recipe is...". Only return the name. If there is an ending period, do not include the period.` },
       { role: "assistant", content: "Understood. I will now determine the name of the recipe." },
       {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 };
@@ -113,8 +111,7 @@ const generateRecipe = async (query, message_history) => {
   });
   const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: message_history,
-    // max_tokens: 100
+    messages: message_history
   })
   message_history.push(recipe.choices[0].message)
   return recipe.choices[0].message.content;
@@ -170,10 +167,8 @@ const validateQuery = async (query) => {
         role: 'user',
         content: `${query}`
       }
-    ],
-    max_tokens: 100
+    ]
   })
-  console.log(result.choices[0].message);
   return result.choices[0].message.content;
 }
 

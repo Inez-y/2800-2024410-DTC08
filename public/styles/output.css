@@ -65,11 +65,11 @@ body {
   /* 1 */
   line-height: inherit;
   /* 2 */
-  background-image: url(../background1.jpeg);
+  background-image: url(../background8.png);
   background-size: percentage;
   background-position: center;
   background-repeat: cover;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /*
@@ -650,6 +650,10 @@ video {
   height: 2.5rem;
 }
 
+.h-halfScreen {
+  height: 75vh;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -738,6 +742,10 @@ video {
 
 .justify-around {
   justify-content: space-around;
+}
+
+.justify-items-end {
+  justify-items: end;
 }
 
 .gap-4 {
@@ -838,10 +846,13 @@ video {
   padding: 1rem;
 }
 
+.p-5 {
+  padding: 1.25rem;
+}
+
 .p-10 {
   padding: 2.5rem;
 }
-
 
 .px-3 {
   padding-left: 0.75rem;
@@ -889,6 +900,11 @@ video {
   padding-bottom: 2rem;
 }
 
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
 .pb-8 {
   padding-bottom: 2rem;
 }
@@ -929,6 +945,16 @@ video {
 .text-3xl {
   font-size: 1.875rem;
   line-height: 2.25rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .text-6xl {
@@ -974,6 +1000,10 @@ video {
 
 .leading-tight {
   line-height: 1.25;
+}
+
+.leading-snug {
+  line-height: 1.375;
 }
 
 .text-black {
@@ -1079,4 +1109,97 @@ video {
 
 .content-end {
   align-content: flex-end;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modalContent {
+  background-color: rgba(250, 241, 232, 0.9);
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  width: 80%;
+  /* Could be more or less, depending on screen size */
+}
+
+/* Animation Effect for landing page*/
+.fadeIn {
+  opacity: 0;
+  animation: fadeInAnimation 0.8s ease-in-out forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Animation Effect for the next button in landing page */
+.nextBtn {
+  --color: 119, 147, 65;
+  border-radius: .2em;
+  transition: .3s;
+  background-color: rgba(var(--color), .2);
+  color: rgb(var(--color));
+  fill: rgb(var(--color));
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(var(--color), .4);
+  outline: none;
+  display: flex;
+  align-items: center;
+
+}
+
+.nextBtn:hover {
+  box-shadow: 0 0 0 5px rgba(var(--color), .5);
+}
+
+.nextBtn span {
+  transform: scale(.8);
+  transition: .3s;
+}
+
+.nextBtn:hover span {
+  transform: scale(1);
+}
+
+.nextBtn svg {
+  font-size: 0;
+  transform: scale(0.5) translateX(0%) rotate(-180deg);
+  transition: .3s;
+}
+
+.nextBtn:hover svg {
+  font-size: 20px;
+  transform: scale(1) translateX(20%) rotate(0deg);
+}
+
+.nextBtn:active {
+  transition: 0s;
+  box-shadow: 0 0 0 5px rgb(var(--color));
 }

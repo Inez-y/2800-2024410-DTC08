@@ -1,0 +1,25 @@
+<%- include("templates/htmlDocHeader") %>
+<%- include("templates/header") %>
+
+<!-- Favourite page -->
+<div class="flex flex-col justify-center text-center p-2 m-4 h-halfScreen">
+
+    <!-- Button to navigate to the recipes page -->
+    <div class="">
+        <a href="/recipes">
+            <button class="px-10 py-4 m-2 w-full rounded-full bg-buttongreen text-white" id="myRecipeButton">
+                My Recipes </button>
+        </a>
+    </div>
+    <!-- Button to navigate to the ingredients page -->
+    <div class="">
+        <a href="/myIngredients">
+            <button class="px-10 py-4 m-2 w-full rounded-full bg-buttongreen text-white" id="myIngredientsButton">
+                My Ingredients
+            </button>
+        </a>
+    </div>
+
+</div>
+<!-- End of saved.ejs -->
+<%- include("templates/footer") %>

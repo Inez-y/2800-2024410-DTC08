@@ -51,7 +51,6 @@ router.get('/home', async (req, res) => {
  * @author Alice Huang
  */
 router.post('/home', async (req, res) => {
-    console.log(req.session.message_history)
     let query = req.body.query;
     let valid = await validateQuery(query);
 
@@ -66,47 +65,31 @@ router.post('/home', async (req, res) => {
     }
 });
 
+/**
+ * Renders the ingredients page
+ * @author Alice Huang
+ */
 router.get('/myIngredients', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
     res.render('myIngredients', { ingredients: user.ingredients });
 });
 
 /**
- * Renders the myKitchen page
+ * Renders the saved page
  */
-router.get('/myKitchen', async (req, res) => {
-    res.render('myKitchen');
+router.get('/saved', async (req, res) => {
+    res.render('saved');
 });
 
 /**
- * Renders the cookbook page
+ * Renders the recipes page
  * @author Alice Huang
  */
-router.get('/cookbook', async (req, res) => {
+router.get('/recipes', async (req, res) => {
     let user = await User.findOne({ username: req.session.username });
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
-    res.render('cookbook', { recipes: recipes })
-    // let user = await User.findOne({ username: req.session.username });
-    // let recipe = await Recipe.findById({ _id: user.favorites[0] });
-    // res.render('recipe', { recipe: recipe });
-});
-
-/**
- * Renders the recipe page with the recipe details
- * @author Alice Huang
- */
-router.get('/recipe/:id', async (req, res) => {
-    console.log(req.params.id)
-    let recipe;
-    try {
-        recipe = await Recipe.findById({ _id: req.params.id });
-    } catch (err) {
-        console.log(err)
-        return res.status(400).send(err);
-    }
-    res.render('recipe', { recipe: recipe });
-    // res.render('aboutus');
+    res.render('recipes', { recipes: recipes })
 });
 
 /**
@@ -115,37 +98,27 @@ router.get('/recipe/:id', async (req, res) => {
  */
 router.post('/removeRecipe', async (req, res) => {
     const recipe = await Recipe.deleteOne({ _id: req.body.id });
-    res.redirect('/myKitchen');
+    res.redirect('/recipes');
 });
 
 /**
- * Saves the recipe to the user's cookbook and the database
+ * Saves the recipe to the the database
  * @author Alice Huang
  */
 router.post('/save', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
-
-    //test
-    // const user = await User.findOne({ username: req.session.username });
-    // user.ingredients = ingredients;
-    // user.save();
-    // console.log(user.ingredients)
-
-
     let steps = await parseSteps(req.body.recipe);
     let name = await parseName(req.body.recipe);
-    console.log(ingredients)
+
     try {
         var recipe = new Recipe({ recipeName: name, ingredients: ingredients, steps: steps, tags: [] })
         recipe.save();
     } catch (err) {
         return res.status(400).send(err.details[0].message);
     }
-    console.log(recipe._id)
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
-
-    res.redirect('/myKitchen');
+    res.redirect('/recipes');
 });
 
 /**
@@ -174,16 +147,10 @@ router.post('/analyze-image', upload.single('image'), analyzeImage);
  * @author Shaun Sy
  */
 router.post('/save-ingredients', upload.none(), async (req, res) => {
-
     try {
         const { ingredientNames, ingredientAmounts, ingredientUnits } = req.body;
 
-        console.log('Received ingredientNames:', ingredientNames);
-        console.log('Received ingredientAmounts:', ingredientAmounts);
-        console.log('Received ingredientUnits:', ingredientUnits);
-
         if (!ingredientNames || !ingredientAmounts || !ingredientUnits) {
-            console.error('Invalid data:', req.body);
             return res.status(400).send('Invalid data');
         }
 
@@ -199,7 +166,6 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
 
         const userName = await User.findOne({ username: req.session.username });
         if (!userName) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
@@ -211,13 +177,13 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
         await userName.save();
         res.status(200).send('Ingredients saved successfully');
     } catch (error) {
-        console.error('Error saving ingredients:', error);
         res.status(500).send('Failed to save ingredients');
     }
 });
 
 /**
  * Route for updating ingredients in the user's profile
+ * @author Shaun Sy
  */
 router.post('/update-ingredients', async (req, res) => {
     const { ingredients } = req.body;
@@ -225,12 +191,10 @@ router.post('/update-ingredients', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.session.username });
         if (!user) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
         if (!Array.isArray(ingredients)) {
-            console.error('Invalid data format');
             return res.status(400).send('Invalid data format');
         }
 
@@ -246,19 +210,18 @@ router.post('/update-ingredients', async (req, res) => {
         await user.save();
         res.status(200).send('Ingredients updated successfully');
     } catch (error) {
-        console.error('Error updating ingredients:', error);
         res.status(500).send('Failed to update ingredients');
     }
 });
 
 /**
- * Route for deleting an ingredient from the user's profile
+ * Route for updating ingredients in the user's profile
+ * @author Shaun Sy
  */
 router.delete('/delete-ingredient/:id', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.session.username });
         if (!user) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
@@ -271,7 +234,6 @@ router.delete('/delete-ingredient/:id', async (req, res) => {
             res.status(404).send('Ingredient not found');
         }
     } catch (error) {
-        console.error('Error deleting ingredient:', error);
         res.status(500).send('Failed to delete ingredient');
     }
 });

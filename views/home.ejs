@@ -1,51 +1,79 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
+<!-- Main homepage to chat with ReciPT when user logged in  -->
 
-<!-- 
-*-----------------------------------------------------------*
-|   Main homepage to chat with ReciPT when user logged in   |    
-*-----------------------------------------------------------*  
--->
 <!-- Chatbox: connected to chatlog.ejs -->
-<main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
-    <% if (show) { %>
-    <div class="flex flex-col items-center">
-        <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
-        <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
-    </div>
-    <% } else { %>
-    <div id="query-logs" class="flex flex-col justify-between m-4">
-        <% for(let i=2; i < response.length; i++) { %>
-        <% if (i%2==0) { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe: isRecipe[i]}) %>
+<main class="flex flex-col items-center justify-between h-screen" style="max-height:75vh;">
+        <!-- Show the logo and welcome message if show is true, else show message history -->
+        <% if (show) { %>
+            <div class="flex flex-col justify-center items-center grow" style="flex-grow: 5">
+                <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
+                <p class="mt-4 text-lg text-gray-700">How can I help you today?</p>
         <% } else { %>
-        <%- include('templates/chatlog', {log: response[i].content, user: 'You' , isRecipe: isRecipe[i]}) %>
+            <div id="query-logs" class="flex flex-col justify-start" style="flex-grow: 5">
+                <% for(let i=2; i < response.length; i++) { %>
+                <% if (i%2==0) { %>
+                <%- include('templates/chatlog', {log: response[i].content, user: 'ReciPT' , isRecipe: isRecipe[i]}) %>
+                <% } else { %>
+                <%- include('templates/chatlog', {log: response[i].content, user: 'You' , isRecipe: isRecipe[i]}) %>
+                <% } %>
+                <% } %>
         <% } %>
-        <% } %>
-    </div>
-    <% } %>
-
-    <!-- Send user input to database -->
-    <div id="chatbot-container" class="flex flex-row items-center">
-        <form action="/home" method="post" class="flex-grow">
-            <input class="w-full shadow-lg bg-gray-300 p-2 m-2 italic" style="min-width: 200px;"
-                placeholder="Type your message here" type="text" id="query" name="query">
-            <button id="send-btn" type="submit"
-                class="p-2 m-2 bg-gray-400 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Send
-            </button>
-        </form>
-    </div>
+            </div>
+        <!-- Chatbot query container -->
+        <div id="chatbot-container" class="flex flex-row items-center">
+            <form action="/home" method="post" class="flex flex-row">
+                <textarea class="w-full bg-gray-300 p-2 m-2 italic" style="width: 75vw;" type="text"
+                    placeholder="Ask ReciPT" id="query" name="query"></textarea>
+                <span class="flex items-center rounded rounded-l-none border-0">
+                    <button class="rounded" type="submit" id="submit-button" disabled>
+                        <span class="material-symbols-outlined text-buttongreen">arrow_circle_up</span>
+                    </button>
+                </span>
+            </form>
+        </div>
 </main>
 
 <%- include("templates/footer") %>
 
 <style>
-#query-logs {
-    overflow-y: auto;
-    max-height: 80vh; /* Adjust the value as needed */
-}
+    #query-logs {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
 </style>
 
 <script>
+    /**
+     * Determines if the input is empty.
+     */ 
+    function nonEmptyInput() {
+        const query = document.getElementById("query").value;
+        if (query.trim() === "") {
+            document.getElementById("query").value = "";
+            document.getElementById("query").focus();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Disables the submit button if the input is empty.
+     */
+    document.getElementById("query").addEventListener("keyup", e => {
+        document.getElementById("submit-button").disabled = !nonEmptyInput();
+    });
+
+    /**
+     * Adds an event listener to the textarea to submit the form on Enter key press without shift.
+     */
+    document.getElementById("query").addEventListener("keypress", e => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            if (nonEmptyInput()) {
+                e.currentTarget.closest("form").submit();
+            }
+        }
+    });
 </script>
+<!-- End of home.ejs -->

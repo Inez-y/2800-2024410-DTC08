@@ -1,0 +1,116 @@
+<%- include("templates/htmlDocHeader") %>
+<%- include("templates/header") %>
+
+<main class="flex flex-col items-center justify-center h-screen" style="max-height:75vh;">
+    <% for (let i=0; i < recipes.length; i++) { %>
+    <!-- Recipe details section -->
+    <div class="p-4 m-10 rounded-3xl bg-white recipes overflow-y-auto max-h-80 justify-center flex" id="recipe-<%= i %>"
+        style="display: none">
+        <div class="flex flex-row m-0 justify-end" style="justify-content: flex-end;">
+            <!-- Form to remove recipe -->
+            <form action="/removeRecipe" method="post"
+                onsubmit="return confirm('Do you really want to delete this recipe?');">
+                <input type="hidden" name="id" value="<%= recipes[i]._id %>">
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#D16D6A">
+                        <path
+                            d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-2xl p-1 mx-2 mb-2"><%= recipes[i].recipeName %></div>
+        <h4>Ingredients:</h4>
+        <ul class="list-disc list-inside">
+            <% for(let j=0; j < recipes[i].ingredients.length; j++) { %>
+            <li>
+                <%= recipes[i].ingredients[j].amount %> <%= recipes[i].ingredients[j].unit %>
+                <%= recipes[i].ingredients[j].name %>
+            </li>
+            <% } %>
+        </ul>
+        <div>
+            <span style="white-space: pre-line"><br><%= recipes[i].steps %></span>
+        </div>
+    </div>
+    <% } %>
+
+    <!-- Container for the main recipe content -->
+    <div class="p-4 m-10 rounded-3xl bg-white" id="recipe-content-container">
+        <div class="flex justify-center mb-4" id="recipe-buttons">
+            <!-- Button to view all recipes -->
+            <button class="py-2 m-2 w-full rounded-full bg-gray-400 text-white" id="homeButton">
+                <a href="/">Home</a>
+            </button>
+            <!-- Button to view all ingredients -->
+            <button class="py-2 m-2 w-full rounded-full bg-buttongreen text-white" id="myIngredientsButton">
+                <a href="/myIngredients">My Ingredients</a>
+            </button>
+        </div>
+        <div class="text-6xl p-2 m-2 font-semibold text-gray-700">My <br> Recipes</div>
+        <div class="p-4 rounded-3xl bg-white overflow-y-auto max-h-80" id="recipe-content">
+            <div class="w-full">
+                <ul id="favorites-list" class="mb-4">
+                    <% for (let i=0; i < recipes.length; i++) { %>
+                    <!-- List of recipes -->
+                    <li class="bg-white shadow-md rounded mb-4 p-4 w-full flex flex-col items-start" id="<%= i %>">
+                        <%- include('templates/recipeCard', {recipe: recipes[i]}) %>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of recipes.ejs -->
+
+    <%- include("templates/footer") %>
+
+    <style>
+        .recipes,
+        #recipe-content {
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        #recipe-content-container {
+            width: 100%;
+        }
+
+        #recipe-buttons {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: white;
+        }
+    </style>
+
+    <script>
+        /**
+         * Event listener for displaying selected recipe details.
+         *
+         * When a recipe item is clicked on, the recipe content container is hidden and the selected recipe is displayed.
+         */
+        const recipe = document.getElementsByClassName("recipe-name");
+        for (let i = 0; i < recipe.length; i++) {
+            recipe[i].addEventListener("click", function () {
+                if (display) {
+                    document.getElementById("recipe-content-container").style.display = "none";
+                    document.getElementById("recipe-" + i).style.display = "block";
+                }
+
+            });
+        }
+
+        const display = true;
+
+        function stopDisplay() {
+            display = false;
+        }
+    </script>
+</main>
+</body>
+
+</html>

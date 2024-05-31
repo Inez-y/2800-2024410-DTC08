@@ -124,22 +124,11 @@
 <body class="font-Poppins bg-opacity-90">
     <%- include("templates/header") %>
 
-    <!-- 
-
-*--------------------------------------------*
-|   Introduce team members and the project   |
-|   This page contains an easter egg         |
-*--------------------------------------------* 
-
--->
-
     <!-- For the proejct -->
-    <div class="p-4 m-4 rounded-full bg-white justify-center shadow-lg" id="aboutUsIntroduceContainer">
-        <div style="display: flex; justify-content: center;">
-            <p class="font-bold text-7xl text-center"> DTC-08 </p>
-        </div>
-        <div style="display: flex; justify-content: center;">
-            <p class="text-m text-center"> We thought we still have extra one week...! <br> We are donkies </p>
+    <div class="p-4 m-4 rounded-lg flex justify-center bg-white shadow-lg" id="aboutUsIntroduceContainer">
+        <div>
+            <p class="font-semibold text-6xl text-center"> NotSoOpenAI </p>
+            <p class="text-4xl text-center text-gray-700 m-2"> DTC-08 </p>
         </div>
     </div>
 
@@ -154,8 +143,8 @@
             </div>
             <h3 class="font-bold">Alice Huang</h3>
             <h5> Backend Developer </h5>
-            <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-            <div style="display: flex; justify-content: center;">
+            <p class="italic font-thin text-gray-300 p-5"> I hate tailwind</p>
+            <div class="p-2" style="display: flex; justify-content: center;">
                 <a href="https://github.com/orangeepop" target="_blank">
                     <img src="/github.png" style="width:30px; height: 30px; margin-right: 20px;"></a>
                 <a href="https://www.linkedin.com/in/al-huang/" target="_blank">
@@ -170,10 +159,12 @@
                     <img src="/daylen.jpg" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
-            <h3 class="font-bold">Daylen Smith</h3>
-            <h5> Backend Developer </h5>
-            <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-            <div style="display: flex; justify-content: center;">
+            <div>
+                <h3 class="font-bold">Daylen Smith</h3>
+                <h5> Backend Developer </h5>
+                <p class="italic font-thin text-gray-300 p-5"> I like soup </p>
+            </div>
+            <div class="p-2" style="display: flex; justify-content: center;">
                 <a href="https://github.com/rockclimber147" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
                 <a href="https://www.linkedin.com/in/daylensmith/" target="_blank"> <img src="/linkedin.png" " style="
@@ -188,10 +179,12 @@
                     <img src="/shaun.jpg" style="width: 100%; height: 100%; object-fit: cover;">
                 </div>
             </div>
-            <h3 class="font-bold">Shaun Marco Sy</h3>
-            <h5> Backend Developer </h5>
-            <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-            <div style="display: flex; justify-content: center;">
+            <div>
+                <h3 class="font-bold">Shaun Marco Sy</h3>
+                <h5> Backend Developer </h5>
+                <p class="italic font-thin text-gray-300 p-2"> Potatoes and Carrots <br> are my passion </p>
+            </div>
+            <div class="p-2" style="display: flex; justify-content: center;">
                 <a href="https://github.com/ShaunMLS" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
                 <a href="https://www.linkedin.com/in/shaunmls/" target="_blank"> <img src="/linkedin.png" " style="
@@ -208,8 +201,8 @@
             </div>
             <h3 class="font-bold">Inez Yoon</h3>
             <h5> Frontend Developer </h5>
-            <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-            <div style="display: flex; justify-content: center;">
+            <p class="italic font-thin text-gray-300 p-2"> If you're reading this <br> stretch your back </p>
+            <div class="p-2" style="display: flex; justify-content: center;">
                 <a href="https://github.com/Inez-y" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
                 <a href="https://www.linkedin.com/in/inez-y" target="_blank"> <img src="/linkedin.png" " style="
@@ -226,17 +219,14 @@
             </div>
             <h3 class="font-bold">Tony Lai</h3>
             <h5> Frontend Developer </h5>
-            <p class="italic font-thin text-lightGrey"> You're an idiot sandwitch!</p>
-            <div style="display: flex; justify-content: center;">
+            <p class="italic font-thin text-gray-300 p-5"> No gain no pain</p>
+            <div class="p-2" style="display: flex; justify-content: center;">
                 <a href="https://github.com/tonylai2022/" target="_blank"> <img src="/github.png"
                         style="width:30px; height: 30px; margin-right: 20px;"></a>
-                <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img
-                        src="/linkedin.png" style=" width:30px; height: 30px; margin-left: 20px;"></a>
+                <a href="https://www.linkedin.com/in/tony-lai-mingwa/" target="_blank"> <img src="/linkedin.png"
+                        style=" width:30px; height: 30px; margin-left: 20px;"></a>
             </div>
         </div>
-
-        <!-- Teammate 6: Gordon Ramsay -->
-
     </div>
     </div>
 
@@ -254,7 +244,7 @@
 
         nameHeaders.forEach((div, index) => {
             div.addEventListener('click', () => {
-                clickedArray[index - 2] = 1;
+                clickedArray[index] = 1;
                 div.classList.add('text-buttongreen');
                 checkEasterEggConditions();
             });
@@ -262,7 +252,6 @@
 
         function checkEasterEggConditions() {
             if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
-                console.log('Easter Egg activated!');
                 document.querySelectorAll(".hiddenImg").forEach((img, index) => {
                     img.classList.remove('hiddenImg');
                     img.classList.add('bouncing-image');

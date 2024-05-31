@@ -1,46 +1,89 @@
 <%- include("templates/htmlDocHeader") %>
-    <%- include("templates/header") %>
+<%- include("templates/header") %>
 
-        <main class="flex flex-col items-center justify-center h-screen">
-            <div class="w-full max-w-xs">
-                <div class="mb-4">
-                    <h2 class="text-xl font-semibold text-left">Welcome to <span class="text-buttongreen">ReciPT</span>
-                    </h2>
-                    <h1 class="text-3xl font-bold text-left">Sign up</h1>
-                </div>
-                <form action='/signUp' method='post' class="w-full max-w-xs">
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="name">User Name</label>
-                        <input id="name" name='username' type='text' placeholder='username'
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email</label>
-                        <input id="email" name='email' type='email' placeholder='email'
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password</label>
-                        <input id="password" name='password' type='password' placeholder='password'
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 text-sm font-bold mb-2" for="confirm-password">Re-enter
-                            password</label>
-                        <input id="confirm-password" name='confirm-password' type='password'
-                            placeholder='re-enter password'
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <button
-                            class="bg-buttongreen hover:bg-lightGrey text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            type="submit">
-                            Sign up
-                        </button>
-                    </div>
-                </form>
-                <!-- Displays messages from server -->
-                <%- include("templates/message") %>
-        </main>
+<!-- Main Container for Sign Up Page -->
+<div class="m-4 p-2 flex flex-col justify-between" style="max-height: 75vh;">
+    <div class="flex flex-col justify-between py-4">
+        <h1 class="text-left text-6xl font-semibold">Sign <br> Up</h1>
+        <div class="text-right">
+            <p class=" text-lightGrey text-sm">
+                Have an <br> account? <br>
+                <a href="./login">
+                    <button class=" text-buttongreen font-bold">Sign in</button>
+                </a>
+            </p>
+        </div>
+    </div>
 
-        <%- include("templates/footer") %>
+    <!-- Sign Up Form -->
+    <form action='/signUp' method='post' class="py-2">
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="name">Username*</label>
+            <input required id="name" name='username' type='text' placeholder='Username' minlength="3"
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <!-- Email Field -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="email">Email*</label>
+            <input required id="email" name='email' type='email' placeholder='Email'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <!-- Password Field -->
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="password">Password*</label>
+            <input required id="password" name='password' type='password' placeholder='Password'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <!-- Confirm Password Field -->
+        <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="confirmPassword">Re-enter
+                password*</label>
+            <input required id="confirmPassword" name='confirmPassword' type='password' placeholder='Re-enter Password'
+                class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <!-- Submit Button -->
+        <div class="flex items-center justify-center py-2">
+            <button
+                class="bg-buttongreen text-white font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline w-full"
+                id="submitButton" type="submit">
+                Sign Up
+            </button>
+            <button
+                class="bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline"
+                id="clearButton" type="button">
+                Clear
+            </button>
+        </div>
+    </form>
+    <%- include("templates/message") %>
+</div>
+
+<script>
+    var btn = document.getElementById("submitButton");
+    var clearBtn = document.getElementById("clearButton");
+
+    btn.addEventListener("click", function (event) {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+            window.location.href = `http://${window.location.host}/signUp?msg=passwords%20do%20not%20match`;
+            console.log("Passwords do not match");
+            event.preventDefault();
+        }
+    });
+
+    clearBtn.addEventListener("click", function () {
+        document.getElementById("name").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("confirmPassword").value = "";
+    });
+</script>
+
+<!-- jQuery and custom JS for modal -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="js/contact_modal.js"></script>
+
+<!-- End of signup.ejs -->
+<%- include("templates/footer") %>

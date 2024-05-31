@@ -58,15 +58,15 @@ Directory
 
 
 ## Usage Guide
-1. **What does the developer need to install:***
+1. What does the developer need to install:
     1. Javascript and Node.js
     2. VS Code
     3. MongoDB and Studio3T
-2. Which 3rd party APIs and frameworks does the developer need to download?
+2. Which 3rd party APIs and frameworks does the developer need to download? <br>
     There are third party frameworks and APIs needed to run this project, and they can be installed by running ```npm i``` in the terminal.
-3. Do they need any API keys?
+3. Do they need any API keys? <br>
     Yes, they need OpenAI and Clarifai API keys.
-4. In which order should they install things? Does installation location matter?
+4. In which order should they install things? Does installation location matter?<br>
     It does not matter which order you install the software in. Location does not matter too much as long as it is easily acccesiblee for the developer.
 5. Include detailed configuration instructions.
     1. ```npm i``` before running the app to ensure all dependencies are installed.
@@ -96,8 +96,8 @@ Directory
 
 ## Product Guide
 
-- **Sign Up and Log In**: Create an account and log in to access your personalized dashboard.
-- **Chat with Our Bot**: Get instant help, recipe suggestions, and cooking tips by chatting with our bot.
+- **Sign Up and Log In**: Create an account and log in to access ReciPT.
+- **Chat with ReciPT**: Get instant help, recipe suggestions, and cooking tips by chatting with ReciPT.
 - **Save recipes you like**: Save recipes and refer back to them later by clicking on the star at the top right hand corner of a recipe
 - **Saved**: Check out and manage your saved recipes and ingredients.
 - **Add Ingredients with Camera**: Quickly add ingredients to your inventory by using the camera function to upload photos.

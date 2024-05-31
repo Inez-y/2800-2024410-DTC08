@@ -2,14 +2,18 @@
 ![Alt text](https://github.com/Inez-y/2800-2024410-DTC08/blob/main/public/recipt_logo.png?raw=true "ReciPT Logo")
 ## CapWise
 
-* [Project Description](#project-description)
-* [Technologies](#technologies)
-* [Contents](#content)
-* [Usage Guide](#usage-guide)
-* [Product Guide](#product-guide)
-* [Acknowledgements](#acknowledgements)
-* [How did you use AI?](#how-did-you-use-ai)
-* [Contact](#contact)
+- [ReciPT](#recipt)
+  - [CapWise](#capwise)
+  - [Project Description](#project-description)
+  - [Technologies](#technologies)
+    - [Front-end:](#front-end)
+    - [Back-end:](#back-end)
+  - [Content](#content)
+  - [Usage Guide](#usage-guide)
+  - [Product Guide](#product-guide)
+  - [How did you use AI?](#how-did-you-use-ai)
+  - [Contact](#contact)
+  - [Acknowledgements](#acknowledgements)
 
 
 ## Project Description
@@ -35,7 +39,7 @@ Content of the project folder:
     2. VS Code
     3. MongoDB and Studio3T
 2. Which 3rd party APIs and frameworks does the developer need to download?
-    There is no specific APIs or frameworks that need to be downloaded.
+    There are third party frameworks and APIs needed to run this project, and they can be installed by running ```npm i``` in the terminal.
 3. Do they need any API keys?
     Yes, they need OpenAI and Clarifai API keys.
 4. In which order should they install things? Does installation location matter?

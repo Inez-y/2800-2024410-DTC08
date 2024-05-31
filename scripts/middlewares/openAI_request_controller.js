@@ -1,4 +1,7 @@
-// contains functions that determine how to render chatbot responses
+/**
+ * Contains functions that determine how to render pages with chatbot responses
+ */
+ 
 const { User } = require('../models/user');
 const {
     generateRecipe,
@@ -7,7 +10,9 @@ const {
 } = require('../middlewares/openAI_controller');
 
 /**
- * Sets up message_history and isRecipe variables based on whether the user is logged in and rendering a recipe
+ * Sets up message_history and isRecipe variables based on whether the user is logged in and rendering a recipe. 
+ * isRecipe is an array of 0's and 1's (0 representing not recipe and 1 representing recipe) that determines whether the corresponding message 
+ * at the same index in message_history is a recipe or not.
  * @param {*} renderingRecipe whether the query to be sent now to OpenAI is a recipe or not
  * @returns message_history and isRecipe variables
  * @author Alice Huang
@@ -36,7 +41,7 @@ const setUpVariables = (req, renderingRecipe) => {
 }
 
 /**
- * Renders the home page with the generated recipe
+ * Renders the home page with the generated recipe.
  * @author Alice Huang
  */
 const renderRecipe = async (req, res) => {
@@ -51,7 +56,7 @@ const renderRecipe = async (req, res) => {
 }
 
 /**
- * Renders the home page with the generated recipe based on ingredients the user has
+ * Renders the home page with the generated recipe based on ingredients the user has.
  * @author Alice Huang 
  */
 const renderRecipeFromOwnedIngredients = async (req, res) => {
@@ -83,7 +88,7 @@ const renderRecipeFromOwnedIngredients = async (req, res) => {
 };
 
 /**
- * Renders the home page with the ingredients the user has in their kitchen
+ * Renders the home page with the ingredients the user has in their kitchen.
  * @author Alice Huang
  */
 const renderOwnedIngredients = async (req, res) => {
@@ -98,7 +103,6 @@ const renderOwnedIngredients = async (req, res) => {
     stringifiedIngredients = 'You have ' + stringifiedIngredients + ' in your kitchen.';
 
     stringifiedIngredients = await beautifyStringifiedIngredients(stringifiedIngredients);
-    console.log(stringifiedIngredients)
 
     message_history.push({
         role: 'user',
@@ -116,7 +120,7 @@ const renderOwnedIngredients = async (req, res) => {
 }
 
 /**
- * Renders the home page with a message that the user's query is invalid
+ * Renders the home page with a message that the user's query is invalid.
  * @author Alice Huang
  */
 const renderInvalidQuery = async (req, res) => {

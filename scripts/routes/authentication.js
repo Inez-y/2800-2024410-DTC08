@@ -66,6 +66,10 @@ router.post('/home', async (req, res) => {
     }
 });
 
+/**
+ * Renders the ingredients page
+ * @author Alice Huang
+ */
 router.get('/myIngredients', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
     res.render('myIngredients', { ingredients: user.ingredients });
@@ -87,9 +91,6 @@ router.get('/recipes', async (req, res) => {
     let recipeIDs = user.favorites;
     let recipes = await Recipe.find({ _id: { $in: recipeIDs } });
     res.render('recipes', { recipes: recipes })
-    // let user = await User.findOne({ username: req.session.username });
-    // let recipe = await Recipe.findById({ _id: user.favorites[0] });
-    // res.render('recipe', { recipe: recipe });
 });
 
 /**
@@ -109,17 +110,15 @@ router.post('/save', async (req, res) => {
     let ingredients = JSON.parse(await parseIngredients(req.body.recipe));
     let steps = await parseSteps(req.body.recipe);
     let name = await parseName(req.body.recipe);
-    console.log(ingredients)
+
     try {
         var recipe = new Recipe({ recipeName: name, ingredients: ingredients, steps: steps, tags: [] })
         recipe.save();
     } catch (err) {
         return res.status(400).send(err.details[0].message);
     }
-    console.log(recipe._id)
 
     await User.updateOne({ username: req.session.username }, { $push: { favorites: recipe._id } });
-
     res.redirect('/recipes');
 });
 
@@ -149,16 +148,10 @@ router.post('/analyze-image', upload.single('image'), analyzeImage);
  * @author Shaun Sy
  */
 router.post('/save-ingredients', upload.none(), async (req, res) => {
-
     try {
         const { ingredientNames, ingredientAmounts, ingredientUnits } = req.body;
 
-        console.log('Received ingredientNames:', ingredientNames);
-        console.log('Received ingredientAmounts:', ingredientAmounts);
-        console.log('Received ingredientUnits:', ingredientUnits);
-
         if (!ingredientNames || !ingredientAmounts || !ingredientUnits) {
-            console.error('Invalid data:', req.body);
             return res.status(400).send('Invalid data');
         }
 
@@ -174,7 +167,6 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
 
         const userName = await User.findOne({ username: req.session.username });
         if (!userName) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
@@ -186,7 +178,6 @@ router.post('/save-ingredients', upload.none(), async (req, res) => {
         await userName.save();
         res.status(200).send('Ingredients saved successfully');
     } catch (error) {
-        console.error('Error saving ingredients:', error);
         res.status(500).send('Failed to save ingredients');
     }
 });
@@ -201,12 +192,10 @@ router.post('/update-ingredients', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.session.username });
         if (!user) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
         if (!Array.isArray(ingredients)) {
-            console.error('Invalid data format');
             return res.status(400).send('Invalid data format');
         }
 
@@ -222,7 +211,6 @@ router.post('/update-ingredients', async (req, res) => {
         await user.save();
         res.status(200).send('Ingredients updated successfully');
     } catch (error) {
-        console.error('Error updating ingredients:', error);
         res.status(500).send('Failed to update ingredients');
     }
 });
@@ -235,7 +223,6 @@ router.delete('/delete-ingredient/:id', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.session.username });
         if (!user) {
-            console.error('User not found in session');
             return res.status(401).send('User not authenticated');
         }
 
@@ -248,7 +235,6 @@ router.delete('/delete-ingredient/:id', async (req, res) => {
             res.status(404).send('Ingredient not found');
         }
     } catch (error) {
-        console.error('Error deleting ingredient:', error);
         res.status(500).send('Failed to delete ingredient');
     }
 });

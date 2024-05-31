@@ -1,5 +1,5 @@
 # ReciPT
-![Alt text](https://github.com/Inez-y/2800-2024410-DTC08/blob/main/public/recipt_logo.png?raw=true "ReciPT Logo")
+![Alt text](image.png)
 ## CapWise
 
 - [ReciPT](#recipt)

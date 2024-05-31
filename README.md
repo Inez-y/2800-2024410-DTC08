@@ -1,19 +1,23 @@
 # ReciPT
-![Alt text](https://github.com/Inez-y/2800-2024410-DTC08/blob/main/public/recipt_logo.png?raw=true "ReciPT Logo")
+![Alt text](./public/image.png)
 ## CapWise
 
-* [Project Description](#project-description)
-* [Technologies](#technologies)
-* [Contents](#content)
-* [Usage Guide](#usage-guide)
-* [Product Guide](#product-guide)
-* [Acknowledgements](#acknowledgements)
-* [How did you use AI?](#how-did-you-use-ai)
-* [Contact](#contact)
+- [ReciPT](#recipt)
+  - [CapWise](#capwise)
+  - [Project Description](#project-description)
+  - [Technologies](#technologies)
+    - [Front-end:](#front-end)
+    - [Back-end:](#back-end)
+  - [Content](#content)
+  - [Usage Guide](#usage-guide)
+  - [Product Guide](#product-guide)
+  - [How did you use AI?](#how-did-you-use-ai)
+  - [Contact](#contact)
+  - [Acknowledgements](#acknowledgements)
 
 
 ## Project Description
-Our team is developing ReciPT, a daily food and recipe managing app that helps reduce food waste by suggesting healthy reicpes using available ingredients in your refrigerator and pantry. 
+Our team is developing ReciPT, a daily food and recipe managing app that helps reduce food waste by suggesting healthy recipes using available ingredients in your refrigerator and pantry. 
 	
 ## Technologies
 ### Front-end:
@@ -28,23 +32,27 @@ Our team is developing ReciPT, a daily food and recipe managing app that helps r
 	
 ## Content
 Content of the project folder:
-- Directory
-   |--- public             // Directory for storing static files such as images and styling files
-   |     |--- styles       // Directory for storing CSS files for styling
-   |--- scripts            // Directory for backend files
-   |     |--- middlewares  // Directory for middleware functions
-   |     |--- models       // Directory for data models
-   |     |--- routes       // Directory for route handling
-   |--- views              // Directory for EJS files for rendering views
-   |     |--- templates    // Directory for basic templates to display chatlog, messages, etc.
-   |--- .gitignore         // File specifying which files and directories to ignore in Git version control
-   |--- README.md          // Markdown file providing project documentation and instructions
-   |--- index.js           // Main JavaScript file for initializing the application
-   |--- package-lock.json  // Auto-generated file specifying exact versions of installed npm packages
-   |--- package.json       // File containing project metadata and dependencies
-   |--- postcss.config.js  // Configuration file for PostCSS, a tool for transforming styles with JS plugins
-   |--- tailwind.config.js // Configuration file for Tailwind CSS, a utility-first CSS framework
-   |--- tailwind.css       // Compiled CSS file generated from Tailwind CSS utility classes
+
+```
+Directory
+  |--- public           // Directory for storing static files such as images and styling files
+  |     |--- styles     // Directory for storing CSS files for styling
+  |--- scripts          // Directory for backend files
+  |     |--- middlewares // Directory for middleware functions
+  |     |--- models     // Directory for data models
+  |     |--- routes     // Directory for route handling
+  |--- views            // Directory for EJS files for rendering views
+  |     |--- templates  // Directory for basic templates to display chatlog, messages, etc.
+  |--- .gitignore       // File specifying which files and directories to ignore in Git version control
+  |--- README.md        // Markdown file providing project documentation and instructions
+  |--- index.js         // Main JavaScript file for initializing the application
+  |--- package-lock.json // Auto-generated file specifying exact versions of installed npm packages
+  |--- package.json     // File containing project metadata and dependencies
+  |--- postcss.config.js // Configuration file for PostCSS, a tool for transforming styles with JS plugins
+  |--- tailwind.config.js // Configuration file for Tailwind CSS, a utility-first CSS framework
+  |--- tailwind.css     // Compiled CSS file generated from Tailwind CSS utility classes
+
+   ```
 
 
 
@@ -54,13 +62,13 @@ Content of the project folder:
     2. VS Code
     3. MongoDB and Studio3T
 2. Which 3rd party APIs and frameworks does the developer need to download?
-    There is no specific APIs or frameworks that need to be downloaded.
+    There are third party frameworks and APIs needed to run this project, and they can be installed by running ```npm i``` in the terminal.
 3. Do they need any API keys?
     Yes, they need OpenAI and Clarifai API keys.
 4. In which order should they install things? Does installation location matter?
     It does not matter which order you install the software in. Location does not matter too much as long as it is easily acccesiblee for the developer.
 5. Include detailed configuration instructions.
-    1. npm i before running the app to ensure all dependencies are installed.
+    1. ```npm i``` before running the app to ensure all dependencies are installed.
     2. Create a .env file in the root directory with  the following variables:
         ```
         MONGODB_USER_NAME=your_mongo_user_name

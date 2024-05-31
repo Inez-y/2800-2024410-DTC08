@@ -13,9 +13,11 @@ project description
 Technologies used for this project:
 * HTML 5, CSS
 * JavaScript
-* Bootstrap 5.0
-* Firebase Version 8 (Authentication, Firestore, Storage, Hosting)
-* MapBox, Geoapify, Leaflet? 
+* Tailwind 
+* Express.js 
+* MongoDB 
+* OpenAI
+* Clarifai API
 	
 ## Content
 Content of the project folder:
@@ -34,8 +36,11 @@ Content of the project folder:
 4. Did you encounter any limitations? What were they, and how did you overcome them? Be specific. [ 2 marks]
 
 ## Contact 
-* John Smith - jsmith@my.bcit.ca 
-* ...
+* Shuaun Sy - ssy7@my.bcit.ca
+* Inez Yoon - iyoon4@my.bcit.ca
+* Tony Lai - mlai74@my.bcit.ca
+* Daylen Smith - dsmith502@my.bcit.ca
+* Alice Huang - alice.in.realityland@gmail.com
 
 ## Acknowledgements 
 * <a href="https://fontawesome.com/">Font Awesome</a>

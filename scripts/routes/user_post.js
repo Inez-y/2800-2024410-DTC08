@@ -95,7 +95,7 @@ router.post('/logIn', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserRole', async (req, res) => {
-    const { username, role } = req.body;
+    let { username, role } = req.body;
     const u = await User.findOne({ username });
     if (!u) {
         return res.redirect('/admin?msg=Username does not exist');
@@ -109,7 +109,7 @@ router.post('/updateUserRole', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserPassword', async (req, res) => {
-    const { oldPassword, newPassword } = req.body;
+    let { oldPassword, newPassword } = req.body;
     oldPassword = oldPassword.trim();
     newPassword = newPassword.trim();
 
@@ -135,7 +135,7 @@ router.post('/updateUserPassword', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/updateUserEmail', async (req, res) => {
-    const { newEmail } = req.body;
+    let { newEmail } = req.body;
     newEmail = newEmail.trim();
     console.log("new Email:" + newEmail);
 
@@ -168,7 +168,7 @@ router.post('/updateUserEmail', async (req, res) => {
  * @author Daylen Smith
  */
 router.post('/forgot', async (req, res) => {
-    const { email } = req.body;
+    let { email } = req.body;
     email = email.trim();
     const error = emailValidationSchema.validate({ email }).error;
     if (error) {
@@ -230,7 +230,7 @@ router.post('/forgot', async (req, res) => {
  */
 router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
-    const newPassword = req.body.password;
+    newPassword = req.body.password;
     newPassword = newPassword.trim();
     const { error } = passwordValidationSchema.validate({ password: newPassword });
     if (error) {

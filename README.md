@@ -46,13 +46,6 @@ API
 ## Product Guide
 - 
 
-## Acknowledgements 
-* <a href="https://fontawesome.com/">Font Awesome</a>
-* <a href="https://fonts.adobe.com/">Adobe Fonts</a> 
-* <a href="https://fonts.google.com/">Google Fonts</a>
-* <a href="https://stock.adobe.com/images">Adobe Stock Images</a>
-* <a href="https://getbootstrap.com/">Bootstrap</a>
-
 ## How did you use AI?
 1. Did you use AI to help create your app? If so, how? Be specific. [ 2 marks]
    We used copilot when coding to speed up the coding process. When we start writing the name of a function, copilot tries to guess what kind of code is needed. Sometimes the code it generates is functional, which we will adopt, and other times its code is not useful in which case we will just write our own code. 

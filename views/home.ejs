@@ -49,6 +49,9 @@
 </style>
 
 <script>
+    /**
+     * Determines if the input is empty.
+     */ 
     function nonEmptyInput() {
         const query = document.getElementById("query").value;
         if (query.trim() === "") {
@@ -60,14 +63,15 @@
     }
 
     /**
-     * Adds an event listener to the textarea to submit the form on Enter key press without shift.
-     *
-     * @param {Event} e - The event object.
+     * Disables the submit button if the input is empty.
      */
     document.getElementById("query").addEventListener("keyup", e => {
         document.getElementById("submit-button").disabled = !nonEmptyInput();
     });
 
+    /**
+     * Adds an event listener to the textarea to submit the form on Enter key press without shift.
+     */
     document.getElementById("query").addEventListener("keypress", e => {
         if (e.key === "Enter" && !e.shiftKey) {
             e.preventDefault();

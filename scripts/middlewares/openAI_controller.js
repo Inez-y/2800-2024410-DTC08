@@ -24,8 +24,7 @@ const beautifyStringifiedIngredients = async (ingredients) => {
         role: 'user',
         content: `${ingredients}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 }
@@ -51,8 +50,7 @@ const parseIngredients = async (recipe) => {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 }
@@ -73,8 +71,7 @@ const parseSteps = async (recipe) => {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 };
@@ -95,8 +92,7 @@ const parseName = async (recipe) => {
         role: 'user',
         content: `${recipe}`
       }
-    ],
-    // max_tokens: 100
+    ]
   })
   return response.choices[0].message.content;
 };
@@ -115,8 +111,7 @@ const generateRecipe = async (query, message_history) => {
   });
   const recipe = await openai.chat.completions.create({
     model: "gpt-3.5-turbo",
-    messages: message_history,
-    // max_tokens: 100
+    messages: message_history
   })
   message_history.push(recipe.choices[0].message)
   return recipe.choices[0].message.content;
@@ -172,10 +167,8 @@ const validateQuery = async (query) => {
         role: 'user',
         content: `${query}`
       }
-    ],
-    max_tokens: 100
+    ]
   })
-  console.log(result.choices[0].message);
   return result.choices[0].message.content;
 }
 

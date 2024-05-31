@@ -137,7 +137,6 @@ router.post('/updateUserPassword', async (req, res) => {
 router.post('/updateUserEmail', async (req, res) => {
     let { newEmail } = req.body;
     newEmail = newEmail.trim();
-    console.log("new Email:" + newEmail);
 
     const { error } = emailValidationSchema.validate({ email: newEmail });
     if (error) {
@@ -147,7 +146,6 @@ router.post('/updateUserEmail', async (req, res) => {
     const user = await User.findOne({ username: req.session.username });
 
     const newEmailExists = await User.findOne({ email: newEmail });
-    console.log("new email exists: " + newEmailExists);
 
     if (newEmailExists !== null && newEmailExists.username !== user.username) {
         return res.redirect('/profile?msg=Email has been taken');
@@ -193,13 +191,7 @@ router.post('/forgot', async (req, res) => {
     });
 
     // Verify connection configuration
-    transporter.verify((error, success) => {
-        if (error) {
-            console.error('Error with email transporter configuration:', error);
-        } else {
-            console.log('Email transporter is ready to send emails');
-        }
-    });
+    transporter.verify();
 
     const mailOptions = {
         from: process.env.EMAIL_ADDRESS,
@@ -212,13 +204,7 @@ router.post('/forgot', async (req, res) => {
         <img src="https://two800-2024410-dtc08.onrender.com/logo.png" alt="logo" width="100">`
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            console.error('Error sending email:', error);
-        } else {
-            console.log('Email sent:', info.response);
-        }
-    });
+    transporter.sendMail(mailOptions);
 
     res.redirect('/forgot?msg=Email sent');
 
@@ -232,18 +218,12 @@ router.post('/resetPassword/:token', async (req, res) => {
     const token = req.params.token;
     newPassword = req.body.password;
     newPassword = newPassword.trim();
+
     const { error } = passwordValidationSchema.validate({ password: newPassword });
     if (error) {
         return res.redirect(`/forgot?msg=${error.details[0].message}`);
     }
-
-    console.log("token: " + token);
-    console.log("new password: " + newPassword);
-
     const user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
-
-    console.log("user: " + user);
-
     if (!user) {
         return res.redirect('/forgot?msg=Invalid or expired token');
     }

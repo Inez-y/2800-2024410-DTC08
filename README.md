@@ -1,5 +1,5 @@
 # ReciPT
-![Alt text](image.png)
+![Alt text](./public/image.png)
 ## CapWise
 
 - [ReciPT](#recipt)
@@ -64,7 +64,7 @@ Content of the project folder:
 4. In which order should they install things? Does installation location matter?
     It does not matter which order you install the software in. Location does not matter too much as long as it is easily acccesiblee for the developer.
 5. Include detailed configuration instructions.
-    1. npm i before running the app to ensure all dependencies are installed.
+    1. ```npm i``` before running the app to ensure all dependencies are installed.
     2. Create a .env file in the root directory with  the following variables:
         ```
         MONGODB_USER_NAME=your_mongo_user_name

@@ -8,6 +8,7 @@
 -->
 <!-- Chatbox: connected to chatlog.ejs -->
 <main class="flex flex-col items-center justify-between h-screen" style="max-height:75vh;">
+        <!-- Show the logo and welcome message if show is true, else show message history -->
         <% if (show) { %>
             <div class="flex flex-col justify-center items-center grow" style="flex-grow: 5">
                 <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
@@ -23,8 +24,8 @@
                 <% } %>
         <% } %>
             </div>
-
-    <div id="chatbot-container" class="flex flex-row items-center">
+        <!-- Chatbot query container -->
+        <div id="chatbot-container" class="flex flex-row items-center">
             <form action="/home" method="post" class="flex flex-row">
                 <textarea
                     class="w-full bg-gray-300 p-2 m-2 italic" style="width: 75vw;"
@@ -36,7 +37,7 @@
                     </button>
                 </span>
             </form>
-    </div>
+        </div>
 </main>
 
 <%- include("templates/footer") %>

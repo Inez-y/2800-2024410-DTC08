@@ -79,7 +79,6 @@
 
                 try {
                     const result = JSON.parse(text);
-                    console.log('Analyze Image Response:', result);
 
                     if (result.ingredients) {
                         ingredientsList.innerHTML = result.ingredients.map((ingredient, index) => `

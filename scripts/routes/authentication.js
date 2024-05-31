@@ -51,7 +51,6 @@ router.get('/home', async (req, res) => {
  * @author Alice Huang
  */
 router.post('/home', async (req, res) => {
-    console.log(req.session.message_history)
     let query = req.body.query;
     let valid = await validateQuery(query);
 

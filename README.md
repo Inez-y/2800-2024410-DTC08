@@ -32,23 +32,27 @@ Our team is developing ReciPT, a daily food and recipe managing app that helps r
 	
 ## Content
 Content of the project folder:
-- Directory<br>
-   |--- public             // Directory for storing static files such as images and styling files<br>
-   |     |--- styles       // Directory for storing CSS files for styling<br>
-   |--- scripts            // Directory for backend files<br>
-   |     |--- middlewares  // Directory for middleware functions<br>
-   |     |--- models       // Directory for data models<br>
-   |     |--- routes       // Directory for route handling<br>
-   |--- views              // Directory for EJS files for rendering views<br>
-   |     |--- templates    // Directory for basic templates to display chatlog, messages, etc.<br>
-   |--- .gitignore         // File specifying which files and directories to ignore in Git version control<br>
-   |--- README.md          // Markdown file providing project documentation and instructions<br>
-   |--- index.js           // Main JavaScript file for initializing the application<br>
-   |--- package-lock.json  // Auto-generated file specifying exact versions of installed npm packages<br>
-   |--- package.json       // File containing project metadata and dependencies<br>
-   |--- postcss.config.js  // Configuration file for PostCSS, a tool for transforming styles with JS plugins<br>
-   |--- tailwind.config.js // Configuration file for Tailwind CSS, a utility-first CSS framework<br>
-   |--- tailwind.css       // Compiled CSS file generated from Tailwind CSS utility classes<br>
+
+```
+Directory
+  |--- public           // Directory for storing static files such as images and styling files
+  |     |--- styles     // Directory for storing CSS files for styling
+  |--- scripts          // Directory for backend files
+  |     |--- middlewares // Directory for middleware functions
+  |     |--- models     // Directory for data models
+  |     |--- routes     // Directory for route handling
+  |--- views            // Directory for EJS files for rendering views
+  |     |--- templates  // Directory for basic templates to display chatlog, messages, etc.
+  |--- .gitignore       // File specifying which files and directories to ignore in Git version control
+  |--- README.md        // Markdown file providing project documentation and instructions
+  |--- index.js         // Main JavaScript file for initializing the application
+  |--- package-lock.json // Auto-generated file specifying exact versions of installed npm packages
+  |--- package.json     // File containing project metadata and dependencies
+  |--- postcss.config.js // Configuration file for PostCSS, a tool for transforming styles with JS plugins
+  |--- tailwind.config.js // Configuration file for Tailwind CSS, a utility-first CSS framework
+  |--- tailwind.css     // Compiled CSS file generated from Tailwind CSS utility classes
+
+   ```
 
 
 

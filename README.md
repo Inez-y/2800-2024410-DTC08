@@ -86,7 +86,14 @@ Content of the project folder:
     https://docs.google.com/spreadsheets/d/1QxuVCUUX1mXPwhumjsy79m_5JxqletrsVF9fa2xAd5s/edit#gid=0
 
 ## Product Guide
-- 
+
+- **Sign Up and Log In**: Create an account and log in to access your personalized dashboard.
+- **Chat with Our Bot**: Get instant help, recipe suggestions, and cooking tips by chatting with our bot.
+- **My ReciPT**: Check your saved recipes directly from the chatbot.
+- **Add Ingredients with Camera**: Quickly add ingredients to your inventory by using the camera function to upload photos.
+- **My Ingredients**: Check your ingredients inventory. 
+- **Forgot Password**: If you ever forget your password, use the "Forgot Password" link to reset it quickly and securely.
+
 
 ## How did you use AI?
 1. **Did you use AI to help create your app? If so, how?**

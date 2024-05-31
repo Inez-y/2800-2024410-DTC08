@@ -1,19 +1,26 @@
-### ReciPT
+# ReciPT
 
 ## CapWise
 
-* [General info](#general-info)
+* [Project Description](#project-description)
 * [Technologies](#technologies)
 * [Contents](#content)
+* [Usage Guide](#usage-guide)\
+* [Product Guide](#product-guide)
+* [Acknowledgements](#acknowledgements)
+* [How did you use AI?](#how-did-you-use-ai)
+* [Contact](#contact)
+
 
 ## Project Description
 Our team is developing ReciPT, a daily food and recipe managing app that helps reduce food waste by suggesting healthy reicpes using available ingredients in your refrigerator and pantry. 
 	
 ## Technologies
-Technologies used for this project:
+### Front-end:
 * HTML 5, CSS
 * JavaScript
-* Tailwind 
+* Tailwind CSS
+### Back-end:
 * Express.js 
 * MongoDB 
 * OpenAI
@@ -30,12 +37,13 @@ Content of the project folder:
     4. Other software
 2. Which 3rd party APIs and frameworks does the developer need to download?
 3. Do they need any API keys?
+API
 4. In which order should they install things? Does installation location matter?
 5. Include detailed configuration instructions.
 6. Include a link to the testing plan you have completed so the new developer can see your testing history and maybe contribute to a minor bugfix!
 7. ***In a separate plaintext file called passwords.txt that has NOT been added to your repo, provide us with any admin/user/server login IDs and passwords. Don’t add this to your repo, especially if your repo is public! Upload this plaintext file to the 05d Dropbox in D2L.***
 
-## How to use the product (Features) [2 marks]
+## Product Guide
 - 
 
 ## Acknowledgements 

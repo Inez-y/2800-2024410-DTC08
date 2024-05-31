@@ -251,9 +251,7 @@
         });
 
         function checkEasterEggConditions() {
-            console.log(clickedArray)
             if (clickedArray[0] && clickedArray[1] && clickedArray[2] && clickedArray[3] && clickedArray[4]) {
-                console.log('Easter Egg activated!');
                 document.querySelectorAll(".hiddenImg").forEach((img, index) => {
                     img.classList.remove('hiddenImg');
                     img.classList.add('bouncing-image');

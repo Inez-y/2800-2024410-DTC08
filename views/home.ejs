@@ -1,13 +1,10 @@
 <%- include("templates/htmlDocHeader") %>
 <%- include("templates/header") %>
+<!-- Main homepage to chat with ReciPT when user logged in  -->
 
-<!-- 
-*-----------------------------------------------------------*
-|   Main homepage to chat with ReciPT when user logged in   |    
-*-----------------------------------------------------------*  
--->
 <!-- Chatbox: connected to chatlog.ejs -->
 <main class="flex flex-col items-center justify-between h-screen" style="max-height:75vh;">
+        <!-- Show the logo and welcome message if show is true, else show message history -->
         <% if (show) { %>
             <div class="flex flex-col justify-center items-center grow" style="flex-grow: 5">
                 <img src="/recipt_logo.png" alt="ReciPT Logo" class="w-100 h-10 mr-2">
@@ -23,29 +20,27 @@
                 <% } %>
         <% } %>
             </div>
-
-    <div id="chatbot-container" class="flex flex-row items-center">
+        <!-- Chatbot query container -->
+        <div id="chatbot-container" class="flex flex-row items-center">
             <form action="/home" method="post" class="flex flex-row">
-                <textarea
-                    class="w-full bg-gray-300 p-2 m-2 italic" style="width: 75vw;"
-                    type="text" placeholder="Ask ReciPT" id="query" name="query"></textarea>
-                <span
-                    class="flex items-center rounded rounded-l-none border-0">
+                <textarea class="w-full bg-gray-300 p-2 m-2 italic" style="width: 75vw;" type="text"
+                    placeholder="Ask ReciPT" id="query" name="query"></textarea>
+                <span class="flex items-center rounded rounded-l-none border-0">
                     <button class="rounded" type="submit" id="submit-button" disabled>
                         <span class="material-symbols-outlined text-buttongreen">arrow_circle_up</span>
                     </button>
                 </span>
             </form>
-    </div>
+        </div>
 </main>
 
 <%- include("templates/footer") %>
 
 <style>
-#query-logs {
-    overflow-y: auto;
-    max-height: 80vh; 
-}
+    #query-logs {
+        overflow-y: auto;
+        max-height: 80vh;
+    }
 </style>
 
 <script>
@@ -78,7 +73,7 @@
             if (nonEmptyInput()) {
                 e.currentTarget.closest("form").submit();
             }
-    }});
-
-
+        }
+    });
 </script>
+<!-- End of home.ejs -->

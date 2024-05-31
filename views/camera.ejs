@@ -81,9 +81,8 @@
 
                             const text = await response.text();
 
-                            try {
-                                const result = JSON.parse(text);
-                                console.log('Analyze Image Response:', result);
+                try {
+                    const result = JSON.parse(text);
 
                                 if (result.ingredients) {
                                     ingredientsList.innerHTML = result.ingredients.map((ingredient, index) => `

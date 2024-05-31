@@ -43,8 +43,12 @@ Content of the project folder:
 * Alice Huang - alice.in.realityland@gmail.com
 
 ## Acknowledgements 
-* <a href="https://fontawesome.com/">Font Awesome</a>
-* <a href="https://fonts.adobe.com/">Adobe Fonts</a> 
 * <a href="https://fonts.google.com/">Google Fonts</a>
-* <a href="https://stock.adobe.com/images">Adobe Stock Images</a>
-* <a href="https://getbootstrap.com/">Bootstrap</a>
+* <a href="https://tailwindcss.com/">Tailwind</a>
+* <a href="https://expressjs.com/">Express</a>
+* <a href="https://www.mongodb.com/">MongoDB</a>
+* <a href="https://openai.com/">OpenAI</a>
+* <a href="https://www.clarifai.com/">Clarifai</a>
+
+
+

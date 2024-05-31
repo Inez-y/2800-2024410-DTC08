@@ -30,30 +30,44 @@ Our team is developing ReciPT, a daily food and recipe managing app that helps r
 Content of the project folder:
 
 ## Usage Guide
-- 1. What does the developer need to install (don’t leave anything out!) like:
-    1. language(s)
-    2. IDEs
-    3. Database(s)
-    4. Other software
+1. **What does the developer need to install:***
+    1. Javascript and Node.js
+    2. VS Code
+    3. MongoDB and Studio3T
 2. Which 3rd party APIs and frameworks does the developer need to download?
+    There is no specific APIs or frameworks that need to be downloaded.
 3. Do they need any API keys?
-API
+    Yes, they need OpenAI and Clarifai API keys.
 4. In which order should they install things? Does installation location matter?
+    It does not matter which order you install the software in. Location does not matter too much as long as it is easily acccesiblee for the developer.
 5. Include detailed configuration instructions.
-6. Include a link to the testing plan you have completed so the new developer can see your testing history and maybe contribute to a minor bugfix!
-7. ***In a separate plaintext file called passwords.txt that has NOT been added to your repo, provide us with any admin/user/server login IDs and passwords. Don’t add this to your repo, especially if your repo is public! Upload this plaintext file to the 05d Dropbox in D2L.***
+    1. npm i before running the app to ensure all dependencies are installed.
+    2. Create a .env file in the root directory and add the following:
+        ```
+        PORT=3000
+        MONGODB_URI=mongodb://localhost:27017/recipt
+        OPENAI_API_KEY=your_openai_api_key
+        CLARIFAI_API_KEY=your_clarifai_api_key
+        ```
+    3. Run the app using `node index.js`
+6. Testing Documentation:
+    https://docs.google.com/spreadsheets/d/1QxuVCUUX1mXPwhumjsy79m_5JxqletrsVF9fa2xAd5s/edit#gid=0
 
 ## Product Guide
 - 
 
 ## How did you use AI?
-1. Did you use AI to help create your app? If so, how? Be specific. [ 2 marks]
+1. **Did you use AI to help create your app? If so, how?**
+   
    We used copilot when coding to speed up the coding process. When we start writing the name of a function, copilot tries to guess what kind of code is needed. Sometimes the code it generates is functional, which we will adopt, and other times its code is not useful in which case we will just write our own code. 
-2. DId you use AI to create data sets or clean data sets? If so, how? Be specific. [ 2 marks]
+2. **Did you use AI to create data sets or clean data sets? If so, how?**
+   
    No we did not use AI to create data sets or clean data sets.
-3. Does your app use AI? If so, how? Be specific. [ 2 marks]
+3. **Does your app use AI? If so, how?**
+   
    Yes, our app uses OpenAI API for recipe generation, query validation, and string parsing. We also use Clarifai for image recognition of food ingredients.
-4. Did you encounter any limitations? What were they, and how did you overcome them? Be specific. [ 2 marks]
+4. **Did you encounter any limitations? What were they, and how did you overcome them? Be specific.**
+
    The first obstacle we faced was choosing to use Google Vision API for image recognition initially. This API did not work too well for the purposes of our app, since it recognizes items other than food in the image when we only want it to look at food. In the end, we decided to explore other image recognition APIs, and we decided to go with Clarifai who has a food-specific image recognition API.
 
 ## Contact 

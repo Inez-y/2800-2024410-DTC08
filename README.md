@@ -1,5 +1,6 @@
 # ReciPT
 ![Alt text](./public/image.png)
+Visit our [rendered website](https://two800-2024410-dtc08.onrender.com/)
 ## CapWise
 
 - [ReciPT](#recipt)
@@ -97,9 +98,9 @@ Directory
 
 - **Sign Up and Log In**: Create an account and log in to access your personalized dashboard.
 - **Chat with Our Bot**: Get instant help, recipe suggestions, and cooking tips by chatting with our bot.
-- **My ReciPT**: Check your saved recipes directly from the chatbot.
+- **Save recipes you like**: Save recipes and refer back to them later by clicking on the star at the top right hand corner of a recipe
+- **Saved**: Check out and manage your saved recipes and ingredients.
 - **Add Ingredients with Camera**: Quickly add ingredients to your inventory by using the camera function to upload photos.
-- **My Ingredients**: Check your ingredients inventory. 
 - **Forgot Password**: If you ever forget your password, use the "Forgot Password" link to reset it quickly and securely.
 
 

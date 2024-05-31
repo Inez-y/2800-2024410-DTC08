@@ -28,6 +28,25 @@ Our team is developing ReciPT, a daily food and recipe managing app that helps r
 	
 ## Content
 Content of the project folder:
+- Directory
+   |--- public             // Directory for storing static files such as images and styling files
+   |     |--- styles       // Directory for storing CSS files for styling
+   |--- scripts            // Directory for backend files
+   |     |--- middlewares  // Directory for middleware functions
+   |     |--- models       // Directory for data models
+   |     |--- routes       // Directory for route handling
+   |--- views              // Directory for EJS files for rendering views
+   |     |--- templates    // Directory for basic templates to display chatlog, messages, etc.
+   |--- .gitignore         // File specifying which files and directories to ignore in Git version control
+   |--- README.md          // Markdown file providing project documentation and instructions
+   |--- index.js           // Main JavaScript file for initializing the application
+   |--- package-lock.json  // Auto-generated file specifying exact versions of installed npm packages
+   |--- package.json       // File containing project metadata and dependencies
+   |--- postcss.config.js  // Configuration file for PostCSS, a tool for transforming styles with JS plugins
+   |--- tailwind.config.js // Configuration file for Tailwind CSS, a utility-first CSS framework
+   |--- tailwind.css       // Compiled CSS file generated from Tailwind CSS utility classes
+
+
 
 ## Usage Guide
 1. **What does the developer need to install:***
